@@ -14,7 +14,7 @@ class catTipoMarcaController extends Controller
 
 
         $marca = catMarca::create([
-            'marca'=>$validatedData['marca'],
+            'marca'=>$request['marca'],
   
         ]);
          return response()->json([

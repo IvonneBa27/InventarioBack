@@ -13,15 +13,15 @@ class ProductoController extends Controller
 
 
         $producto = Producto::create([
-            'idtipoProducto'=>$validatedData['idtipoProducto'],
-            'sku'=>$validatedData['sku'],
-            'serial'=>$validatedData['serial'],
-            'idMarca'=>$validatedData['idMarca'],
-            'modelo'=>$validatedData['modelo'],
-            'skunum'=>$validatedData['skunum'],
-            'descripcion'=>$validatedData['descripcion'],
-            'foto'=>$validatedData['foto'],
-            'inventariable'=>$validatedData['inventariable'],
+            'idtipoProducto'=>$request['idtipoProducto'],
+            'sku'=>$request['sku'],
+            'serial'=>$request['serial'],
+            'idMarca'=>$request['idMarca'],
+            'modelo'=>$request['modelo'],
+            'skunum'=>$request['skunum'],
+            'descripcion'=>$request['descripcion'],
+            'foto'=>$request['foto'],
+            'inventariable'=>$request['inventariable'],
         ]);
          return response()->json([
              'status' => 'success',

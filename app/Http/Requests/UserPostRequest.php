@@ -30,13 +30,14 @@ class UserPostRequest extends FormRequest
         return [
             //
             
-                'idtipoUsuario' => 'required|integer',
+               /* 'idtipoUsuario' => 'required|integer',
                 'usuario' => 'required|string|max:15',
                 'nombre' => 'required|string|max:25',
                 'apaterno' => 'required|string|max:25',
                 'amaterno' => 'required|string|max:25',
                 'email' => 'required|string|max:85',
-                'password' => 'required|string|max:85',
+                'password' => 'required|string|max:85',*/
+                'numero_empleado'=> 'required|unique:users',
              
             
         ];
@@ -47,7 +48,10 @@ class UserPostRequest extends FormRequest
 
         return [
 
-            'idtipoUsuario.required' => 'El id del usuario es requerido',
+            'numero_empleado.required' =>'El numero de empleado es requerido',
+            'numero_empleado.unique' => 'El numero de empleado, ya se encuentra registrado.',
+
+            /*'idtipoUsuario.required' => 'El id del usuario es requerido',
             'idtipoUsuario.integer' => 'El valor debe ser numerico',
             'usuario.required'=> 'El usuario es requerido',
             'usuario.string' => 'El valor debe ser texto',
@@ -66,7 +70,7 @@ class UserPostRequest extends FormRequest
             'email.max' => 'El email debe tener maximo 85 caracteres',
             'password.required'=> 'El password es requerido',
             'password.string' => 'El valor debe ser texto',
-            'password.max' => 'El password debe tener maximo 85 caracteres',
+            'password.max' => 'El password debe tener maximo 85 caracteres',*/
 
         ];
 

@@ -14,7 +14,7 @@ class catTipoProductoController extends Controller
 
       
         $tipproducto = catTipoProducto::create([
-            'tipoproducto'=>$validatedData['tipoproducto'],
+            'tipoproducto'=>$request['tipoproducto'],
   
         ]);
          return response()->json([
