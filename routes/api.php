@@ -10,6 +10,7 @@ use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\catModuloController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,6 +73,16 @@ Route::get('/Banco/get', [GeneralController::class, 'getBanco']);
 Route::get('/Estatus/get', [GeneralController::class, 'getEstatus']);
 Route::get('/Departamento/get', [GeneralController::class, 'getDepartamento']);
 Route::get('/Turno/get', [GeneralController::class, 'getTurno']);
+Route::get('/TipoModulo/get', [GeneralController::class, 'getTipoModulo']);
+
+//Modulo
+Route::post('/modulo/create', [catModuloController::class, 'create']);
+Route::get('/modulo/id', [catModuloController::class, 'getById']);
+Route::post('/modulo/update', [catModuloController::class, 'update']);
+Route::delete('/modulo/delete', [catModuloController::class, 'delete']);
+
+
+
 
 
 // TODO: RUTAS ENTRENADOR

@@ -14,6 +14,7 @@ use App\Models\Banco;
 use App\Models\Estatus;
 use App\Models\Departamento;
 use App\Models\Turno;
+use App\Models\TipoModulo;
 
 
 
@@ -158,6 +159,17 @@ class GeneralController extends Controller
             'status' => 'success',
             'msg' => 'Turno obtenido correctamente',
             'data' => $turno
+        ]);
+
+    }
+
+    public function getTipoModulo()
+    {
+        $tipomodulo = TipoModulo::all();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Tipo modulo obtenido correctamente',
+            'data' => $tipomodulo
         ]);
 
     }
