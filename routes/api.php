@@ -77,9 +77,10 @@ Route::get('/TipoModulo/get', [GeneralController::class, 'getTipoModulo']);
 
 //Modulo
 Route::post('/modulo/create', [catModuloController::class, 'create']);
+Route::get('/modulo/get', [catModuloController::class, 'get']);
 Route::get('/modulo/id', [catModuloController::class, 'getById']);
 Route::post('/modulo/update', [catModuloController::class, 'update']);
-Route::delete('/modulo/delete', [catModuloController::class, 'delete']);
+Route::post('/modulo/delete', [catModuloController::class, 'delete']);
 
 
 

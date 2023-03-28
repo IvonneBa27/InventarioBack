@@ -29,6 +29,17 @@ class catModuloController extends Controller
      }
 
 
+     public function get(){
+        $modulo = catModulo::where('status','=',1)->get();
+        
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Modulos obtenidos correctamente',
+            'data' => $modulo
+        ]);
+    }
+
+
     public function getById(Request $request){  
         $id = $request->get('id'); 
         $modulo = catModulo::find($id);
