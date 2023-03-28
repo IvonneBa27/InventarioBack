@@ -23,7 +23,7 @@ class catModuloController extends Controller
         ]);
          return response()->json([
              'status' => 'success',
-             'msg' => 'Modulo agregado',
+             'msg' => 'Módulo agregado',
              'data' => $modulo
          ]);
      }
@@ -34,7 +34,7 @@ class catModuloController extends Controller
         
         return response()->json([
             'status' => 'success',
-            'msg' => 'Modulos obtenidos correctamente',
+            'msg' => 'Módulos obtenidos correctamente',
             'data' => $modulo
         ]);
     }
@@ -46,7 +46,7 @@ class catModuloController extends Controller
         
         return response()->json([
             'status' => 'success',
-            'msg' => 'Modulo por id obtenido correctamente',
+            'msg' => 'Módulo por id obtenido correctamente',
             'data' => $modulo
         ]);
     }
@@ -62,7 +62,7 @@ class catModuloController extends Controller
         $modulo->save();
         return response()->json([
             'status' => 'success',
-            'msg' => 'Modulo actualizado',
+            'msg' => 'Módulo actualizado',
             'data' => $modulo
         ]);
 
@@ -76,7 +76,7 @@ class catModuloController extends Controller
 
          return response()->json([
              'status' => 'success',
-             'msg' => 'Modelo eliminado',
+             'msg' => 'Módulo eliminado',
              'data' => $modulo
          ]);
      }

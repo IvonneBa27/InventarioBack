@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\catModuloController;
-
+use App\Http\Controllers\catTipoModuloController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -57,7 +57,7 @@ Route::post('/usuario/create', [UsuarioController::class, 'create']);
 Route::get('/usuario/get', [UsuarioController::class, 'get']);
 Route::get('/usuario/id', [UsuarioController::class, 'getById']);
 Route::post('/usuario/update', [UsuarioController::class, 'update']);
-Route::delete('/usuario/delete', [UsuarioController::class, 'delete']);
+Route::post('/usuario/delete', [UsuarioController::class, 'delete']);
 
 //Catalogos
 Route::get('/TipoUsuario/get', [GeneralController::class, 'getTipoUsuario']);
@@ -81,6 +81,15 @@ Route::get('/modulo/get', [catModuloController::class, 'get']);
 Route::get('/modulo/id', [catModuloController::class, 'getById']);
 Route::post('/modulo/update', [catModuloController::class, 'update']);
 Route::post('/modulo/delete', [catModuloController::class, 'delete']);
+
+
+//TipoModulo
+
+Route::post('/tipomodulo/create', [catTipoModuloController::class, 'create']);
+Route::get('/tipomodulo/get', [catTipoModuloController::class, 'get']);
+Route::get('/tipomodulo/id', [catTipoModuloController::class, 'getById']);
+Route::post('/tipomodulo/update', [catTipoModuloController::class, 'update']);
+Route::post('/tipomodulo/delete', [catTipoModuloController::class, 'delete']);
 
 
 
