@@ -15,6 +15,7 @@ use App\Models\Estatus;
 use App\Models\Departamento;
 use App\Models\Turno;
 use App\Models\TipoModulo;
+use App\Models\Usuario;
 
 
 
@@ -173,6 +174,22 @@ class GeneralController extends Controller
         ]);
 
     }
+
+    public function searchUsers(Request $request){
+        $param = $request->get('param');
+
+        $users = Usuario::where('nombre_completo', 'like', '%'.$param.'%')->get();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Usuarios obtenidos correctamente',
+            'data' => $users
+        ], 200);
+
+
+    }
+
+
+
 
 
 

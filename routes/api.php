@@ -74,6 +74,7 @@ Route::get('/Estatus/get', [GeneralController::class, 'getEstatus']);
 Route::get('/Departamento/get', [GeneralController::class, 'getDepartamento']);
 Route::get('/Turno/get', [GeneralController::class, 'getTurno']);
 Route::get('/TipoModulo/get', [GeneralController::class, 'getTipoModulo']);
+Route::get('/searchUsers/get',[GeneralController::class, 'searchUsers']);
 
 //Modulo
 Route::post('/modulo/create', [catModuloController::class, 'create']);
