@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\catModuloController;
 use App\Http\Controllers\catTipoModuloController;
+use App\Http\Controllers\LogController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -55,6 +56,7 @@ Route::delete('/tipomarca/delete', [catTipoMarcaController::class, 'delete']);
 
 Route::post('/usuario/create', [UsuarioController::class, 'create']);
 Route::get('/usuario/get', [UsuarioController::class, 'get']);
+Route::get('/usuario/getOrderBy', [UsuarioController::class, 'getOrderBy']);
 Route::get('/usuario/id', [UsuarioController::class, 'getById']);
 Route::post('/usuario/update', [UsuarioController::class, 'update']);
 Route::post('/usuario/delete', [UsuarioController::class, 'delete']);
@@ -92,6 +94,12 @@ Route::get('/tipomodulo/get', [catTipoModuloController::class, 'get']);
 Route::get('/tipomodulo/id', [catTipoModuloController::class, 'getById']);
 Route::post('/tipomodulo/update', [catTipoModuloController::class, 'update']);
 Route::post('/tipomodulo/delete', [catTipoModuloController::class, 'delete']);
+
+
+//Logs
+
+Route::post('/logs/create', [LogController::class, 'create']);
+Route::get('/logs/get', [LogController::class, 'get']);
 
 
 
