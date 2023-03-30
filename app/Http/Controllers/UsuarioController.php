@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserPostRequest;
+use Illuminate\Support\Facades\DB;
 
 class UsuarioController extends Controller
 {
@@ -150,6 +151,25 @@ class UsuarioController extends Controller
              'msg' => 'Usuario eliminado',
              'data' => $usuario
          ]);
+     }
+
+
+     public function getModuleUser( Request $request){
+        $id = $request->get('id');
+
+        $modules
+        = DB::table('users')
+        ->select('users.id as user_id', 'module_permisses.*', 'cat_modues.name')
+        ->join('module_permisses', 'users.id', '=', 'module_permisses.id_usuario')
+        ->join('cat_modues', 'module_permisses.id_modulo', '=', 'cat_modues.id')
+        ->where('users.id', '=', $id)
+        ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Usuario eliminado',
+            'data' => $modules
+        ]);
      }
 
 

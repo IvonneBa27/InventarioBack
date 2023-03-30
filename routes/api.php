@@ -58,6 +58,7 @@ Route::get('/usuario/get', [UsuarioController::class, 'get']);
 Route::get('/usuario/id', [UsuarioController::class, 'getById']);
 Route::post('/usuario/update', [UsuarioController::class, 'update']);
 Route::post('/usuario/delete', [UsuarioController::class, 'delete']);
+Route::get('/usuario/getModules', [UsuarioController::class, 'getModuleUser']);
 
 //Catalogos
 Route::get('/TipoUsuario/get', [GeneralController::class, 'getTipoUsuario']);
