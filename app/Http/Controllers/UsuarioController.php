@@ -82,7 +82,7 @@ class UsuarioController extends Controller
 
     public function getById(Request $request){  
         $id = $request->get('id'); // Metodo por GET
-        $usuario = Usuario::find($id);
+        $usuario = Usuario::with('puesto')->find($id);
         
         return response()->json([
             'status' => 'success',
