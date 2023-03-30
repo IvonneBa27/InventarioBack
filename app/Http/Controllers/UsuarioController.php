@@ -65,14 +65,25 @@ class UsuarioController extends Controller
      }
 
 
-        public function get(){
+        public function getOrderBy(){
+        $usuario = Usuario::where('id_estatus','=',1)->orderBy('nombre_completo','asc')->get();
+        
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Usuarios obtenidos correctamente',
+            'data' => $usuario
+        ]);
+
+
+    }
+
+    public function get(){
         $usuario = Usuario::where('id_estatus','=',1)->get();
         
         return response()->json([
             'status' => 'success',
             'msg' => 'Usuarios obtenidos correctamente',
-            'data' => $usuario,
-            'valor' => count($usuario)  
+            'data' => $usuario
         
         ]);
 
