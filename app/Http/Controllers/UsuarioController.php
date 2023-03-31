@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Usuario;
+use App\Models\ModulePermisse;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserPostRequest;
+use Illuminate\Support\Facades\DB;
 
 class UsuarioController extends Controller
 {
@@ -65,14 +67,25 @@ class UsuarioController extends Controller
      }
 
 
-        public function get(){
+    public function getOrderBy(){
+        $usuario = Usuario::where('id_estatus','=',1)->orderBy('nombre_completo','asc')->get();
+        
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Usuarios obtenidos correctamente',
+            'data' => $usuario
+        ]);
+
+
+    }
+
+    public function get(){
         $usuario = Usuario::where('id_estatus','=',1)->get();
         
         return response()->json([
             'status' => 'success',
             'msg' => 'Usuarios obtenidos correctamente',
-            'data' => $usuario,
-            'valor' => count($usuario)  
+            'data' => $usuario
         
         ]);
 
@@ -151,6 +164,90 @@ class UsuarioController extends Controller
              'data' => $usuario
          ]);
      }
+
+
+     public function getModuleUser( Request $request){
+        $id = $request->get('id');
+        $id_module = $request->get('id_module');
+
+        $modules
+        = DB::table('users')
+        ->select('users.id as user_id', 'module_permisses.*', 'cat_modues.name')
+        ->join('module_permisses', 'users.id', '=', 'module_permisses.id_usuario')
+        ->join('cat_modues', 'module_permisses.id_modulo', '=', 'cat_modues.id')
+        ->where('module_permisses.id_usuario', '=', $id)
+        ->where('module_permisses.id_modulo', '=', $id_module)
+        ->get();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Modulos Obtenidos.',
+            'data' => $modules
+        ]);
+     }
+
+
+    public function getModuleUserById(Request $request)
+    {
+        $id = $request->get('id');
+
+        $modules
+        = DB::table('users')
+            ->select('users.id as user_id', 'module_permisses.*', 'cat_modues.name')
+            ->join('module_permisses', 'users.id', '=', 'module_permisses.id_usuario')
+            ->join('cat_modues', 'module_permisses.id_modulo', '=', 'cat_modues.id')
+            ->where('module_permisses.id_usuario', '=', $id)
+            ->get();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Modulos Obtenidos.',
+            'data' => $modules
+        ]);
+    }
+
+    public function addPermisse( Request $request){
+
+        try {
+            foreach ($request->all() as $mod) {
+
+                $modexist = ModulePermisse::where('id_modulo', '=', $mod['id_modulo'])->where('id_usuario', '=', $mod['id_usuario'])->delete();
+
+                
+                // if($modexist->isNotEmpty()){
+                //     return response()->json([
+                //         'status' => 'success',
+                //         'msg' => 'Permisos guardados correctamente.',
+                //         'data' => $modexist
+                //     ]);
+                //     $modexist->delete();
+                // }
+
+                
+                $module = ModulePermisse::create(
+                    $mod
+                );
+
+            }
+
+        } catch (\Exception $e) {
+            $error_code = $e->getMessage();
+            return response()->json([
+                'msg' => ' Error al crear el registro',
+                'data' => $error_code
+            ]);
+           
+        }
+
+
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Permisos guardados correctamente.',
+            'data' => $modexist
+        ]);
+
+        
+
+    }
 
 
 }
