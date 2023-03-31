@@ -60,7 +60,9 @@ Route::get('/usuario/getOrderBy', [UsuarioController::class, 'getOrderBy']);
 Route::get('/usuario/id', [UsuarioController::class, 'getById']);
 Route::post('/usuario/update', [UsuarioController::class, 'update']);
 Route::post('/usuario/delete', [UsuarioController::class, 'delete']);
-Route::get('/usuario/getModules', [UsuarioController::class, 'getModuleUser']);
+Route::get( '/usuario/getModules', [UsuarioController::class, 'getModuleUser']);
+Route::get('/usuario/getModuleUserById', [UsuarioController::class, 'getModuleUserById']);
+Route::post('/usuario/addPermisse', [UsuarioController::class, 'addPermisse']);
 
 //Catalogos
 Route::get('/TipoUsuario/get', [GeneralController::class, 'getTipoUsuario']);

@@ -47,7 +47,7 @@ class AuthController extends Controller
 
         //Busca al usuario en la base de datos
         $user = User::where('usuario', $request['usuario'])->firstOrFail();
-
+        $user['role'] = $user->role;
         //Genera un nuevo token para el usuario
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -55,7 +55,8 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'success',
             'access_token' => $token,
-            'token_type' => 'Bearer'
+            'token_type' => 'Bearer',
+            'data' => $user
         ]);
     }
     
