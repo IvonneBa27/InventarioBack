@@ -167,18 +167,19 @@ class UsuarioController extends Controller
 
      public function getModuleUser( Request $request){
         $id = $request->get('id');
+        $id_module = $request->get('id_module');
 
         $modules
         = DB::table('users')
         ->select('users.id as user_id', 'module_permisses.*', 'cat_modues.name')
         ->join('module_permisses', 'users.id', '=', 'module_permisses.id_usuario')
         ->join('cat_modues', 'module_permisses.id_modulo', '=', 'cat_modues.id')
-        ->where('users.id', '=', $id)
+        ->where('module_permisses.id_usuario', '=', $id)
+        ->where('module_permisses.id_modulo', '=', $id_module)
         ->get();
-
         return response()->json([
             'status' => 'success',
-            'msg' => 'Usuario eliminado',
+            'msg' => 'Modulos Obtenidos.',
             'data' => $modules
         ]);
      }
