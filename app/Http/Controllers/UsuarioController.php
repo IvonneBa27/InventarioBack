@@ -80,7 +80,22 @@ class UsuarioController extends Controller
     }
 
     public function get(){
-        $usuario = Usuario::where('id_estatus','=',1)->get();
+   
+     $usuario = Usuario::where('id_estatus','=',1)->get();
+        
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Usuarios obtenidos correctamente',
+            'data' => $usuario
+        
+        ]);
+
+
+    }
+
+    public function getStatus(Request $request){
+        $param = $request->get('param');
+        $usuario = Usuario::where('id_estatus','=',$param)->get();
         
         return response()->json([
             'status' => 'success',

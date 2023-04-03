@@ -135,7 +135,8 @@ class GeneralController extends Controller
 
     public function getEstatus()
     {
-        $estatus = Estatus::where('id','!=',2)->where('id','!=',3)->get();
+       // $estatus = Estatus::where('id','!=',2)->where('id','!=',3)->get();
+        $estatus = Estatus::all();
         return response()->json([
             'status' => 'success',
             'msg' => 'Estatus obtenido correctamente',
@@ -174,6 +175,9 @@ class GeneralController extends Controller
         ]);
 
     }
+
+
+
 
     public function searchUsers(Request $request){
         $param = $request->get('param');

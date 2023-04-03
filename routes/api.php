@@ -63,6 +63,7 @@ Route::post('/usuario/delete', [UsuarioController::class, 'delete']);
 Route::get( '/usuario/getModules', [UsuarioController::class, 'getModuleUser']);
 Route::get('/usuario/getModuleUserById', [UsuarioController::class, 'getModuleUserById']);
 Route::post('/usuario/addPermisse', [UsuarioController::class, 'addPermisse']);
+Route::get('/usuario/getStatus', [UsuarioController::class, 'getStatus']);
 
 //Catalogos
 Route::get('/TipoUsuario/get', [GeneralController::class, 'getTipoUsuario']);
