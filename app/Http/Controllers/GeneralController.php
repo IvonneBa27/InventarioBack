@@ -182,7 +182,7 @@ class GeneralController extends Controller
     public function searchUsers(Request $request){
         $param = $request->get('param');
 
-        $users = Usuario::where('nombre_completo', 'like', '%'.$param.'%')->get();
+        $users = Usuario::where('nombre_completo', 'like', '%'.$param.'%')->orwhere('numero_empleado', 'like', '%'.$param.'%')->get();
         return response()->json([
             'status' => 'success',
             'message' => 'Usuarios obtenidos correctamente',
