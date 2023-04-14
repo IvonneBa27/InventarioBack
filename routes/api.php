@@ -13,7 +13,10 @@ use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\catModuloController;
 use App\Http\Controllers\catTipoModuloController;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\SuppliersController;
 /*
+
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
@@ -81,6 +84,18 @@ Route::get('/Departamento/get', [GeneralController::class, 'getDepartamento']);
 Route::get('/Turno/get', [GeneralController::class, 'getTurno']);
 Route::get('/TipoModulo/get', [GeneralController::class, 'getTipoModulo']);
 Route::get('/searchUsers/get',[GeneralController::class, 'searchUsers']);
+//Catalogo Pais-Ciudad-Municipio
+Route::get('/paises/get',[GeneralController::class, 'getIdPais']);
+Route::get('/ciudadesT/get',[GeneralController::class, 'getIdCiudadT']);
+Route::get('/ciudades/get',[GeneralController::class, 'getIdCiudad']);
+Route::get('/delegaciones/get',[GeneralController::class, 'getIdDelegaciones']);
+Route::get('/delegacionesT/get',[GeneralController::class, 'getIdDelegacionesT']);
+//Catalogos SAIT
+Route::get('/regimenfiscal/get',[GeneralController::class, 'getIdSatRegimenFiscal']);
+Route::get('/regimencdfi/get',[GeneralController::class, 'getIdSatCFDI']);
+//Buscador Cliente-Proveedor
+Route::get('/searchClients/get',[GeneralController::class, 'searchClients']);
+Route::get('/searchSuppliers/get',[GeneralController::class, 'searchSuppliers']);
 
 //Modulo
 Route::post('/modulo/create', [catModuloController::class, 'create']);
@@ -103,6 +118,22 @@ Route::post('/tipomodulo/delete', [catTipoModuloController::class, 'delete']);
 
 Route::post('/logs/create', [LogController::class, 'create']);
 Route::get('/logs/get', [LogController::class, 'get']);
+
+
+
+//Clientes
+Route::post('/customers/create', [CustomersController::class, 'create']);
+Route::get('/customers/get', [CustomersController::class, 'get']);
+Route::get('/customers/id', [CustomersController::class, 'getById']);
+Route::post('/customers/update', [CustomersController::class, 'update']);
+Route::post('/customers/delete', [CustomersController::class, 'delete']);
+
+//Proveedores
+Route::post('/suppliers/create', [SuppliersController::class, 'create']);
+Route::get('/suppliers/get', [SuppliersController::class, 'get']);
+Route::get('/suppliers/id', [SuppliersController::class, 'getById']);
+Route::post('/suppliers/update', [SuppliersController::class, 'update']);
+Route::post('/suppliers/delete', [SuppliersController::class, 'delete']);
 
 
 

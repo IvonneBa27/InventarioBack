@@ -16,7 +16,13 @@ use App\Models\Departamento;
 use App\Models\Turno;
 use App\Models\TipoModulo;
 use App\Models\Usuario;
-
+use App\Models\Catalogo_sat_regimenfiscal;
+use App\Models\Catalogo_sat_uso_cfdi;
+use App\Models\Ciudades;
+use App\Models\Delegaciones;
+use App\Models\Paises;
+use App\Models\Customers;
+use App\Models\Suppliers;
 
 
 
@@ -187,12 +193,115 @@ class GeneralController extends Controller
             'status' => 'success',
             'message' => 'Usuarios obtenidos correctamente',
             'data' => $users
-        ], 200);
+        ]);
 
 
     }
 
+    public function searchClients(Request $request){
+        $param = $request->get('param');
 
+        $customers = Customers::where('razon_social', 'like', '%'.$param.'%')->orwhere('no_cliente', 'like', '%'.$param.'%')->get();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Clientes obtenidos correctamente',
+            'data' => $customers
+        ]);
+    }
+
+    public function searchSuppliers(Request $request){
+        $param = $request->get('param');
+
+        $suppliers = Suppliers::where('razon_social', 'like', '%'.$param.'%')->orwhere('no_proveedor', 'like', '%'.$param.'%')->get();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Clientes obtenidos correctamente',
+            'data' => $suppliers
+        ]);
+    }
+
+
+    public function getIdPais()
+    {
+        $pais = Paises::all();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Paises obtenidos correctamente',
+            'data' => $pais
+        ]);
+
+    }
+
+    public function getIdCiudadT(Request $request)
+    {
+        $ciudad = Ciudades::all();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Ciudades obtenidos correctamente',
+            'data' => $ciudad
+        ]);
+
+    }
+
+    public function getIdCiudad(Request $request)
+    {
+        $param = $request->get('param');
+
+        $ciudad = Ciudades::where('idpais','=', $param)->get();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Ciudades obtenidos correctamente',
+            'data' => $ciudad
+        ]);
+
+    }
+
+    public function getIdDelegaciones(Request $request)
+    {
+        $param = $request->get('param');
+        $param1 = $request->get('param1');
+        $delegacion = Delegaciones::where('idpais','=', $param)->where('idciudad','=', $param1)->get();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Municipios obtenidos correctamente',
+            'data' => $delegacion
+        ]);
+
+    }
+    public function getIdDelegacionesT(Request $request)
+    {
+   
+        $delegacion = Delegaciones::all();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Municipios obtenidos correctamente',
+            'data' => $delegacion
+        ]);
+
+    }
+
+
+    public function getIdSatRegimenFiscal()
+    {
+        $satregimenfiscal = Catalogo_sat_regimenfiscal::all();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'SAIT Regimen Fiscal obtenidos correctamente',
+            'data' => $satregimenfiscal
+        ]);
+
+    }
+
+    public function getIdSatCFDI()
+    {
+        $satcfdi = Catalogo_sat_uso_cfdi::all();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'SAIT CFDI obtenidos correctamente',
+            'data' => $satcfdi
+        ]);
+
+    }
 
 
 
