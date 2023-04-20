@@ -15,6 +15,8 @@ use App\Http\Controllers\catTipoModuloController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\SuppliersController;
+use App\Http\Controllers\Cat_categoriesController;
+use App\Http\Controllers\Cat_subcategoriesController;
 /*
 
 |--------------------------------------------------------------------------
@@ -134,6 +136,22 @@ Route::get('/suppliers/get', [SuppliersController::class, 'get']);
 Route::get('/suppliers/id', [SuppliersController::class, 'getById']);
 Route::post('/suppliers/update', [SuppliersController::class, 'update']);
 Route::post('/suppliers/delete', [SuppliersController::class, 'delete']);
+
+
+//Categoria
+Route::post('categories/create',[Cat_categoriesController::class, 'create']);
+Route::get('categories/get',[Cat_categoriesController::class, 'get']);
+Route::get('categories/id', [Cat_categoriesController::class, 'getById']);
+Route::post('categories/update',[Cat_categoriesController::class, 'update']);
+Route::post('categories/delete',[Cat_categoriesController::class, 'delete']);
+
+//SubCategoria
+Route::post('subcategories/create',[Cat_subcategoriesController::class, 'create']);
+Route::get('subcategories/get',[Cat_subcategoriesController::class, 'get']);
+Route::get('subcategories/id', [Cat_subcategoriesController::class, 'getById']);
+Route::post('subcategories/update',[Cat_subcategoriesController::class, 'update']);
+Route::post('subcategories/delete',[Cat_subcategoriesController::class, 'delete']);
+
 
 
 

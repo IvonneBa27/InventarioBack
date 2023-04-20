@@ -55,4 +55,6 @@ class Usuario extends Model
     {
         return $this->hasOne('App\Models\Puesto', 'id', 'id_puesto');
     }
+
+
 }
