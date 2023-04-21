@@ -17,6 +17,7 @@ use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\Cat_categoriesController;
 use App\Http\Controllers\Cat_subcategoriesController;
+use App\Http\Controllers\ProducsController;
 /*
 
 |--------------------------------------------------------------------------
@@ -98,6 +99,8 @@ Route::get('/regimencdfi/get',[GeneralController::class, 'getIdSatCFDI']);
 //Buscador Cliente-Proveedor
 Route::get('/searchClients/get',[GeneralController::class, 'searchClients']);
 Route::get('/searchSuppliers/get',[GeneralController::class, 'searchSuppliers']);
+//Marcas
+Route::get('/brands/get',[GeneralController::class, 'getBrand']);
 
 //Modulo
 Route::post('/modulo/create', [catModuloController::class, 'create']);
@@ -142,6 +145,7 @@ Route::post('/suppliers/delete', [SuppliersController::class, 'delete']);
 Route::post('categories/create',[Cat_categoriesController::class, 'create']);
 Route::get('categories/get',[Cat_categoriesController::class, 'get']);
 Route::get('categories/id', [Cat_categoriesController::class, 'getById']);
+Route::get('categories/catid', [Cat_categoriesController::class, 'getByIdCat']);
 Route::post('categories/update',[Cat_categoriesController::class, 'update']);
 Route::post('categories/delete',[Cat_categoriesController::class, 'delete']);
 
@@ -149,9 +153,17 @@ Route::post('categories/delete',[Cat_categoriesController::class, 'delete']);
 Route::post('subcategories/create',[Cat_subcategoriesController::class, 'create']);
 Route::get('subcategories/get',[Cat_subcategoriesController::class, 'get']);
 Route::get('subcategories/id', [Cat_subcategoriesController::class, 'getById']);
+Route::get('subcategories/catid', [Cat_subcategoriesController::class, 'getByIdCat']);
 Route::post('subcategories/update',[Cat_subcategoriesController::class, 'update']);
 Route::post('subcategories/delete',[Cat_subcategoriesController::class, 'delete']);
 
+
+//Producto
+Route::post('products/create',[ProducsController::class, 'create']);
+Route::get('products/get',[ProducsController::class, 'get']);
+Route::get('products/id', [ProducsController::class, 'getById']);
+Route::post('products/update',[ProducsController::class, 'update']);
+Route::post('products/delete',[ProducsController::class, 'delete']);
 
 
 

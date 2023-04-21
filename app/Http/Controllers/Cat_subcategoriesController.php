@@ -36,9 +36,22 @@ class Cat_subcategoriesController extends Controller
         ]);
     }
 
+    public function getByIdCat(Request $request){  
+        $id = $request->get('id'); 
+        $cat_subcategories = Cat_subcategories::where('id_category', '=',$id)->get();
+    
+        
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'SubCategoria por id  de Categoria obtenido correctamente',
+            'data' => $cat_subcategories
+        ]);
+    }
+
     public function getById(Request $request){  
         $id = $request->get('id'); 
         $cat_subcategories = Cat_subcategories::find($id);
+ 
         
         return response()->json([
             'status' => 'success',

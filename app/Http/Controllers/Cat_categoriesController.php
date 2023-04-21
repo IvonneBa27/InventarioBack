@@ -33,6 +33,18 @@ class Cat_categoriesController extends Controller
         ]);
     }
 
+    public function getByIdCat(Request $request){  
+        $id = $request->get('id'); 
+        $cat_categories = Cat_categories::where('id', '=',$id)->get();
+    
+        
+        return response()->json([
+            'status' => 'success',
+            'msg' => ' Categoria obtenido correctamente',
+            'data' => $cat_categories
+        ]);
+    }
+
     public function getById(Request $request){  
         $id = $request->get('id'); 
         $cat_categories = Cat_categories::find($id);

@@ -23,6 +23,7 @@ use App\Models\Delegaciones;
 use App\Models\Paises;
 use App\Models\Customers;
 use App\Models\Suppliers;
+use App\Models\Cat_brands;
 
 
 
@@ -299,6 +300,17 @@ class GeneralController extends Controller
             'status' => 'success',
             'msg' => 'SAIT CFDI obtenidos correctamente',
             'data' => $satcfdi
+        ]);
+
+    }
+
+    public function getBrand()
+    {
+        $brand = Cat_brands::all();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Marcas obtenidos correctamente',
+            'data' => $brand
         ]);
 
     }

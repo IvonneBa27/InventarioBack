@@ -10,6 +10,7 @@ class producs extends Model
     use HasFactory;
     protected $table = "producs";
     protected $fillable = [
+       // 'name',
         'id_categoty',
         'id_subcategory',
         'sku',
