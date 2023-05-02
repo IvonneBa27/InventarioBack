@@ -46,7 +46,7 @@ class Usuario extends Model
         'motivo_baja',
         'mes_baja',
         /*'fecha_inicio_capacitacion',
-'fecha_fin_capacitacion',*/
+        'fecha_fin_capacitacion',*/
         'img_profile',
     ];
 

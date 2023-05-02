@@ -101,6 +101,8 @@ Route::get('/searchClients/get',[GeneralController::class, 'searchClients']);
 Route::get('/searchSuppliers/get',[GeneralController::class, 'searchSuppliers']);
 //Marcas
 Route::get('/brands/get',[GeneralController::class, 'getBrand']);
+//Buscador Productos
+Route::get('/searchProducts/get',[GeneralController::class, 'searchProducts']);
 
 //Modulo
 Route::post('/modulo/create', [catModuloController::class, 'create']);
@@ -161,9 +163,11 @@ Route::post('subcategories/delete',[Cat_subcategoriesController::class, 'delete'
 //Producto
 Route::post('products/create',[ProducsController::class, 'create']);
 Route::get('products/get',[ProducsController::class, 'get']);
+//Route::get('products/getCat',[ProducsController::class, 'get']);
 Route::get('products/id', [ProducsController::class, 'getById']);
 Route::post('products/update',[ProducsController::class, 'update']);
 Route::post('products/delete',[ProducsController::class, 'delete']);
+Route::get('products/getCategory', [ProducsController::class, 'getCategory']);
 
 
 

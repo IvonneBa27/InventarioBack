@@ -38,7 +38,7 @@ class ProducsPostRequest extends FormRequest
 
         return [
 
-            'name.required' =>'La categoria es requerida',
+            'name.required' =>'El nombre es requerido',
          
 
            

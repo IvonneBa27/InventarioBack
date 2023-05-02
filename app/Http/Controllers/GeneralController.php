@@ -24,6 +24,7 @@ use App\Models\Paises;
 use App\Models\Customers;
 use App\Models\Suppliers;
 use App\Models\Cat_brands;
+use App\Models\producs;
 
 
 
@@ -312,6 +313,20 @@ class GeneralController extends Controller
             'msg' => 'Marcas obtenidos correctamente',
             'data' => $brand
         ]);
+
+    }
+
+
+    public function searchProducts(Request $request){
+        $param = $request->get('param');
+
+        $producs = Producs::where('name', 'like', '%'.$param.'%')->orwhere('id', 'like', '%'.$param.'%')->get();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Usuarios obtenidos correctamente',
+            'data' => $producs
+        ]);
+
 
     }
 

@@ -13,7 +13,7 @@ class ProducsController extends Controller
     public function create(ProducsPostRequest $request){
 
         $producs = Producs::create([
-            //'name'=>$request['name'],
+            'name'=>$request['name'],
             'id_categoty'=>$request['id_categoty'],
             'id_subcategory'=>$request['id_subcategory'],
             'sku'=>$request['sku'],
@@ -22,7 +22,7 @@ class ProducsController extends Controller
             'model'=>$request['model'],
             'description'=>$request['description'],
             'inventory'=>$request['inventory'],
-            'photo'=>$request['phpto'],
+            'photo'=>$request['photo'],
             'id_status'=>$request['id_status'],
             'id_unitmeasure'=>$request['id_unitmeasure'],
         ]);
@@ -34,8 +34,17 @@ class ProducsController extends Controller
      }
 
 
-     public function get(){
+     /*public function get(){
         $producs = Producs::all();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Productos obtenidoss correctamente',
+            'data' => $producs
+        ]);
+    }*/
+
+    public function get(){
+        $producs = Producs::with('categories')->with('subcategories')->with('marca')->with('estatus')->get();
         return response()->json([
             'status' => 'success',
             'msg' => 'Productos obtenidoss correctamente',
@@ -54,20 +63,35 @@ class ProducsController extends Controller
         ]);
     }
 
+
+    public function getCategory(Request $request){
+        $param = $request->get('param');
+        $producs = Producs::where('id_categoty','=',$param)->get();
+        
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Productos obtenidos correctamente',
+            'data' => $producs
+        
+        ]);
+
+
+    }
+
     public function update(Request $request){
         $producs = Producs::find($request['id']);  //Get parametro por metodo post    
-        //$producs->name=$request['name'];
-        $producs->id_categoty=>$request['id_categoty'],
-        $producs->id_subcategory=>$request['id_subcategory'],
-        $producs->sku=>$request['sku'],
-        $producs->serial_number=>$request['serial_number'],
-        $producs->id_brand=>$request['id_brand'],
-        $producs->model=>$request['model'],
-        $producs->description=>$request['description'],
-        $producs->inventory=>$request['inventory'],
-        $producs->photo=>$request['phpto'],
-        //$producs->id_status=>$request['id_status'],
-        $producs->id_unitmeasure=>$request['id_unitmeasure'],
+        $producs->name=$request['name'];
+        $producs->id_categoty=$request['id_categoty'];
+        $producs->id_subcategory=$request['id_subcategory'];
+        $producs->sku=$request['sku'];
+        $producs->serial_number=$request['serial_number'];
+        $producs->id_brand=$request['id_brand'];
+        $producs->model=$request['model'];
+        $producs->description=$request['description'];
+        $producs->inventory=$request['inventory'];
+        $producs->photo=$request['photo'];
+        //$producs->id_status=$request['id_status'];
+        $producs->id_unitmeasure=$request['id_unitmeasure'];
         $producs->save();
         return response()->json([
             'status' => 'success',
