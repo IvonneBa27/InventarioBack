@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class ProducsPostRequest extends FormRequest
+class SecctionsPostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,33 +27,33 @@ class ProducsPostRequest extends FormRequest
     {
         return [
 
-                'name'=> 'required',
-            
-        ];
-    }
+            'name'=> 'required',
+        
+    ];
+}
 
-    public function messages()
-    {
+public function messages()
+{
 
-        return [
+    return [
 
-            'name.required' =>'El nombre es requerido',
-         
+        'name.required' =>'El nombre es requerido',
+     
 
-           
-        ];
+       
+    ];
 
-    }
+}
 
-    public function failedValidation(Validator $validator)
+public function failedValidation(Validator $validator)
 
-    {
+{
 
-        throw new HttpResponseException(response()->json([
-            'status'    => 'error',
-            'msg'       => $validator->errors()->first()
-        ]));
+    throw new HttpResponseException(response()->json([
+        'status'    => 'error',
+        'msg'       => $validator->errors()->first()
+    ]));
 
-    }
+}
 }
 

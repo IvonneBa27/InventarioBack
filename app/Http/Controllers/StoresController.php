@@ -1,0 +1,82 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\stores;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\StoresPostRequest;
+use Illuminate\Support\Facades\DB;
+
+class StoresController extends Controller
+{
+    public function create(StoresPostRequest $request){
+
+        $stores = Stores::create([
+            'name'=>$request['name'],
+            'url_maps'=>$request['url_maps'],
+            'description'=>$request['description'],
+            'id_status'=>$request['id_status'],
+            'id_user'=>$request['id_user'],
+            'essential_section'=>$request['essential_section'],
+        ]);
+         return response()->json([
+             'status' => 'success',
+             'msg' => 'Almacen agregado',
+             'data' => $stores
+         ]);
+     }
+
+
+     public function get(){
+        $stores = Stores::all();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Almacenes obtenidoss correctamente',
+            'data' => $stores
+        ]);
+    }
+
+
+
+    public function getById(Request $request){  
+        $id = $request->get('id'); 
+        $stores = Stores::find($id);
+        
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Almacen obtenido por Id obtenido correctamente',
+            'data' => $stores
+        ]);
+    }
+
+
+    public function update(Request $request){
+        $stores = Stores::find($request['id']);  //Get parametro por metodo post    
+        $stores->name=$request['name'];
+        $stores->url_maps=$request['url_maps'];
+        $stores->description=$request['description'];
+        $stores->id_user=$request['id_user'];
+        $stores->essential_section=$request['essential_section'];
+        $stores->save();
+        return response()->json([
+            'status' => 'success',
+            'msg'    => 'Almacen actualizado',
+            'data'   => $stores
+        ]);
+     }
+
+     public function delete(Request $request){
+        $id = $request->get('id');
+        $stores = Stores::find($id);
+        $stores->id_status=2;
+        $stores->save();
+        
+         return response()->json([
+             'status' => 'success',
+             'msg'  => 'Almacen eliminado',
+             'data' => $stores
+         ]);
+     }
+}
+    

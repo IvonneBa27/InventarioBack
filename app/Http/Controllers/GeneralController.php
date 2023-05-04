@@ -25,6 +25,7 @@ use App\Models\Customers;
 use App\Models\Suppliers;
 use App\Models\Cat_brands;
 use App\Models\producs;
+use App\Models\stores;
 
 
 
@@ -323,12 +324,38 @@ class GeneralController extends Controller
         $producs = Producs::where('name', 'like', '%'.$param.'%')->orwhere('id', 'like', '%'.$param.'%')->get();
         return response()->json([
             'status' => 'success',
-            'message' => 'Usuarios obtenidos correctamente',
+            'message' => 'Productos obtenidos correctamente',
             'data' => $producs
         ]);
 
 
     }
+
+    public function searchStores(Request $request){
+        $param = $request->get('param');
+
+        $stores = Stores::where('name', 'like', '%'.$param.'%')->orwhere('id_user', 'like', '%'.$param.'%')->get();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Almacenes obtenidos correctamente',
+            'data' => $store
+        ]);
+
+
+    }
+
+
+    public function getUsuario()
+    {
+       //$tipoUsuario = TipoUsuario::where('id','!=',1)->where('id','!=',2)->get();
+       $user = Usuario::all();
+       return response()->json([
+            'status' => 'success',
+            'msg' => 'Usuario obtenido correctamente',
+            'data' => $user
+        ]);
+    }
+
 
 
 

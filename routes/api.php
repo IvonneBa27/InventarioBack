@@ -18,6 +18,8 @@ use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\Cat_categoriesController;
 use App\Http\Controllers\Cat_subcategoriesController;
 use App\Http\Controllers\ProducsController;
+use App\Http\Controllers\StoresController;
+use App\Http\Controllers\SecctionsController;
 /*
 
 |--------------------------------------------------------------------------
@@ -87,6 +89,7 @@ Route::get('/Departamento/get', [GeneralController::class, 'getDepartamento']);
 Route::get('/Turno/get', [GeneralController::class, 'getTurno']);
 Route::get('/TipoModulo/get', [GeneralController::class, 'getTipoModulo']);
 Route::get('/searchUsers/get',[GeneralController::class, 'searchUsers']);
+Route::get('/User/get',[GeneralController::class, 'getUsuario']);
 //Catalogo Pais-Ciudad-Municipio
 Route::get('/paises/get',[GeneralController::class, 'getIdPais']);
 Route::get('/ciudadesT/get',[GeneralController::class, 'getIdCiudadT']);
@@ -103,6 +106,7 @@ Route::get('/searchSuppliers/get',[GeneralController::class, 'searchSuppliers'])
 Route::get('/brands/get',[GeneralController::class, 'getBrand']);
 //Buscador Productos
 Route::get('/searchProducts/get',[GeneralController::class, 'searchProducts']);
+
 
 //Modulo
 Route::post('/modulo/create', [catModuloController::class, 'create']);
@@ -169,6 +173,21 @@ Route::post('products/update',[ProducsController::class, 'update']);
 Route::post('products/delete',[ProducsController::class, 'delete']);
 Route::get('products/getCategory', [ProducsController::class, 'getCategory']);
 
+
+// Almacenes
+Route::post('stores/create',[StoresController::class, 'create']);
+Route::get('stores/get',[StoresController::class, 'get']);
+Route::get('stores/id', [StoresController::class, 'getById']);
+Route::post('stores/update',[StoresController::class, 'update']);
+Route::post('stores/delete',[StoresController::class, 'delete']);
+
+//Seccion
+Route::post('secctions/create',[SecctionsController::class, 'create']);
+Route::get('secctions/get',[SecctionsController::class, 'get']);
+Route::get('secctions/id', [SecctionsController::class, 'getById']);
+Route::get('secctions/stoid', [SecctionsController::class, 'getByIdStore']);
+Route::post('secctions/update',[SecctionsController::class, 'update']);
+Route::post('secctions/delete',[SecctionsController::class, 'delete']);
 
 
 
