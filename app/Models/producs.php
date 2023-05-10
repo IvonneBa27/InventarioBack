@@ -24,7 +24,7 @@ class producs extends Model
         'id_unitmeasure',
     ];
 
-    public function categories()
+  /*  public function categories()
     {
         return $this->hasOne('App\Models\cat_categories', 'id', 'id_categoty');
 
@@ -44,5 +44,5 @@ class producs extends Model
     public function estatus()
     {
         return $this->hasOne('App\Models\Estatus', 'id', 'id_status');
-    }
+    }*/
 }

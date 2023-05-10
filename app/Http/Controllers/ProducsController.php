@@ -44,7 +44,17 @@ class ProducsController extends Controller
     }*/
 
     public function get(){
-        $producs = Producs::with('categories')->with('subcategories')->with('marca')->with('estatus')->get();
+        //$producs = Producs::with('categories')->with('subcategories')->with('marca')->with('estatus')->get();
+        
+        $producs
+        = DB::table('producs')
+        ->select('producs.id', 'producs.name', 'cat_categories.name as namecat', 'cat_subcategories.name as namesubcat', 'cat_brands.name as namebrand', 'estatus.nombre as namestatus')
+        ->join('cat_categories','producs.id_categoty','=','cat_categories.id')
+        ->join('cat_subcategories','producs.id_subcategory','=','cat_subcategories.id')
+        ->join('cat_brands','producs.id_brand','=','cat_brands.id')
+        ->join('estatus','producs.id_status','=','estatus.id')
+        ->orderBy('producs.id','asc')
+        ->get();
         return response()->json([
             'status' => 'success',
             'msg' => 'Productos obtenidoss correctamente',

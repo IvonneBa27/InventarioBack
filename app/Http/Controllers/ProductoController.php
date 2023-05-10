@@ -35,6 +35,7 @@ class ProductoController extends Controller
      //Metodo para visualizar los datos de la tabla producto
        public function get(){
         $producto = Producto::all();
+
         return response()->json([
             'status' => 'success',
             'msg' => 'Productos obtenidos correctamente',

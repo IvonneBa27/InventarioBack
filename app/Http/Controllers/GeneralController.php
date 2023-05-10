@@ -26,6 +26,9 @@ use App\Models\Suppliers;
 use App\Models\Cat_brands;
 use App\Models\producs;
 use App\Models\stores;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
 
 
 
@@ -185,9 +188,6 @@ class GeneralController extends Controller
 
     }
 
-
-
-
     public function searchUsers(Request $request){
         $param = $request->get('param');
 
@@ -197,8 +197,6 @@ class GeneralController extends Controller
             'message' => 'Usuarios obtenidos correctamente',
             'data' => $users
         ]);
-
-
     }
 
     public function searchClients(Request $request){
@@ -321,7 +319,21 @@ class GeneralController extends Controller
     public function searchProducts(Request $request){
         $param = $request->get('param');
 
-        $producs = Producs::where('name', 'like', '%'.$param.'%')->orwhere('id', 'like', '%'.$param.'%')->get();
+        //$producs = Producs::where('name', 'like', '%'.$param.'%')->orwhere('id', 'like', '%'.$param.'%')->get();
+        
+        $producs
+        = DB::table('producs')
+        ->select('producs.id', 'producs.name', 'cat_categories.name as namecat', 'cat_subcategories.name as namesubcat', 'cat_brands.name as namebrand', 'estatus.nombre as namestatus')
+        ->join('cat_categories','producs.id_categoty','=','cat_categories.id')
+        ->join('cat_subcategories','producs.id_subcategory','=','cat_subcategories.id')
+        ->join('cat_brands','producs.id_brand','=','cat_brands.id')
+        ->join('estatus','producs.id_status','=','estatus.id')
+        ->where('producs.name', 'like', '%'.$param.'%')
+        ->orwhere('producs.id', 'like', '%'.$param.'%')
+        ->orderBy('producs.id','asc')
+        ->get();
+        
+        
         return response()->json([
             'status' => 'success',
             'message' => 'Productos obtenidos correctamente',
@@ -334,11 +346,22 @@ class GeneralController extends Controller
     public function searchStores(Request $request){
         $param = $request->get('param');
 
-        $stores = Stores::where('name', 'like', '%'.$param.'%')->orwhere('id_user', 'like', '%'.$param.'%')->get();
+        $stores
+        = DB::table('stores')
+        ->join('users','stores.id_user','=','users.id')
+        ->join('estatus', 'stores.id_status','=', 'estatus.id')
+        ->join('secctions','stores.id','=','secctions.id_store')
+        ->select(DB::raw('count(*) as secctions_count, secctions.id_store'),'stores.id','stores.name','stores.url_maps','stores.description','stores.essential_section', 'users.nombre_completo', 'estatus.nombre')
+        ->where('stores.name', 'like', '%'.$param.'%')
+        ->orwhere('users.nombre_completo', 'like', '%'.$param.'%')
+        ->groupBy('stores.id', 'secctions.id_store', 'stores.name','stores.url_maps','stores.description','stores.essential_section', 'users.nombre_completo', 'estatus.nombre')
+        ->get();
+
+        //$stores = Stores::where('name', 'like', '%'.$param.'%')->orwhere('id_user', 'like', '%'.$param.'%')->get();
         return response()->json([
             'status' => 'success',
             'message' => 'Almacenes obtenidos correctamente',
-            'data' => $store
+            'data' => $stores
         ]);
 
 
@@ -355,6 +378,7 @@ class GeneralController extends Controller
             'data' => $user
         ]);
     }
+
 
 
 

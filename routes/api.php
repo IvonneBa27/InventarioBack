@@ -106,6 +106,8 @@ Route::get('/searchSuppliers/get',[GeneralController::class, 'searchSuppliers'])
 Route::get('/brands/get',[GeneralController::class, 'getBrand']);
 //Buscador Productos
 Route::get('/searchProducts/get',[GeneralController::class, 'searchProducts']);
+//Buscador Almacen
+Route::get('/searchStores/get',[GeneralController::class, 'searchStores']);
 
 
 //Modulo
