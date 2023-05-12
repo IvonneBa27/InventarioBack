@@ -14,5 +14,6 @@ class secctions extends Model
         'id_status',
         'id_store',
         'nomenclature',
+        'image',
     ];
 }

@@ -17,6 +17,7 @@ class SecctionsController extends Controller
             'id_status'=>$request['id_status'],
             'id_store'=>$request['id_store'],
             'nomenclature'=>$request['nomenclature'],
+            'image'=>$request['image'],
         ]);
          return response()->json([
              'status' => 'success',
@@ -66,6 +67,7 @@ class SecctionsController extends Controller
         $secctions->name=$request['name'];
         $secctions->id_store=$request['id_store'];
         $secctions->nomenclature=$request['nomenclature'];
+        $secctions->image=$request['image'];
         $secctions->save();
         return response()->json([
             'status' => 'success',
