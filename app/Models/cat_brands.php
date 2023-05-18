@@ -12,5 +12,6 @@ class cat_brands extends Model
     protected $fillable = [
         'name',
         'id_status',
+        'id_subcategory',
     ];
 }

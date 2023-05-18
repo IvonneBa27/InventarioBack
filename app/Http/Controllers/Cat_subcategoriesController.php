@@ -36,10 +36,32 @@ class Cat_subcategoriesController extends Controller
         ]);
     }
 
-    public function getByIdCat(Request $request){  
+    public function getByIdSubCat(Request $request){  
         $id = $request->get('id'); 
-        $cat_subcategories = Cat_subcategories::where('id_category', '=',$id)->get();
+        $cat_subcategories = Cat_subcategories::where('id', '=',$id)->get();
     
+        
+        return response()->json([
+            'status' => 'success',
+            'msg' => ' Categoria obtenido correctamente',
+            'data' => $cat_subcategories 
+        ]);
+    }
+
+
+
+
+    public function getByIdCat(Request $request){  
+        $id = $request->get('id_category'); 
+       // $cat_subcategories = Cat_subcategories::where('id_category', '=',$id)->get();
+        
+       $cat_subcategories
+       =DB::table('cat_subcategories')
+       ->select('cat_subcategories.id', 'cat_subcategories.name', 'cat_subcategories.created_at as registro', DB::raw("count('cat_brands.id') as totbrand"))
+       ->join('cat_brands', 'cat_subcategories.id', '=', 'cat_brands.id_subcategory')
+       ->where('cat_subcategories.id_category', '=', $id)
+       ->get();
+
         
         return response()->json([
             'status' => 'success',

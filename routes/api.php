@@ -20,6 +20,7 @@ use App\Http\Controllers\Cat_subcategoriesController;
 use App\Http\Controllers\ProducsController;
 use App\Http\Controllers\StoresController;
 use App\Http\Controllers\SecctionsController;
+use App\Http\Controllers\catBrandController;
 /*
 
 |--------------------------------------------------------------------------
@@ -162,6 +163,7 @@ Route::post('subcategories/create',[Cat_subcategoriesController::class, 'create'
 Route::get('subcategories/get',[Cat_subcategoriesController::class, 'get']);
 Route::get('subcategories/id', [Cat_subcategoriesController::class, 'getById']);
 Route::get('subcategories/catid', [Cat_subcategoriesController::class, 'getByIdCat']);
+Route::get('subcategories/subid', [Cat_subcategoriesController::class, 'getByIdSubCat']);
 Route::post('subcategories/update',[Cat_subcategoriesController::class, 'update']);
 Route::post('subcategories/delete',[Cat_subcategoriesController::class, 'delete']);
 
@@ -190,6 +192,14 @@ Route::get('secctions/id', [SecctionsController::class, 'getById']);
 Route::get('secctions/stoid', [SecctionsController::class, 'getByIdStore']);
 Route::post('secctions/update',[SecctionsController::class, 'update']);
 Route::post('secctions/delete',[SecctionsController::class, 'delete']);
+
+//brand
+Route::post('brands/create',[catBrandController::class, 'create']);
+Route::get('brands/get',[catBrandController::class, 'get']);
+Route::get('brands/id', [catBrandController::class, 'getById']);
+Route::post('brands/update',[catBrandController::class, 'update']);
+Route::post('brands/delete',[catBrandController::class, 'delete']);
+
 
 
 
