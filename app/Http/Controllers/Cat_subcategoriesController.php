@@ -58,7 +58,7 @@ class Cat_subcategoriesController extends Controller
        $cat_subcategories
        =DB::table('cat_subcategories')
        ->select('cat_subcategories.id', 'cat_subcategories.name', 'cat_subcategories.created_at as registro', DB::raw("count('cat_brands.id') as totbrand"))
-       ->join('cat_brands', 'cat_subcategories.id', '=', 'cat_brands.id_subcategory')
+       ->leftJoin('cat_brands', 'cat_subcategories.id', '=', 'cat_brands.id_subcategory')
        ->where('cat_subcategories.id_category', '=', $id)
        ->get();
 
