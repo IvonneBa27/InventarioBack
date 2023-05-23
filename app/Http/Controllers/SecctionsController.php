@@ -27,8 +27,17 @@ class SecctionsController extends Controller
      }
 
 
-     public function get(){
-        $secctions = Secctions::all();
+     public function get(Request $request){
+        //$secctions = Secctions::all();
+        $id = $request->get('id'); 
+
+        $secctions =
+        DB::table('secctions')
+        ->select('secctions.id', 'secctions.name', 'secctions.id_status', 'secctions.nomenclature', 'secctions.image', 'estatus.nombre')
+        ->join('estatus','secctions.id_status','=','estatus.id')
+        ->where('secctions.id_store','=',$id)
+        ->get();
+
         return response()->json([
             'status' => 'success',
             'msg' => 'Secciones obtenidoss correctamente',

@@ -31,10 +31,10 @@ class StoresController extends Controller
      public function get(){
        // $stores = Stores::with('secctions')->with('estatus')->with('users')->get();
 
-       $stores
+      /* $stores
        = DB::table('stores')
-       ->join('users','stores.id_user','=','users.id')
-       ->join('estatus', 'stores.id_status','=', 'estatus.id')
+       ->leftJoin('users','stores.id_user','=','users.id')
+       ->leftJoin('estatus', 'stores.id_status','=', 'estatus.id')
        ->leftJoin('secctions','stores.id','=','secctions.id_store')
        ->select(DB::raw('count(*) as secctions_count, secctions.id_store'),'stores.id','stores.name','stores.url_maps','stores.description','stores.essential_section', 'users.nombre_completo', 'estatus.nombre')
        ->groupBy('stores.id', 'secctions.id_store', 'stores.name','stores.url_maps','stores.description','stores.essential_section', 'users.nombre_completo', 'estatus.nombre')
@@ -43,7 +43,17 @@ class StoresController extends Controller
             'status' => 'success',
             'msg' => 'Almacenes obtenidoss correctamente',
             'data' => $stores
+        ]);*/
+
+        $stores = DB::SELECT('CALL get_Stores()');
+
+           return response()->json([
+            'status' => 'success',
+            'msg' => 'Almacenes obtenidoss correctamente',
+            'data' => $stores
         ]);
+
+
     }
 
 
