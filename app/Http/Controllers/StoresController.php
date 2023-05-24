@@ -27,6 +27,21 @@ class StoresController extends Controller
          ]);
      }
 
+     public function getAnt(){
+
+         $stores =Stores::all();
+ 
+            return response()->json([
+             'status' => 'success',
+             'msg' => 'Almacenes obtenidoss correctamente',
+             'data' => $stores
+         ]);
+ 
+ 
+     }
+ 
+ 
+
 
      public function get(){
        // $stores = Stores::with('secctions')->with('estatus')->with('users')->get();

@@ -181,6 +181,7 @@ Route::get('products/getCategory', [ProducsController::class, 'getCategory']);
 // Almacenes
 Route::post('stores/create',[StoresController::class, 'create']);
 Route::get('stores/get',[StoresController::class, 'get']);
+Route::get('stores/getAnt',[StoresController::class, 'getAnt']);
 Route::get('stores/id', [StoresController::class, 'getById']);
 Route::post('stores/update',[StoresController::class, 'update']);
 Route::post('stores/delete',[StoresController::class, 'delete']);
