@@ -26,6 +26,16 @@ class SecctionsController extends Controller
          ]);
      }
 
+     public function getV1(Request $request){
+        $secctions = Secctions::all();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Secciones obtenidoss correctamente',
+            'data' => $secctions
+        ]);
+    }
+
 
      public function get(Request $request){
         //$secctions = Secctions::all();

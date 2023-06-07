@@ -21,6 +21,10 @@ use App\Http\Controllers\ProducsController;
 use App\Http\Controllers\StoresController;
 use App\Http\Controllers\SecctionsController;
 use App\Http\Controllers\catBrandController;
+use App\Http\Controllers\warehouse_income_typeController;
+use App\Http\Controllers\warehouse_entryController;
+use App\Http\Controllers\warehouse_entry_detailController;
+use App\Http\Controllers\product_detail_warehouse_entryController;
 /*
 
 |--------------------------------------------------------------------------
@@ -162,6 +166,7 @@ Route::post('categories/delete',[Cat_categoriesController::class, 'delete']);
 Route::post('subcategories/create',[Cat_subcategoriesController::class, 'create']);
 Route::get('subcategories/get',[Cat_subcategoriesController::class, 'get']);
 Route::get('subcategories/id', [Cat_subcategoriesController::class, 'getById']);
+Route::get('subcategories/subcatid', [Cat_subcategoriesController::class, 'getByIdCatSub']);
 Route::get('subcategories/catid', [Cat_subcategoriesController::class, 'getByIdCat']);
 Route::get('subcategories/subid', [Cat_subcategoriesController::class, 'getByIdSubCat']);
 Route::post('subcategories/update',[Cat_subcategoriesController::class, 'update']);
@@ -171,6 +176,8 @@ Route::post('subcategories/delete',[Cat_subcategoriesController::class, 'delete'
 //Producto
 Route::post('products/create',[ProducsController::class, 'create']);
 Route::get('products/get',[ProducsController::class, 'get']);
+Route::get('products/getCatSubCategory',[ProducsController::class, 'getCatSubCategory']); //Modulo de Ingreso de Almacen
+Route::get('products/getCatSubCategoryDet',[ProducsController::class, 'getCatSubCategoryDet']); //Ingreso a Detalle de Producto
 //Route::get('products/getCat',[ProducsController::class, 'get']);
 Route::get('products/id', [ProducsController::class, 'getById']);
 Route::post('products/update',[ProducsController::class, 'update']);
@@ -189,6 +196,7 @@ Route::post('stores/delete',[StoresController::class, 'delete']);
 //Seccion
 Route::post('secctions/create',[SecctionsController::class, 'create']);
 Route::get('secctions/get',[SecctionsController::class, 'get']);
+Route::get('secctions/getV1',[SecctionsController::class, 'getV1']);
 Route::get('secctions/id', [SecctionsController::class, 'getById']);
 Route::get('secctions/stoid', [SecctionsController::class, 'getByIdStore']);
 Route::post('secctions/update',[SecctionsController::class, 'update']);
@@ -200,6 +208,26 @@ Route::get('brands/get',[catBrandController::class, 'get']);
 Route::get('brands/id', [catBrandController::class, 'getById']);
 Route::post('brands/update',[catBrandController::class, 'update']);
 Route::post('brands/delete',[catBrandController::class, 'delete']);
+
+//Warehouse Type Entry
+Route::get('incomeTypeStores/get',[warehouse_income_typeController::class, 'get']);
+
+//Warehouse Entry
+Route::post('incomeStores/create',[warehouse_entryController::class, 'create']);
+Route::get('incomeStores/get',[warehouse_entryController::class, 'get']);
+Route::get('incomeStores/id', [warehouse_entryController::class, 'getById']);
+
+//warehouse Entry Detail
+Route::post('incomeStoresDetail/create',[warehouse_entry_detailController::class, 'create']);
+Route::get('incomeStoresDetail/get',[warehouse_entry_detailController::class, 'get']);
+Route::get('incomeStoresDetail/id', [warehouse_entry_detailController::class, 'getById']);
+
+//Product Detail Warehouse
+Route::post('incomeStoresDetailProduct/create',[product_detail_warehouse_entryController::class, 'create']);
+Route::get('incomeStoresDetailProduct/get',[product_detail_warehouse_entryController::class, 'get']);
+Route::get('incomeStoresDetailProduct/id', [product_detail_warehouse_entryController::class, 'getById']);
+Route::post('incomeStoresDetailProduct/update',[product_detail_warehouse_entryController::class, 'update']);
+
 
 
 

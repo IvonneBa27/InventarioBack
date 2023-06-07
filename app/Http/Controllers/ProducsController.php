@@ -84,9 +84,52 @@ class ProducsController extends Controller
             'data' => $producs
         
         ]);
-
-
     }
+
+    //Select por IdCategoria y IdSubCategoria para el modulo de Detalle de Almacen
+
+    public function getCatSubCategory(Request $request){
+        $id_category = $request->get('id_category');
+        $id_subcategory = $request->get('id_category');
+
+        $producs 
+        =DB::table('producs')
+        ->select('*')
+        ->where('id_categoty','=',$id_category)
+        ->where('id_subcategory','=',  $id_subcategory)
+        ->get(); 
+         
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Productos obtenidos correctamente',
+            'data' => $producs
+        
+        ]);
+    }
+
+    //Select por IdCategoria y IdSubCategoria para el modulo de Detalle de Almacen
+    //Relacion con las tabla de relacion
+
+    public function getCatSubCategoryDet(Request $request){
+        $id = $request->get('id');
+
+
+        $producs 
+        = DB::table('producs')
+        ->select('producs.id', 'producs.name', 'producs.sku','producs.id_brand', 'cat_brands.name as namebrand', 'producs.model')
+        ->join('cat_brands','producs.id_brand','=','cat_brands.id')
+        ->where('producs.id','=',$id)
+        ->get(); 
+         
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Productos obtenidos correctamente',
+            'data' => $producs
+        
+        ]);
+    }
+
+
 
     public function update(Request $request){
         $producs = Producs::find($request['id']);  //Get parametro por metodo post    
