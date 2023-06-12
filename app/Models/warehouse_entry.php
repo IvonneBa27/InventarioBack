@@ -17,6 +17,7 @@ class warehouse_entry extends Model
         'invoice',
         'invoice_date',
         'provider_id',
+        'observations',
     ];
 }
 

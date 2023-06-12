@@ -216,6 +216,7 @@ Route::get('incomeTypeStores/get',[warehouse_income_typeController::class, 'get'
 Route::post('incomeStores/create',[warehouse_entryController::class, 'create']);
 Route::get('incomeStores/get',[warehouse_entryController::class, 'get']);
 Route::get('incomeStores/id', [warehouse_entryController::class, 'getById']);
+Route::post('incomeStores/update', [warehouse_entryController::class, 'update']);
 
 //warehouse Entry Detail
 Route::post('incomeStoresDetail/create',[warehouse_entry_detailController::class, 'create']);

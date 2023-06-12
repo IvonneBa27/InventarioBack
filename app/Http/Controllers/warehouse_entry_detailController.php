@@ -12,7 +12,7 @@ class warehouse_entry_detailController extends Controller
 {
     public function create(warehouse_entry_detailPostRequest $request){
 
-            $incomeStoreDetail = warehouse_entry_detail::create([
+           $incomeStoreDetail = warehouse_entry_detail::create([
             'warehouse_entry_id'=>$request['warehouse_entry_id'],
             'category_id'=>$request['category_id'],
             'subcategory_id'=>$request['subcategory_id'],

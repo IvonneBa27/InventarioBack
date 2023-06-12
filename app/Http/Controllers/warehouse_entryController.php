@@ -53,6 +53,20 @@ class warehouse_entryController extends Controller
             'msg' => 'Registro obtenido por Id',
             'data' => $incomeStore
         ]);
-    }  
+    } 
+    
+    
+    public function update(Request $request){
+        $incomeStore = warehouse_entry::find($request['id']);
+        $incomeStore->observations=$request['observations'];
+        $incomeStore->save();
+        return response()->json([
+            'status' => 'success',
+            'msg'    => 'Registro detallado actualizado',
+            'data'   =>  $incomeStore
+        ]);
+
+    }
+    
 }
    
