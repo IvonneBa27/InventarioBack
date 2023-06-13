@@ -30,11 +30,11 @@ class catBrandController extends Controller
      public function get(Request $request){
         $id = $request->get('id_subcategory'); 
         $catbrand
-        = DB::table('cat_brands')
-        ->join('estatus', 'cat_brands.id_status','=', 'estatus.id')
-        ->join('cat_subcategories','cat_brands.id_subcategory','=','cat_subcategories.id')
-        ->select('cat_brands.id', 'cat_brands.name as catname', 'cat_subcategories.name', 'estatus.nombre')
-        ->where('cat_brands.id_subcategory', '=', $id)
+        = DB::table('catalog_brands')
+        ->join('status', 'catalog_brands.id_status','=', 'status.id')
+        ->join('catalog_subcategories','catalog_brands.id_subcategory','=','catalog_subcategories.id')
+        ->select('catalog_brands.id', 'catalog_brands.name as catname', 'catalog_subcategories.name', 'status.nombre')
+        ->where('catalog_brands.id_subcategory', '=', $id)
         ->get();
          return response()->json([
              'status' => 'success',

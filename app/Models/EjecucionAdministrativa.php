@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class EjecucionAdministrativa extends Model
 {
     use HasFactory;
-    protected $table="ejecucion_administrativas";
+    protected $table="company_structure_type";
 }

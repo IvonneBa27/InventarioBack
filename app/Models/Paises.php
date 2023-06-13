@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Paises extends Model
 {
     use HasFactory;
-    protected $table = "paises";
+    protected $table = "countries";
     protected $fillable = [
         'idpais',
         'pais',

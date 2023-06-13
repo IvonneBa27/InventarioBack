@@ -187,11 +187,11 @@ class UsuarioController extends Controller
 
         $modules
         = DB::table('users')
-        ->select('users.id as user_id', 'module_permisses.*', 'cat_modues.name')
-        ->join('module_permisses', 'users.id', '=', 'module_permisses.id_usuario')
-        ->join('cat_modues', 'module_permisses.id_modulo', '=', 'cat_modues.id')
-        ->where('module_permisses.id_usuario', '=', $id)
-        ->where('module_permisses.id_modulo', '=', $id_module)
+        ->select('users.id as user_id', 'module_users_permissions.*', 'catalog_modules.name')
+        ->join('module_users_permissions', 'users.id', '=', 'module_users_permissions.id_usuario')
+        ->join('catalog_modules', 'module_users_permissions.id_modulo', '=', 'catalog_modules.id')
+        ->where('module_users_permissions.id_usuario', '=', $id)
+        ->where('module_users_permissions.id_modulo', '=', $id_module)
         ->get();
         return response()->json([
             'status' => 'success',
@@ -207,10 +207,10 @@ class UsuarioController extends Controller
 
         $modules
         = DB::table('users')
-            ->select('users.id as user_id', 'module_permisses.*', 'cat_modues.name')
-            ->join('module_permisses', 'users.id', '=', 'module_permisses.id_usuario')
-            ->join('cat_modues', 'module_permisses.id_modulo', '=', 'cat_modues.id')
-            ->where('module_permisses.id_usuario', '=', $id)
+            ->select('users.id as user_id', 'module_users_permissions.*', 'catalog_modules.name')
+            ->join('module_users_permissions', 'users.id', '=', 'module_users_permissions.id_usuario')
+            ->join('catalog_modules', 'module_users_permissions.id_modulo', '=', 'catalog_modules.id')
+            ->where('module_users_permissions.id_usuario', '=', $id)
             ->get();
         return response()->json([
             'status' => 'success',

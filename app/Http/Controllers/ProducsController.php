@@ -115,10 +115,10 @@ class ProducsController extends Controller
 
 
         $producs 
-        = DB::table('producs')
-        ->select('producs.id', 'producs.name', 'producs.sku','producs.id_brand', 'cat_brands.name as namebrand', 'producs.model')
-        ->join('cat_brands','producs.id_brand','=','cat_brands.id')
-        ->where('producs.id','=',$id)
+        = DB::table('products')
+        ->select('products.id', 'products.name', 'products.sku','products.id_brand', 'catalog_brands.name as namebrand', 'products.model')
+        ->join('catalog_brands','products.id_brand','=','catalog_brands.id')
+        ->where('products.id','=',$id)
         ->get(); 
          
         return response()->json([

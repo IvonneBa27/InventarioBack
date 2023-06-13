@@ -60,7 +60,7 @@ class StoresController extends Controller
             'data' => $stores
         ]);*/
 
-        $stores = DB::SELECT('CALL get_Stores()');
+        $stores = DB::SELECT('CALL get_stores_secctions()');
 
            return response()->json([
             'status' => 'success',

@@ -134,15 +134,15 @@ class GeneralController extends Controller
         ]);
 
     }
-    public function getBanco()
-    {
+
+    //Catalogo de Bancos
+    public function getBanco(){
         $banco = Banco::all();
         return response()->json([
             'status' => 'success',
             'msg' => 'Banco obtenido correctamente',
             'data' => $banco
         ]);
-
     }
 
     public function getEstatus()

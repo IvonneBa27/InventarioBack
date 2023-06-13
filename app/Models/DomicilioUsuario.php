@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class DomicilioUsuario extends Model
 {
     use HasFactory;
-    protected $table="domicilio_usuarios";
+    protected $table="users_addresses";
 }

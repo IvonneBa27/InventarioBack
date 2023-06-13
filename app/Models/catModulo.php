@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class catModulo extends Model
 {
     use HasFactory;
-   protected $table="cat_modues";
+   protected $table="catalog_modules";
     protected $fillable = [
         'name',
         'id_type',

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Catalogo_sat_regimenfiscal extends Model
 {
     use HasFactory;
-    protected $table = "catalogo_sat_regimenfiscal";
+    protected $table = "catalog_sat_tax_regime";
     protected $fillable = [
         'id_sat',
         'nombre',

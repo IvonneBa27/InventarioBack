@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class secctions extends Model
 {
     use HasFactory;
-    protected $table = "secctions";
+    protected $table = "store_sections";
     protected $fillable = [
         'name',
         'id_status',

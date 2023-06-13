@@ -42,10 +42,10 @@ class SecctionsController extends Controller
         $id = $request->get('id'); 
 
         $secctions =
-        DB::table('secctions')
-        ->select('secctions.id', 'secctions.name', 'secctions.id_status', 'secctions.nomenclature', 'secctions.image', 'estatus.nombre')
-        ->join('estatus','secctions.id_status','=','estatus.id')
-        ->where('secctions.id_store','=',$id)
+        DB::table('store_sections')
+        ->select('store_sections.id', 'store_sections.name', 'store_sections.id_status', 'store_sections.nomenclature', 'store_sections.image', 'estatus.nombre')
+        ->join('status','secctions.id_status','=','estatus.id')
+        ->where('store_sections.id_store','=',$id)
         ->get();
 
         return response()->json([

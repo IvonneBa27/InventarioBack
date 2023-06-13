@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Catalogo_sat_uso_cfdi extends Model
 {
     use HasFactory;
-    protected $table = "catalogo_sat_uso_cfdi";
+    protected $table = "catalog_sat_cfdi_use";
     protected $fillable = [
         'id_sat',
         'nombre',

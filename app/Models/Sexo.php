@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Sexo extends Model
 {
     use HasFactory;
-    protected $table="sexos";
+    protected $table="gender";
 }

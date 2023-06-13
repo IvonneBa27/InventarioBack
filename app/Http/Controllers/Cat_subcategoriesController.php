@@ -85,7 +85,7 @@ class Cat_subcategoriesController extends Controller
       // ->groupBy('cat.brands.id')
        ->get();*/
 
-       $cat_subcategories = DB::SELECT('CALL get_CCatSubMar(?)', [$id]);
+       $cat_subcategories = DB::SELECT('CALL get_categorie_product(?)', [$id]);
 
        
         return response()->json([

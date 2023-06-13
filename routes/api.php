@@ -4,8 +4,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\CatPermisoController;
 use App\Http\Controllers\ProductoController;
-use App\Http\Controllers\catTipoProductoController;
-use App\Http\Controllers\catTipoMarcaController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -57,15 +55,6 @@ Route::get('/producto', [ProductoController::class, 'get']);
 Route::post('/producto/update', [ProductoController::class, 'update']);
 Route::delete('/producto/delete', [ProductoController::class, 'delete']);
 
-Route::post('/tipoproducto/create', [catTipoProductoController::class, 'create']);
-Route::get('/tipoproducto/get', [catTipoProductoController::class, 'get']);
-Route::post('/tipoproducto/update', [catTipoProductoController::class, 'update']);
-Route::delete('/tipoproducto/delete', [catTipoProductoController::class, 'delete']);
-
-Route::post('/tipomarca/create', [catTipoMarcaController::class, 'create']);
-Route::get('/tipomarca/get', [catTipoMarcaController::class, 'get']);
-Route::post('/tipomarca/update', [catTipoMarcaController::class, 'update']);
-Route::delete('/tipomarca/delete', [catTipoMarcaController::class, 'delete']);
 
 Route::post('/usuario/create', [UsuarioController::class, 'create']);
 Route::get('/usuario/get', [UsuarioController::class, 'get']);
@@ -88,7 +77,7 @@ Route::get('/DomicilioUsuario/get', [GeneralController::class, 'getDomicilioUsua
 Route::get('/EjecucionAdministrativa/get', [GeneralController::class, 'getEjecucionAdministrativa']);
 Route::get('/Compania/get', [GeneralController::class, 'getCompania']);
 Route::get('/Puesto/get', [GeneralController::class, 'getPuesto']);
-Route::get('/Banco/get', [GeneralController::class, 'getBanco']);
+Route::get('/Banco/get', [GeneralController::class, 'getBanco']); //Catalogo Banco - Modulo User
 Route::get('/Estatus/get', [GeneralController::class, 'getEstatus']);
 Route::get('/Departamento/get', [GeneralController::class, 'getDepartamento']);
 Route::get('/Turno/get', [GeneralController::class, 'getTurno']);
