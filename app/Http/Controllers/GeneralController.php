@@ -213,7 +213,7 @@ class GeneralController extends Controller
     public function searchSuppliers(Request $request){
         $param = $request->get('param');
 
-        $suppliers = Suppliers::where('razon_social', 'like', '%'.$param.'%')->orwhere('no_proveedor', 'like', '%'.$param.'%')->get();
+        $suppliers = Suppliers::where('razon_social', 'like', '%'.$param.'%')->orwhere('id', 'like', '%'.$param.'%')->get();
         return response()->json([
             'status' => 'success',
             'message' => 'Clientes obtenidos correctamente',

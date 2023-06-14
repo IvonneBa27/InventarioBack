@@ -14,7 +14,7 @@ class SuppliersController extends Controller
 
      
         $suppliers = Suppliers::create([
-            'no_proveedor'=>$request['no_proveedor'],
+            //'no_proveedor'=>$request['id'],
             'razon_social'=>$request['razon_social'],
             'rfc'=>$request['rfc'],
             'idPais'=>$request['idPais'],
@@ -60,6 +60,22 @@ class SuppliersController extends Controller
  
      }
 
+     //Lista de Proveedores
+     public function getListSuplier(){
+
+            $suppliers=
+            DB::table('suppliers')
+            ->select('suppliers.*', 'status.nombre')
+            ->join('status','suppliers.idestatus','=','status.id')
+            ->get();
+
+          return response()->json([
+            'status' => 'success',
+            'msg' => 'Proveedores obtenidos correctamente',
+            'data' => $suppliers
+        ]);
+     }
+
 
 
      public function getById(Request $request){  
@@ -75,7 +91,7 @@ class SuppliersController extends Controller
 
      public function update(Request $request){
         $suppliers = Suppliers::find($request['id']);  //Get parametro por metodo post    
-        //$suppliers->no_proveedor=$request['no_proveedor'];
+        $suppliers->no_proveedor=$request['no_proveedor'];
         $suppliers->razon_social=$request['razon_social'];
         $suppliers->rfc=$request['rfc'];
         $suppliers->idPais=$request['idPais'];

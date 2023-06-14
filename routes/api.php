@@ -138,6 +138,7 @@ Route::post('/customers/delete', [CustomersController::class, 'delete']);
 //Proveedores
 Route::post('/suppliers/create', [SuppliersController::class, 'create']);
 Route::get('/suppliers/get', [SuppliersController::class, 'get']);
+Route::get('/suppliers/getListSuplier', [SuppliersController::class, 'getListSuplier']);
 Route::get('/suppliers/id', [SuppliersController::class, 'getById']);
 Route::post('/suppliers/update', [SuppliersController::class, 'update']);
 Route::post('/suppliers/delete', [SuppliersController::class, 'delete']);
