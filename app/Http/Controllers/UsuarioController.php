@@ -264,5 +264,32 @@ class UsuarioController extends Controller
 
     }
 
+    public function getPermissionModules(Request $request){
+        $id_usuario = $request->get('id_usuario');
+
+        try {
+
+            $permission = DB::table('module_users_permissions')
+                ->select('module_users_permissions.id_modulo', 'module_users_permissions.show')
+                ->where('id_usuario', '=', $id_usuario)
+                ->get();
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Permisos obtenidos correctamente.',
+                'data' => $permission
+            ]);
+        } catch(\Exception $e) {
+            $error_code = $e->getMessage();
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Error al obtener los permisos'
+            ]);
+        }
+
+
+
+
+    }
+
 
 }

@@ -12,6 +12,7 @@ class ModulePermisse extends Model
     protected $fillable = [
         "id_usuario",
         "id_modulo",
+        "show",
         "create",
         "edit",
         "delete",
