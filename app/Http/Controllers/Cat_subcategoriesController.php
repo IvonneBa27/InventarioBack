@@ -47,6 +47,9 @@ class Cat_subcategoriesController extends Controller
             'data' => $cat_subcategories 
         ]);
     }
+
+
+    
     
 
     //Select por IdCategoria para el modulo de Detalle de Almacen
