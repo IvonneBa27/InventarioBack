@@ -147,6 +147,7 @@ Route::post('/suppliers/delete', [SuppliersController::class, 'delete']);
 //Categoria
 Route::post('categories/create',[Cat_categoriesController::class, 'create']);
 Route::get('categories/get',[Cat_categoriesController::class, 'get']);
+Route::get('categories/getList',[Cat_categoriesController::class, 'get_List_Categorie']);//Stored para Lista de Categoria
 Route::get('categories/id', [Cat_categoriesController::class, 'getById']);
 Route::get('categories/catid', [Cat_categoriesController::class, 'getByIdCat']);
 Route::post('categories/update',[Cat_categoriesController::class, 'update']);
@@ -155,6 +156,7 @@ Route::post('categories/delete',[Cat_categoriesController::class, 'delete']);
 //SubCategoria
 Route::post('subcategories/create',[Cat_subcategoriesController::class, 'create']);
 Route::get('subcategories/get',[Cat_subcategoriesController::class, 'get']);
+Route::get('subcategories/getList',[Cat_subcategoriesController::class, 'get_List_Subcategorie']);//Stored para Lista de SubCategoria
 Route::get('subcategories/id', [Cat_subcategoriesController::class, 'getById']);
 Route::get('subcategories/subcatid', [Cat_subcategoriesController::class, 'getByIdCatSub']);
 Route::get('subcategories/catid', [Cat_subcategoriesController::class, 'getByIdCat']);
@@ -186,6 +188,7 @@ Route::post('stores/delete',[StoresController::class, 'delete']);
 //Seccion
 Route::post('secctions/create',[SecctionsController::class, 'create']);
 Route::get('secctions/get',[SecctionsController::class, 'get']);
+Route::get('secctions/getList',[SecctionsController::class, 'get_List_Secction']);//Stored para Lista de Secctions
 Route::get('secctions/getV1',[SecctionsController::class, 'getV1']);
 Route::get('secctions/id', [SecctionsController::class, 'getById']);
 Route::get('secctions/stoid', [SecctionsController::class, 'getByIdStore']);

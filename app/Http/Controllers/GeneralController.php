@@ -213,10 +213,10 @@ class GeneralController extends Controller
     public function searchSuppliers(Request $request){
         $param = $request->get('param');
 
-        $suppliers = Suppliers::where('razon_social', 'like', '%'.$param.'%')->orwhere('id', 'like', '%'.$param.'%')->get();
+        $suppliers = Suppliers::where('razon_social', 'like', '%'.$param.'%')->orwhere('id', 'like', '%'.$param.'%')->orwhere('observaciones', 'like', '%'.$param.'%')->get();
         return response()->json([
             'status' => 'success',
-            'message' => 'Clientes obtenidos correctamente',
+            'message' => 'Proveedores obtenidos correctamente',
             'data' => $suppliers
         ]);
     }
@@ -349,12 +349,12 @@ class GeneralController extends Controller
         $stores
         = DB::table('stores')
         ->join('users','stores.id_user','=','users.id')
-        ->join('estatus', 'stores.id_status','=', 'estatus.id')
-        ->join('secctions','stores.id','=','secctions.id_store')
-        ->select(DB::raw('count(*) as secctions_count, secctions.id_store'),'stores.id','stores.name','stores.url_maps','stores.description','stores.essential_section', 'users.nombre_completo', 'estatus.nombre')
+        ->join('status', 'stores.id_status','=', 'status.id')
+        ->join('store_sections','stores.id','=','store_sections.id_store')
+        ->select(DB::raw('count(*) as secctions_count, store_sections.id_store'),'stores.id','stores.name','stores.url_maps','stores.description','stores.essential_section', 'users.nombre_completo', 'status.nombre')
         ->where('stores.name', 'like', '%'.$param.'%')
         ->orwhere('users.nombre_completo', 'like', '%'.$param.'%')
-        ->groupBy('stores.id', 'secctions.id_store', 'stores.name','stores.url_maps','stores.description','stores.essential_section', 'users.nombre_completo', 'estatus.nombre')
+        ->groupBy('stores.id', 'store_sections.id_store', 'stores.name','stores.url_maps','stores.description','stores.essential_section', 'users.nombre_completo', 'status.nombre')
         ->get();
 
         //$stores = Stores::where('name', 'like', '%'.$param.'%')->orwhere('id_user', 'like', '%'.$param.'%')->get();

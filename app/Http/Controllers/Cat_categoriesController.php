@@ -33,6 +33,18 @@ class Cat_categoriesController extends Controller
         ]);
     }
 
+
+// Listas de Categorias
+    public function get_List_Categorie(){
+        $cat_categories = DB::SELECT('CALL get_list_categorie()');
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Lista de Categorias',
+            'data' => $cat_categories
+        ]);
+    }
+
+
     public function getByIdCat(Request $request){  
         $id = $request->get('id'); 
         $cat_categories = Cat_categories::where('id', '=',$id)->get();

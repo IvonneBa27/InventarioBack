@@ -69,6 +69,21 @@ class Cat_subcategoriesController extends Controller
             'data' => $cat_subcategories 
         ]);
     }
+
+    // Listas de SubCategorias
+    public function get_List_Subcategorie(Request $request){  
+        $id = $request->get('id_category'); 
+        $cat_subcategories  = DB::SELECT('CALL get_list_subcategorie(?)', [$id]);
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Lista de SubCategorias',
+            'data' => $cat_subcategories 
+        ]);
+    }
+
+
+
+
     
 
 
