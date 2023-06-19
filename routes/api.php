@@ -19,6 +19,7 @@ use App\Http\Controllers\ProducsController;
 use App\Http\Controllers\StoresController;
 use App\Http\Controllers\SecctionsController;
 use App\Http\Controllers\catBrandController;
+use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\warehouse_income_typeController;
 use App\Http\Controllers\warehouse_entryController;
 use App\Http\Controllers\warehouse_entry_detailController;
@@ -224,7 +225,9 @@ Route::post('incomeStoresDetailProduct/update',[product_detail_warehouse_entryCo
 
 
 
-
+// TODO : EMPLOYEES ROUTES
+Route::get('employees/list', [EmployeesController::class, 'index']);
+Route::get('employees/searchEmployees', [EmployeesController::class, 'searchEmployees']);
 
 
 // TODO: RUTAS ENTRENADOR
