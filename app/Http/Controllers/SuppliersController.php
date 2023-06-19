@@ -62,16 +62,10 @@ class SuppliersController extends Controller
 
      //Lista de Proveedores
      public function getListSuplier(){
-
-            $suppliers=
-            DB::table('suppliers')
-            ->select('suppliers.*', 'status.nombre')
-            ->join('status','suppliers.idestatus','=','status.id')
-            ->get();
-
-          return response()->json([
+        $suppliers = DB::SELECT('CALL get_list_suppliers()');
+        return response()->json([
             'status' => 'success',
-            'msg' => 'Proveedores obtenidos correctamente',
+            'msg' => 'Lista de Proveedores',
             'data' => $suppliers
         ]);
      }

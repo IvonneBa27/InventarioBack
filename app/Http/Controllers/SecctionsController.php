@@ -44,7 +44,7 @@ class SecctionsController extends Controller
         $secctions =
         DB::table('store_sections')
         ->select('store_sections.id', 'store_sections.name', 'store_sections.id_status', 'store_sections.nomenclature', 'store_sections.image', 'estatus.nombre')
-        ->join('status','secctions.id_status','=','estatus.id')
+        ->join('status','store_sections.id_status','=','status.id')
         ->where('store_sections.id_store','=',$id)
         ->get();
 
@@ -53,6 +53,18 @@ class SecctionsController extends Controller
             'msg' => 'Secciones obtenidoss correctamente',
             'data' => $secctions
         ]);
+
+    }
+
+    
+    public function get_List_Secction(Request $request){  
+        $id = $request->get('id_store'); 
+        $secctions  = DB::SELECT('CALL get_list_secction(?)', [$id]);
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Lista de Secciones',
+            'data' =>  $secctions
+        ]);   
     }
 
     public function getByIdStore(Request $request){  
