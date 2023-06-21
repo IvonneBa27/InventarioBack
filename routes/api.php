@@ -68,6 +68,7 @@ Route::get('/usuario/getModuleUserById', [UsuarioController::class, 'getModuleUs
 Route::post('/usuario/addPermisse', [UsuarioController::class, 'addPermisse']);
 Route::get('/usuario/getStatus', [UsuarioController::class, 'getStatus']);
 Route::get('/usuario/getPermissionModules', [UsuarioController::class, 'getPermissionModules']);
+
 //Catalogos
 Route::get('/TipoUsuario/get', [GeneralController::class, 'getTipoUsuario']);
 Route::get('/Ubicaciones/get', [GeneralController::class, 'getUbicaciones']);
@@ -85,7 +86,12 @@ Route::get('/Turno/get', [GeneralController::class, 'getTurno']);
 Route::get('/TipoModulo/get', [GeneralController::class, 'getTipoModulo']);
 Route::get('/searchUsers/get',[GeneralController::class, 'searchUsers']);
 Route::get('/User/get',[GeneralController::class, 'getUsuario']);
+Route::get('/getMaritalStatus',[GeneralController::class, 'getMaritalStatus']);
+Route::get('/getTypeBloods',[GeneralController::class, 'typeBloods']);
+Route::get('/getRelationship',[GeneralController::class, 'relationship']);
+
 //Catalogo Pais-Ciudad-Municipio
+
 Route::get('/paises/get',[GeneralController::class, 'getIdPais']);
 Route::get('/ciudadesT/get',[GeneralController::class, 'getIdCiudadT']);
 Route::get('/ciudades/get',[GeneralController::class, 'getIdCiudad']);

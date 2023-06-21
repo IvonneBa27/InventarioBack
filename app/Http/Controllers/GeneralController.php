@@ -26,6 +26,9 @@ use App\Models\Suppliers;
 use App\Models\Cat_brands;
 use App\Models\producs;
 use App\Models\stores;
+use App\Models\catalogCivilstatuses;
+use App\Models\typeBlood;
+use App\Models\relationship;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -380,7 +383,35 @@ class GeneralController extends Controller
     }
 
 
+    public function getMaritalStatus(){
+        $civilstatuses = catalogCivilstatuses::all();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Estados civil obtenidos correctamente',
+            'data' => $civilstatuses
+        ]);
+    }
 
+    // tipo de sangre
+    public function typeBloods() {
+        $typeBloods = typeBlood::all();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Tipos de sangre obtenidos correctamente',
+            'data' => $typeBloods
+        ]);
+    }
+
+    // parentesco
+    public function relationship() {
+        
+        $relationship = relationship::all();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Parentescos obtenidos correctamente',
+            'data' => $relationship
+        ]);
+    }
 
 
 
