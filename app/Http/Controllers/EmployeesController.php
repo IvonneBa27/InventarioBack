@@ -185,8 +185,18 @@ class EmployeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->get('id');
+        $employee = Employees::find($id);
+        $employee->id_estatus = 2;
+        $employee->save();
+
+
+        return response()->json([
+                'status' => 'success',
+                'message' => 'Empleados eliminado correctamente',
+                'data' => $employee
+            ]);
     }
 }

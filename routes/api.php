@@ -236,6 +236,8 @@ Route::get('employees/list', [EmployeesController::class, 'index']);
 Route::get('employees/searchEmployees', [EmployeesController::class, 'searchEmployees']);
 Route::post('employees/create', [EmployeesController::class, 'create']);
 Route::post('employees/update', [EmployeesController::class, 'update']);
+Route::get('employees/delete', [EmployeesController::class, 'destroy']);
+
 
 
 // TODO: RUTAS ENTRENADOR
