@@ -26,7 +26,6 @@ class UsuarioController extends Controller
             'email_personal'=>$request['email_personal'],
             'email'=>$request['email'],
             'password' => Hash::make($request['password']),
-            /*'password'=>$request['password'],*/
             'numero_empleado'=>$request['numero_empleado'],
             'nombre_completo'=>$request['nombre_completo'],
             'curp'=>$request['curp'],
@@ -34,26 +33,19 @@ class UsuarioController extends Controller
             'nss'=>$request['nss'],
             'id_sexo'=>$request['id_sexo'],
             'id_subcategoria'=>$request['id_subcategoria'],
-            /*'id_domicilo'=>$request['id_domicilo'],*/
             'ejecucion_administrativa:'=>$request['ejecucion_administrativa:'],
-            /*'id_compania'=>$request['id_compania'],*/
-            /*'ola'=>$request['ola'],*/
+
             'id_puesto'=>$request['id_puesto'],
             'sueldo'=>$request['sueldo'],
             'id_banco'=>$request['id_banco'],
             'numero_cuenta_bancaria'=>$request['numero_cuenta_bancaria'],
             'clabe_inter_bancaria'=>$request['clabe_inter_bancaria'],
             'fecha_ingreso'=>$request['fecha_ingreso'],
-            /*'fecha_contrato'=>$request['fecha_contrato'],*/
             'fecha_nacimiento'=>$request['fecha_nacimiento'],
             'id_departamento_empresa'=>$request['id_departamento_empresa'],
             'id_estatus'=>$request['id_estatus'],
             'id_turno'=>$request['id_turno'],
-            /*'fecha_baja'=>$request['fecha_baja'],
-            'motivo_baja'=>$request['motivo_baja'],
-            'mes_baja'=>$request['mes_baja'],
-            'fecha_inicio_capacitacion'=>$request['fecha_inicio_capacitacion'],
-            'fecha_fin_capacitacion'=>$request['fecha_fin_capacitacion'],*/
+
             'img_profile'=>$request['img_profile'],
 
         ]);

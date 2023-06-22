@@ -41,7 +41,7 @@ class UserPostRequest extends FormRequest
                 'apellido_pat'=> 'required',
                 'nombre' => 'required',
                 'numero_empleado'=> 'required|unique:users',
-                'id_tipo_usuario'=> 'required',
+                'id_tipo_usuario'=> '',
                 'usuario'  => 'required',
                 'email_personal' => 'required',
                 'email' => 'required',
@@ -54,7 +54,7 @@ class UserPostRequest extends FormRequest
                 'id_ubicacion' => 'required',
                 'id_empresa_rh' => 'required',
                 'id_subcategoria' => 'required',
-                'ejecuciion_administrativa' => 'required',
+                'ejecucion_administrativa' => 'required',
                 'id_departamento_empresa' => 'required',
                 'id_puesto' => 'required',
                 'id_turno' => 'required',
@@ -62,6 +62,12 @@ class UserPostRequest extends FormRequest
                 'numero_cuenta_bancaria' => 'required',
                 'clabe_inter_bancaria' => 'required',
                 'fecha_ingreso' => 'required',
+                'contacto_emergencia_nombre' => '',
+                'contacto_emergencia_parentesco' => '',
+                'contacto_emergencia_telefono' => '',
+                'contacto_emergencia_tip_sangre' => '',
+                'contacto_emergencia_padecimientos' => '',
+                'contacto_emergencia_movil' => ''
             
         ];
     }
@@ -85,7 +91,7 @@ class UserPostRequest extends FormRequest
             'id_sexo.required' => 'El tipo de sexo es requerido',
             'fecha_nacimiento.required' => 'La fecha de nacimiento es requerida',
             'id_estatus.required' => 'El tipo de estatus es requerida',
-            'id_ubicacion.required' => 'El tipo de ubicación es requerida'
+            'id_ubicacion.required' => 'El tipo de ubicación es requerida',
             'id_empresa_rh.required' => 'El tipo de empresa es requerida',
             'id_subcategoria.required' => 'El tipo de categoria es requerida',
             'ejecuciion_administrativa.required' => 'El tipo de ejecucion administrativa es requerida',

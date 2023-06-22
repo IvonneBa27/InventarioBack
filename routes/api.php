@@ -234,6 +234,8 @@ Route::post('incomeStoresDetailProduct/update',[product_detail_warehouse_entryCo
 // TODO : EMPLOYEES ROUTES
 Route::get('employees/list', [EmployeesController::class, 'index']);
 Route::get('employees/searchEmployees', [EmployeesController::class, 'searchEmployees']);
+Route::post('employees/create', [EmployeesController::class, 'create']);
+Route::post('employees/update', [EmployeesController::class, 'update']);
 
 
 // TODO: RUTAS ENTRENADOR

@@ -28,17 +28,13 @@ class Employees extends Model
         'nss',
         'id_sexo',
         'id_subcategoria',
-        /*'id_domicilo',*/
         'ejecucion_administrativa',
-        /*'id_compania',*/
-        /*'ola',*/
         'id_puesto',
         'sueldo',
         'id_banco',
         'numero_cuenta_bancaria',
         'clabe_inter_bancaria',
         'fecha_ingreso',
-        /*'fecha_contrato',*/
         'fecha_nacimiento',
         'id_estatus',
         'id_departamento_empresa',
@@ -46,9 +42,14 @@ class Employees extends Model
         'fecha_baja',
         'motivo_baja',
         'mes_baja',
-        /*'fecha_inicio_capacitacion',
-        'fecha_fin_capacitacion',*/
-        'img_profile'
+        'img_profile',
+        'contacto_emergencia_nombre',
+        'contacto_emergencia_parentesco',
+        'contacto_emergencia_telefono',
+        'contacto_emergencia_tip_sangre',
+        'contacto_emergencia_padecimientos',
+        'contacto_emergencia_movil',
+        'fecha_pago'
     ];
 
 
