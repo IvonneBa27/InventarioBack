@@ -33,7 +33,7 @@ class StoresController extends Controller
  
             return response()->json([
              'status' => 'success',
-             'msg' => 'Almacenes obtenidoss correctamente',
+             'msg' => 'Almacenes obtenidos correctamente',
              'data' => $stores
          ]);
  
@@ -70,6 +70,16 @@ class StoresController extends Controller
 
 
     }
+
+
+    public function getListStoreSecction(){
+        $stores = DB::SELECT('CALL get_list_store_secction()');
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Lista de Almacenes/Seccion',
+            'data' => $stores
+        ]);
+     }
 
 
 

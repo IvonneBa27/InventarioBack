@@ -43,6 +43,15 @@ class warehouse_entryController extends Controller
              'data' =>  $incomeStore
          ]);
      }
+
+     public function getListIncomeStore(){
+        $incomeStore = DB::SELECT('CALL get_list_income_store()');
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Lista de Ingresos de Almacen',
+            'data' => $incomeStore
+        ]);
+     }
  
 
     public function getById(Request $request){  
@@ -58,7 +67,7 @@ class warehouse_entryController extends Controller
     
     public function update(Request $request){
         $incomeStore = warehouse_entry::find($request['id']);
-        $incomeStore->observations=$request['observations'];
+        $incomeStore->observation=$request['observation'];
         $incomeStore->save();
         return response()->json([
             'status' => 'success',
