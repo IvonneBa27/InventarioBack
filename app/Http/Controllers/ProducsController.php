@@ -72,6 +72,7 @@ class ProducsController extends Controller
             'data' => $producs
         ]);
     }
+    
 
 
     public function getCategory(Request $request){
@@ -86,18 +87,18 @@ class ProducsController extends Controller
         ]);
     }
 
-    //Select por IdCategoria y IdSubCategoria para el modulo de Detalle de Almacen
+    //Select por IdCategoria y IdSubCategoria para el modulo de Ingreso Detalle de Almacen
 
-    public function getCatSubCategory(Request $request){
+    public function getCatalog_productCategorie(Request $request){
         $id_category = $request->get('id_category');
-        $id_subcategory = $request->get('id_category');
-
+        $id_subcategory = $request->get('id_subcategory');
         $producs 
-        =DB::table('producs')
+        =DB::table('products')
         ->select('*')
         ->where('id_categoty','=',$id_category)
         ->where('id_subcategory','=',  $id_subcategory)
         ->get(); 
+
          
         return response()->json([
             'status' => 'success',
@@ -110,16 +111,20 @@ class ProducsController extends Controller
     //Select por IdCategoria y IdSubCategoria para el modulo de Detalle de Almacen
     //Relacion con las tabla de relacion
 
-    public function getCatSubCategoryDet(Request $request){
+    public function getListProduct_Categorie(Request $request){
         $id = $request->get('id');
+        $id_category = $request->get('id_category');
+        $id_subcategory = $request->get('id_subcategory');
 
 
         $producs 
         = DB::table('products')
-        ->select('products.id', 'products.name', 'products.sku','products.id_brand', 'catalog_brands.name as namebrand', 'products.model')
+        ->select('products.id', 'products.name', 'products.id_categoty', 'products.id_subcategory', 'products.sku', 'products.serial_number', 'products.id_brand', 'catalog_brands.name as namebrand', 'products.model')
         ->join('catalog_brands','products.id_brand','=','catalog_brands.id')
-        ->where('products.id','=',$id)
-        ->get(); 
+        ->where('products.id','=', $id)
+        ->where('products.id_categoty','=',$id_category)
+        ->where('products.id_subcategory','=',$id_subcategory)
+        ->get();
          
         return response()->json([
             'status' => 'success',

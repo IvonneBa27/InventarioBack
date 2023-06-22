@@ -52,17 +52,15 @@ class Cat_subcategoriesController extends Controller
     
     
 
-    //Select por IdCategoria para el modulo de Detalle de Almacen
-    public function getByIdCatSub(Request $request){  
+    //Select por IdCategoria para el modulo de Ingreso Detalle de Almacen
+    public function getCatalog_Subcategorie(Request $request){  
         $id_category = $request->get('id_category'); 
-       
         $cat_subcategories 
-        =DB::table('cat_subcategories')
+        =DB::table('catalog_subcategories')
            ->select('*')
            ->where('id_category','=',$id_category)
            ->get();
-    
-        
+
         return response()->json([
             'status' => 'success',
             'msg' => ' Categoria obtenido correctamente',
