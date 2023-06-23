@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BlackListController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\CatPermisoController;
 use App\Http\Controllers\ProductoController;
@@ -110,6 +111,8 @@ Route::get('/searchProducts/get',[GeneralController::class, 'searchProducts']);
 //Buscador Almacen
 Route::get('/searchStores/get',[GeneralController::class, 'searchStores']);
 
+Route::get( '/getCauses', [GeneralController::class, 'getCauses']);
+Route::get('/gerReasons', [GeneralController::class, 'gerReasons']);
 
 //Modulo
 Route::post('/modulo/create', [catModuloController::class, 'create']);
@@ -238,6 +241,12 @@ Route::post('employees/create', [EmployeesController::class, 'create']);
 Route::post('employees/update', [EmployeesController::class, 'update']);
 Route::get('employees/delete', [EmployeesController::class, 'destroy']);
 
+
+//  TODO: BLACKLIST ROUTES
+Route::get('blacklist/list', [BlackListController::class, 'index']);
+Route::post('blacklist/create', [BlackListController::class, 'create']);
+Route::post('blacklist/update', [BlackListController::class, 'update']);
+Route::get('blacklist/delete', [BlackListController::class, 'destroy']);
 
 
 // TODO: RUTAS ENTRENADOR
