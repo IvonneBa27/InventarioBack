@@ -24,6 +24,8 @@ use App\Http\Controllers\warehouse_income_typeController;
 use App\Http\Controllers\warehouse_entryController;
 use App\Http\Controllers\warehouse_entry_detailController;
 use App\Http\Controllers\product_detail_warehouse_entryController;
+use App\Http\Controllers\transferStoreController;
+use App\Http\Controllers\transferStoreDetailController;
 /*
 
 |--------------------------------------------------------------------------
@@ -241,6 +243,13 @@ Route::post('employees/create', [EmployeesController::class, 'create']);
 Route::post('employees/update', [EmployeesController::class, 'update']);
 Route::get('employees/delete', [EmployeesController::class, 'destroy']);
 
+
+//TransferDetailStore
+Route::post('transferStore/create',[transferStoreController::class, 'create']);
+Route::post('transferStore/update', [transferStoreController::class, 'update']);
+
+//TransferStore
+Route::post('transferDetailStore/create',[transferStoreDetailController::class, 'create']);
 
 
 // TODO: RUTAS ENTRENADOR

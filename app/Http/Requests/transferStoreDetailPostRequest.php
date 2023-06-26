@@ -26,7 +26,33 @@ class transferStoreDetailPostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
-        ];
-    }
+
+          //  'product_name'=> 'required',
+        
+    ];
+}
+
+public function messages()
+{
+
+    return [
+
+       // 'product_name.required' =>'La observacion es requerido',
+     
+
+       
+    ];
+
+}
+
+public function failedValidation(Validator $validator)
+
+{
+
+    throw new HttpResponseException(response()->json([
+        'status'    => 'error',
+        'msg'       => $validator->errors()->first()
+    ]));
+
+}
 }

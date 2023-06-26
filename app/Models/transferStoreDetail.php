@@ -17,7 +17,7 @@ class transferStoreDetail extends Model
         'model_name',
         'sku',
         'serial_number',
-        'idDet',
+        'id_det',
 
-    ]
+    ];
 }

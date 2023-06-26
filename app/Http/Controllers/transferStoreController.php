@@ -21,10 +21,7 @@ class transferStoreController extends Controller
             'subcategory_id'=>$request['subcategory_id'],
             'brand_id'=>$request['brand_id'],
             'user_id'=>$request['user_id'],
-            'observation'=>$request['observation'],
-            'id_status'=>$request['id_status'],
-            'amount'=>$request['amount'],
-            'total_received'=>$request['total_received'],         
+             
         ]);
          return response()->json([
              'status' => 'success',
@@ -57,6 +54,9 @@ class transferStoreController extends Controller
 
     public function update(Request $request){
         $transferStore = transferStore::find($request['id']);
+        $transferStore->amount=$request['amount'];
+        $transferStore->total_received=$request['total_received'];
+        $transferStore->id_status=$request['id_status'];
         $transferStore->observation=$request['observation'];
         $transferStore->save();
         return response()->json([

@@ -36,7 +36,6 @@ class SuppliersPostRequest extends FormRequest
                 'no_ext' => 'required',
                 'colonia' => 'required',
                 'cp' => 'required',
-                'sitio_web' => 'required',
                 'clabe_intenbancaria' => 'max:18',
 
 
@@ -60,7 +59,6 @@ class SuppliersPostRequest extends FormRequest
             'no_ext.required' => 'El No. Ext es requerido',
             'colonia.required' => 'La colonia es requerido',
             'cp.required' => 'El codigo postal es requerido',
-            'sitio_web.required' => 'El sitio web es requerido',
             'no_ext.required' => 'El No. Ext es requerido',
             'clabe_interbancaria.max' => 'La CLABE interbancaria debe ser 18 digitos',
         

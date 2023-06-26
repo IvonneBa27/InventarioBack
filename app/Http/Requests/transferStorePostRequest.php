@@ -27,7 +27,7 @@ class transferStorePostRequest extends FormRequest
     {
         return [
 
-            'observation'=> 'required',
+           // 'observation'=> 'required',
         
     ];
 }
@@ -37,7 +37,7 @@ public function messages()
 
     return [
 
-        'observation.required' =>'La observacion es requerido',
+       // 'observation.required' =>'La observacion es requerido',
      
 
        

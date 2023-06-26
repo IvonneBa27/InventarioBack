@@ -10,43 +10,47 @@ use Illuminate\Support\Facades\DB;
 
 class transferStoreDetailController extends Controller
 {
-    public function create(transferStoreDetailPostRequest $request){
-        $transferStoreDetail = transferStore::create([
+
+
+     public function create(transferStoreDetailPostRequest $request){
+     
+        try{
+            foreach($request->all() as $transfer){
+                $transferStoreDetail = transferStoreDetail::create(
+                    $transfer
+                );
+            }
+
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Almacen agregado',
+                'data' =>  $transferStoreDetail
+            ]);
+        }
+        catch (\Exception $e) {
+            $error_code = $e->getMessage();
+            return response()->json([
+                'msg' => ' Error al crear el registro',
+                'data' => $error_code
+            ]);
+           
+        }
+
+        /*$transferStoreDetail = transferStoreDetail::create([
             'id_transfer_store'=>$request['id_transfer_store'],
             'product_id'=>$request['product_id'],
             'product_name'=>$request['product_name'],
             'brand_name'=>$request['brand_name'],
-            'model_name'=>$request['model_name'],
             'sku'=>$request['sku'],
             'serial_number'=>$request['serial_number'],
             'id_det'=>$request['id_det'],
-                    
         ]);
          return response()->json([
              'status' => 'success',
-             'msg' => 'Traspaso agregado',
-             'data' => $transferStoreDetail
-         ]);
+             'msg' => 'Almacen agregado',
+             'data' =>  $transferStoreDetail
+         ]);*/
      }
 
-     public function get(){
-        $transferStoreDetail = transferStoreDetail::all();
-        return response()->json([
-            'status' => 'success',
-            'msg' => 'Traspaso obtenido correctamente',
-            'data' => $transferStoreDetail
-        ]);
 
-     }
-
-     public function getById(Request $request){  
-        $id = $request->get('id'); 
-        $transferStoreDetail = transferStoreDetail::find($id);
-        
-        return response()->json([
-            'status' => 'success',
-            'msg' => 'Traspaso obtenido por Id correctamente',
-            'data' => $transferStoreDetail
-        ]);
-    }
 }
