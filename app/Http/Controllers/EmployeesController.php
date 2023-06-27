@@ -32,13 +32,22 @@ class EmployeesController extends Controller
     {
         $param = $request->get('param');
         $company = $request->get('company');
-        $users = Employees::where('nombre_completo', 'like', '%' . $param . '%')->with('gender', 'company', 'administrative_execution')
-            ->orWhere('numero_empleado', 'like', '%' . $param . '%')
-            ->orWhere('curp', 'like', '%' . $param . '%');
 
-        if ($company > 0) {
-            $users->where('id_compania', '=', $company);
+        if(isset($param)){
+            $users = Employees::where('id_estatus', '=', 1)->where('nombre_completo', 'like', '%' . $param . '%')->with('gender', 'company', 'administrative_execution')
+                ->orWhere('numero_empleado', 'like', '%' . $param . '%')
+                ->orWhere('curp', 'like', '%' . $param . '%');
+            if ($company > 0) {
+                $users->orWhere('id_compania', '=', $company);
+            }
+
+        }else{
+            $users = Employees::where('id_estatus', '=', 1)->with('gender', 'company', 'administrative_execution');
+            if ($company > 0) {
+                $users->where('id_compania', '=', $company);
+            }
         }
+        
 
         $users = $users->orderBy('numero_empleado', 'asc')->get();
 

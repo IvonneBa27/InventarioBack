@@ -31,7 +31,8 @@ use App\Models\typeBlood;
 use App\Models\relationship;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
+use App\Models\CatalogCauseBlackList;
+use App\Models\CatalogReasonBlackList;
 
 
 
@@ -413,5 +414,28 @@ class GeneralController extends Controller
         ]);
     }
 
+    // parentesco
+    public function getCauses()
+    {
+
+        $causes = CatalogCauseBlackList::all();
+        return response()->json([
+                'status' => 'success',
+                'msg' => 'Causas obtenidas correctamente',
+                'data' => $causes
+            ]);
+    }
+
+    // parentesco
+    public function gerReasons()
+    {
+
+        $reseasons = CatalogReasonBlackList::all();
+        return response()->json([
+                'status' => 'success',
+                'msg' => 'Razones obtenidas correctamente',
+                'data' => $reseasons
+            ]);
+    }
 
 }
