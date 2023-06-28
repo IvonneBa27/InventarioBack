@@ -68,54 +68,64 @@ class EmployeesController extends Controller
     {
 
 
-        $usuario = Employees::create([
-            'id_tipo_usuario' => 3,
-            'usuario' => $request['usuario'],
-            'nombre' => $request['nombre'],
-            'apellido_pat' => $request['apellido_pat'],
-            'apellido_mat' => (isset($request['apellido_mat'])) ? $request['apellido_mat'] : '',
-            'id_ubicacion' => $request['id_ubicacion'],
-            'id_empresa_rh' => $request['id_empresa_rh'],
-            'email_personal' => $request['email_personal'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'numero_empleado' => $request['numero_empleado'],
-            'nombre_completo' =>  $request['nombre'] . ' ' . $request['apellido_pat'] . ' ' . $request['apellido_mat'],
-            'curp' => $request['curp'],
-            'rfc' => $request['rfc'],
-            'nss' => $request['nss'],
-            'id_sexo' => $request['id_sexo'],
-            'id_subcategoria' => $request['id_subcategoria'],
-            'ejecucion_administrativa' => $request['ejecucion_administrativa'],
+        $usuario =  new Employees();
+            $usuario->id_tipo_usuario  = 3;
+            $usuario->usuario  = $request['usuario'];
+            $usuario->nombre  = $request['nombre'];
+            $usuario->apellido_pat  = $request['apellido_pat'];
+            $usuario->apellido_mat  = (isset($request['apellido_mat'])) ? $request['apellido_mat'] : '';
+            $usuario->id_ubicacion  = $request['id_ubicacion'];
+            $usuario->id_empresa_rh  = $request['id_empresa_rh'];
+            $usuario->email_personal  = $request['email_personal'];
+            $usuario->email  = $request['email'];
+            $usuario->password  = Hash::make($request['password']);
+            $usuario->numero_empleado  = $request['numero_empleado'];
+            $usuario->nombre_completo  =  $request['nombre'] . ' ' . $request['apellido_pat'] . ' ' . $request['apellido_mat'];
+            $usuario->curp  = $request['curp'];
+            $usuario->rfc  = $request['rfc'];
+            $usuario->nss  = $request['nss'];
+            $usuario->id_sexo  = $request['id_sexo'];
+            $usuario->id_subcategoria  = $request['id_subcategoria'];
+            $usuario->ejecucion_administrativa  = $request['ejecucion_administrativa'];
 
-            'id_puesto' => $request['id_puesto'],
-            'sueldo' => $request['sueldo'],
-            'id_banco' => $request['id_banco'],
-            'numero_cuenta_bancaria' => $request['numero_cuenta_bancaria'],
-            'clabe_inter_bancaria' => $request['clabe_inter_bancaria'],
-            'fecha_ingreso' => $request['fecha_ingreso'],
-            'fecha_nacimiento' => $request['fecha_nacimiento'],
-            'id_departamento_empresa' => $request['id_departamento_empresa'],
-            'id_estatus' => $request['id_estatus'],
-            'id_turno' => $request['id_turno'],
+            $usuario->id_puesto  = $request['id_puesto'];
+            $usuario->sueldo  = $request['sueldo'];
+            $usuario->id_banco  = $request['id_banco'];
+            $usuario->numero_cuenta_bancaria  = $request['numero_cuenta_bancaria'];
+            $usuario->clabe_inter_bancaria  = $request['clabe_inter_bancaria'];
+            $usuario->fecha_ingreso  = $request['fecha_ingreso'];
+            $usuario->fecha_nacimiento  = $request['fecha_nacimiento'];
+            $usuario->id_departamento_empresa  = $request['id_departamento_empresa'];
+            $usuario->id_estatus  = $request['id_estatus'];
+            $usuario->id_turno  = $request['id_turno'];
 
-            'img_profile' => '-',
-
-
-            'contacto_emergencia_nombre' => $request['contacto_emergencia_nombre'],
-            'contacto_emergencia_parentesco' => $request['contacto_emergencia_parentesco'],
-            'contacto_emergencia_telefono' => $request['contacto_emergencia_telefono'],
-            'contacto_emergencia_tip_sangre' => $request['contacto_emergencia_tip_sangre'],
-            'contacto_emergencia_padecimientos' => $request['contacto_emergencia_padecimientos'],
-            'contacto_emergencia_movil' => $request['contacto_emergencia_movil'],
-            'fecha_pago' => $request['fecha_pago'],
+            $usuario->img_profile  = '-';
 
 
-        ]);
+            $usuario->contacto_emergencia_nombre  = $request['contacto_emergencia_nombre'];
+            $usuario->contacto_emergencia_parentesco  = $request['contacto_emergencia_parentesco'];
+            $usuario->contacto_emergencia_telefono  = $request['contacto_emergencia_telefono'];
+            $usuario->contacto_emergencia_tip_sangre  = $request['contacto_emergencia_tip_sangre'];
+            $usuario->contacto_emergencia_padecimientos  = $request['contacto_emergencia_padecimientos'];
+            $usuario->contacto_emergencia_movil  = $request['contacto_emergencia_movil'];
+            $usuario->fecha_pago  = $request['fecha_pago'];
+
+
+
+
+            $usuario->id_estado_civil  = $request['id_estado_civil'];
+            $usuario->nacionalidad  = $request['nacionalidad'];
+            $usuario->id_pais  = $request['id_pais'];
+            $usuario->id_estado  = $request['id_estado']; 
+            $usuario->id_municipio  = $request['id_municipio'];
+            $usuario->calle  = $request['calle'];
+            $usuario->tel_personal  = $request['tel_personal'];
+            $usuario->save();
+
         return response()->json([
             'status' => 'success',
             'msg' => 'Empleado agregado correctamente.',
-            'data' => $usuario
+            'data' => $usuario,
         ]);
     }
 

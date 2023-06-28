@@ -259,6 +259,7 @@ Route::get('blacklist/list', [BlackListController::class, 'index']);
 Route::post('blacklist/create', [BlackListController::class, 'create']);
 Route::post('blacklist/update', [BlackListController::class, 'update']);
 Route::get('blacklist/delete', [BlackListController::class, 'destroy']);
+Route::get('blacklist/search', [BlackListController::class, 'search']);
 
 // TODO: RUTAS ENTRENADOR
 // Route::get('/obtenerEntrenadores', [CoachController::class, 'index'])->middleware('auth:sanctum');

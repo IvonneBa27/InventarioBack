@@ -35,12 +35,7 @@ class CreateEmployeeRequest extends FormRequest
             'nacionalidad' => 'required', //
             'id_pais' => 'required', //
             'id_estado' => 'required', //
-            'id_municipio' => 'required', //
             'calle' => 'required', //
-            'no_ext' => 'required', //
-            'cp' => 'required', //
-            'tel_personal' => 'required', //
-            'email_personal' => 'required',
             'usuario' => 'required',
             'id_estatus' => 'required',
             'numero_empleado' => 'required|unique:users',
@@ -66,11 +61,7 @@ class CreateEmployeeRequest extends FormRequest
             'nacionalidad.required' => 'La nacionalidad  es requerida',
             'id_pais.required' => 'El pais  es requerido',
             'id_estado.required' => 'El estado  es requerido',
-            'id_municipio.required' => 'El municipio / alcaldia  es requerido',
             'calle.required' => 'La calle es requerida',
-            'no_ext.required' => 'El numero exterior es requerido',
-            'cp.required' => 'El  codigo postal es requerido',
-            'tel_personal.required' => 'El  telefono personal es requerido',
             'id_estado_civil.required' => 'El  estado civil es requerido',
 
 

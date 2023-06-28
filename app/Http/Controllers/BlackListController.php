@@ -9,7 +9,7 @@ use App\Models\EmployeesBlackList;
 class BlackListController extends Controller
 {
     public function index(){
-        $blackList = EmployeesBlackList::all();
+        $blackList = EmployeesBlackList::where('id_status', '=', 1)->get();
 
         return response()->json([
             'status' => 'success',
@@ -67,4 +67,29 @@ class BlackListController extends Controller
             'data' => $employee
         ]);
     }
+
+
+    public function search(Request $request)
+    {
+        $param = $request->get('param');
+
+        if (isset($param)) {
+            $users = EmployeesBlackList::where('name', 'like', '%' . $param . '%')
+            ->where('id_status', '=', 1)
+            ->orWhere('apellido_pat', 'like', '%' . $param . '%')
+            ->orWhere('apellido_mat', 'like', '%' . $param . '%')->get();
+        } else {
+            $users = EmployeesBlackList::where('id_status', '=', 1)->get();
+        }
+
+
+  
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Empleados obtenidos correctamente',
+            'data' => $users
+        ]);
+    }
+
 }
