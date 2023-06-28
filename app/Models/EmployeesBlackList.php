@@ -20,4 +20,15 @@ class EmployeesBlackList extends Model
   "id_status",
   "id_user"
     ];
+
+
+    public function reasons()
+    {
+        return $this->hasOne('App\Models\CatalogReasonBlackList', 'id', 'id_reasons');
+    }
+
+    public function cause()
+    {
+        return $this->hasOne('App\Models\CatalogCauseBlackList', 'id', 'id_cause');
+    }
 }
