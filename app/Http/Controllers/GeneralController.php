@@ -33,6 +33,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\CatalogCauseBlackList;
 use App\Models\CatalogReasonBlackList;
+use App\Models\typeStoreExits;
 
 
 
@@ -437,5 +438,16 @@ class GeneralController extends Controller
                 'data' => $reseasons
             ]);
     }
+
+     // Tipos de Salidas de Almacen
+     public function getTypeExitStore()
+     {
+         $typeExit = typeStoreExits::all();
+         return response()->json([
+                 'status' => 'success',
+                 'msg' => 'Razones obtenidas correctamente',
+                 'data' =>  $typeExit
+             ]);
+     }
 
 }
