@@ -27,6 +27,9 @@ use App\Http\Controllers\warehouse_entry_detailController;
 use App\Http\Controllers\product_detail_warehouse_entryController;
 use App\Http\Controllers\transferStoreController;
 use App\Http\Controllers\transferStoreDetailController;
+use App\Http\Controllers\StoreExitController;
+use App\Http\Controllers\StoreExitDetailsController;
+
 /*
 
 |--------------------------------------------------------------------------
@@ -115,6 +118,8 @@ Route::get('/searchStores/get',[GeneralController::class, 'searchStores']);
 
 Route::get( '/getCauses', [GeneralController::class, 'getCauses']);
 Route::get('/gerReasons', [GeneralController::class, 'gerReasons']);
+//Tipo de Salidas de Almacen
+Route::get('typeExit/get', [GeneralController::class, 'getTypeExitStore']);
 
 //Modulo
 Route::post('/modulo/create', [catModuloController::class, 'create']);
@@ -265,3 +270,12 @@ Route::get('blacklist/search', [BlackListController::class, 'search']);
 // Route::get('/obtenerEntrenadores', [CoachController::class, 'index'])->middleware('auth:sanctum');
 // Route::post('/crearEntrenador', [CoachController::class, 'store']);
 // Route::post('/actualizarEntrenador', [CoachController::class, 'update']);
+
+
+//Salida de Almacen  - StoresExit
+Route::post('storeExit/create',[StoreExitController::class, 'create']);
+Route::get('storeExit/getid', [StoreExitController::class, 'getById']);
+Route::post('storeExit/update', [StoreExitController::class, 'update']);
+
+//Detalle de Salida de Almacén - StoreExitDetail
+Route::post('storeExitDetail/create',[StoreExitDetailsController::class, 'create']);
