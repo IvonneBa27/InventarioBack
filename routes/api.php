@@ -29,6 +29,7 @@ use App\Http\Controllers\transferStoreController;
 use App\Http\Controllers\transferStoreDetailController;
 use App\Http\Controllers\StoreExitController;
 use App\Http\Controllers\StoreExitDetailsController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 
@@ -279,3 +280,7 @@ Route::post('storeExit/update', [StoreExitController::class, 'update']);
 
 //Detalle de Salida de Almacén - StoreExitDetail
 Route::post('storeExitDetail/create',[StoreExitDetailsController::class, 'create']);
+
+
+// TODO: UPDATE PASSWORD
+Route::post('user/retiervePassword', [UsuarioController::class, 'retiervePassword']);

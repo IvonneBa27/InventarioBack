@@ -284,4 +284,31 @@ class UsuarioController extends Controller
     }
 
 
+    public function retiervePassword(Request $request)
+    {
+        $id = $request['id']; // Metodo por GET
+        try {
+            $usuario = Usuario::find($id);
+            $usuario->password = Hash::make($request['password']);
+
+            $usuario->save();
+
+
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Contraseña actualizada correctamente.',
+                'data' => $usuario
+            ]);
+        } catch (\Exception $e) {
+            $error_code = $e->getMessage();
+            return response()->json([
+                'status' => 'error',
+                'msg' => ' Error al actualizar la contraseña intente de nuevo',
+                'data' => $error_code
+            ]);
+        }
+
+    }
+
+
 }
