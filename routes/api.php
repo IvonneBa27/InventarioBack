@@ -284,3 +284,8 @@ Route::post('storeExitDetail/create',[StoreExitDetailsController::class, 'create
 
 // TODO: UPDATE PASSWORD
 Route::post('user/retiervePassword', [UsuarioController::class, 'retiervePassword']);
+
+
+// TODO: UPDATE IMG PROFILE
+Route::post('user/updateImgProfile', [UsuarioController::class, 'updateImgProfile']);
+
