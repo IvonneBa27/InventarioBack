@@ -283,3 +283,4 @@ Route::post('storeExitDetail/create',[StoreExitDetailsController::class, 'create
 
 //Reporteria Inventario 
 Route::get('reports/get', [ReportsInventoryController::class, 'getReportsInventoryAll']);
+Route::get('reports/getInventariable', [ReportsInventoryController::class, 'getReportsInventory']);

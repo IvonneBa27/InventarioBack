@@ -28,4 +28,16 @@ class ReportsInventoryController extends Controller
  
  
      }
+
+
+     public function getReportsInventory(Request $request){
+        $inventory = $request->get('inventory');
+
+        $reports  = DB::SELECT('CALL get_list_inventory(?)', [$inventory]);
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Reporte de Inventarios por Inventario',
+            'data' =>  $reports
+        ]); 
+    }
 }
