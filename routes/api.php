@@ -149,6 +149,7 @@ Route::get('/logs/get', [LogController::class, 'get']);
 //Clientes
 Route::post('/customers/create', [CustomersController::class, 'create']);
 Route::get('/customers/get', [CustomersController::class, 'get']);
+Route::get('/customers/getListCustomers', [CustomersController::class, 'getListCustomers']);
 Route::get('/customers/id', [CustomersController::class, 'getById']);
 Route::post('/customers/update', [CustomersController::class, 'update']);
 Route::post('/customers/delete', [CustomersController::class, 'delete']);
@@ -273,6 +274,7 @@ Route::get('blacklist/search', [BlackListController::class, 'search']);
 // Route::post('/actualizarEntrenador', [CoachController::class, 'update']);
 
 
+
 //Salida de Almacen  - StoresExit
 Route::post('storeExit/create',[StoreExitController::class, 'create']);
 Route::get('storeExit/getid', [StoreExitController::class, 'getById']);
@@ -281,6 +283,9 @@ Route::post('storeExit/update', [StoreExitController::class, 'update']);
 //Detalle de Salida de Almacén - StoreExitDetail
 Route::post('storeExitDetail/create',[StoreExitDetailsController::class, 'create']);
 
-//Reporteria Inventario 
+//Reporteria Inventario / Nivel Almacen
 Route::get('reports/get', [ReportsInventoryController::class, 'getReportsInventoryAll']);
 Route::get('reports/getInventariable', [ReportsInventoryController::class, 'getReportsInventory']);
+//Reporteria Inventario / Nivel Categoria Detalle 
+Route::get('reportsdetail/get', [ReportsInventoryController::class, 'getInventoryDetailAll']);
+Route::get('reportsdetail/getDetail', [ReportsInventoryController::class, 'getInventoryDetail']);
