@@ -280,10 +280,18 @@ Route::post('storeExitDetail/create',[StoreExitDetailsController::class, 'create
 // TODO: UPDATE PASSWORD
 Route::post('user/retiervePassword', [UsuarioController::class, 'retiervePassword']);
 
+
 //Reporteria Inventario / Nivel Almacen
 Route::get('reports/get', [ReportsInventoryController::class, 'getReportsInventoryAll']);
 Route::get('reports/getInventariable', [ReportsInventoryController::class, 'getReportsInventory']);
 //Reporteria Inventario / Nivel Categoria Detalle 
 Route::get('reportsdetail/get', [ReportsInventoryController::class, 'getInventoryDetailAll']);
 Route::get('reportsdetail/getDetail', [ReportsInventoryController::class, 'getInventoryDetail']);
+
+
+
+// TODO: UPDATE IMG PROFILE
+Route::post('user/updateImgProfile', [UsuarioController::class, 'updateImgProfile']);
+
+Route::post('send-mail', [AuthController::class, 'sendEmail']);
 

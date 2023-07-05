@@ -311,4 +311,30 @@ class UsuarioController extends Controller
     }
 
 
+    public function updateImgProfile(Request $request)
+    {
+        $id = $request['id']; // Metodo por GET
+        try {
+            $usuario = Usuario::find($id);
+            $usuario->img_profile = $request['img_profile'];
+
+            $usuario->save();
+
+
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Imagen actualizada correctamente.',
+                'data' => $usuario
+            ]);
+        } catch (\Exception $e) {
+            $error_code = $e->getMessage();
+            return response()->json([
+                'status' => 'error',
+                'msg' => ' Error al actualizar la Imagen intente de nuevo',
+                'data' => $error_code
+            ]);
+        }
+    }
+
+
 }
