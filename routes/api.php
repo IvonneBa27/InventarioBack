@@ -29,19 +29,12 @@ use App\Http\Controllers\transferStoreController;
 use App\Http\Controllers\transferStoreDetailController;
 use App\Http\Controllers\StoreExitController;
 use App\Http\Controllers\StoreExitDetailsController;
+
 use Illuminate\Support\Facades\Auth;
 
-/*
+use App\Http\Controllers\ReportsInventoryController;
 
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -149,6 +142,7 @@ Route::get('/logs/get', [LogController::class, 'get']);
 //Clientes
 Route::post('/customers/create', [CustomersController::class, 'create']);
 Route::get('/customers/get', [CustomersController::class, 'get']);
+Route::get('/customers/getListCustomers', [CustomersController::class, 'getListCustomers']);
 Route::get('/customers/id', [CustomersController::class, 'getById']);
 Route::post('/customers/update', [CustomersController::class, 'update']);
 Route::post('/customers/delete', [CustomersController::class, 'delete']);
@@ -273,6 +267,7 @@ Route::get('blacklist/search', [BlackListController::class, 'search']);
 // Route::post('/actualizarEntrenador', [CoachController::class, 'update']);
 
 
+
 //Salida de Almacen  - StoresExit
 Route::post('storeExit/create',[StoreExitController::class, 'create']);
 Route::get('storeExit/getid', [StoreExitController::class, 'getById']);
@@ -284,3 +279,11 @@ Route::post('storeExitDetail/create',[StoreExitDetailsController::class, 'create
 
 // TODO: UPDATE PASSWORD
 Route::post('user/retiervePassword', [UsuarioController::class, 'retiervePassword']);
+
+//Reporteria Inventario / Nivel Almacen
+Route::get('reports/get', [ReportsInventoryController::class, 'getReportsInventoryAll']);
+Route::get('reports/getInventariable', [ReportsInventoryController::class, 'getReportsInventory']);
+//Reporteria Inventario / Nivel Categoria Detalle 
+Route::get('reportsdetail/get', [ReportsInventoryController::class, 'getInventoryDetailAll']);
+Route::get('reportsdetail/getDetail', [ReportsInventoryController::class, 'getInventoryDetail']);
+

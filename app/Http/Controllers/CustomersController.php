@@ -16,7 +16,7 @@ class CustomersController extends Controller
 
      
         $customers = Customers::create([
-            'no_cliente'=>$request['no_cliente'],
+           // 'no_cliente'=>$request['no_cliente'],
             'razon_social'=>$request['razon_social'],
             'rfc'=>$request['rfc'],
             'idPais'=>$request['idPais'],
@@ -75,6 +75,18 @@ class CustomersController extends Controller
  
      }
 
+     //Lista de Clientes
+     public function getListCustomers()
+     {
+         $customers = DB::SELECT('CALL get_list_customers()');
+         return response()->json([
+             'status' => 'success',
+             'msg' => 'Clientes obtenidos correctamente',
+             'data' => $customers
+         ]);
+ 
+     }
+
      public function getById(Request $request){  
         $id = $request->get('id'); // Metodo por GET
         $customers = Customers::where('id','=', $id)->get();
@@ -91,7 +103,7 @@ class CustomersController extends Controller
 
      public function update(Request $request){
         $customers = Customers::find($request['id']);  //Get parametro por metodo post    
-        //$customers->no_cliente=$request['no_cliente'];
+        $customers->no_cliente=$request['no_cliente'];
         $customers->razon_social=$request['razon_social'];
         $customers->rfc=$request['rfc'];
         $customers->idPais=$request['idPais'];
