@@ -60,7 +60,7 @@ class Employees extends Model
 
     public function company()
     {
-        return $this->hasOne('App\Models\Empresa', 'id', 'id_compania');
+        return $this->hasOne('App\Models\Empresa', 'id', 'id_empresa_rh');
     }
 
     public function administrative_execution()
