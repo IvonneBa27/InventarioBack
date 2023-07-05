@@ -95,6 +95,9 @@ class AuthController extends Controller
             $randstring = Str::random(10);
 
 
+            $nombre  = $user[0]->nombre_completo;
+            $usuario = $user[0]->usuario;
+
             $newPass = Hash::make($randstring);
             $user = User::where('email', '=', $email)
                 ->update(['password' => $newPass]);
@@ -103,19 +106,98 @@ class AuthController extends Controller
             $emailData = [
                 'to' => $email,
                 'subject' => 'Recuperacion de contraseña',
-                'message' => "<!DOCTYPE html>
-                                <html>
-                                <head>
-                                    <meta charset='UTF-8'>
-                                    <title></title>
-                                </head>
-                                <body>
-                                    <img src='ruta_de_la_imagen' alt='Descripción de la imagen'>
-                                    <h1>Título del correo electrónico</h1>
-                                    <p>" . $randstring . "</p>
-                                </body>
-                                </html>
-                                "];
+                'message' => '<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body bgcolor="#FFFFFF">
+    <table width="650" border="0" align="center" cellpadding="0" cellspacing="0"
+        style="border-collapse: separate; border-spacing: 10px;">
+        <tr>
+            <td width="25">&nbsp;</td>
+            <td>
+                <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0"
+                    style="vertical-align: top; font-family: arial; font-size: 12px; color: #7a7a7a; ">
+                    <tr>
+                        <td>
+                            <div style="left: 0;padding: 12px;width: 190px;"><img
+                                    src="https://intranet.doitright.solutions/admin/img/logotipo_doitright.png"
+                                    width="160"></div>
+                        </td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <h1 style="color:#999; font:normal normal 24px/1.2 Arial, Helvetica, sans-serif">Sistema BAVER v1.0</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+            <td width="25">&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>
+                <table width="600" align="center" border="0" cellspacing="0" cellpadding="0"
+                    style="font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#7a7a7a; line-height:1.4;">
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr style="height:150px; vertical-align:top;">
+                        <td>&nbsp;</td>
+                        <td>
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0"
+                                style="text-align:left; color:#666;">
+                                <tr>
+                                    <th scope="row" style="font-size: 18px;">Nombre: ' . $nombre . '</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-size: 18px;">Tus datos para ingresar son:</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-size: 18px;">Usuario:  ' . $usuario . '</th>
+                                </tr>
+                                <tr style="margin-top: 15px;">
+                                    <th scope="row" style=" font-size: 18px;">Contraseña:  '.$randstring .'</th>
+                                </tr>
+                                <tr style="margin-top: 15px;">
+                                    <th scope="row" style=" font-size: 18px;">Ligase de acceso: <a href="https://10.150.80.252:3200/">https://10.150.80.252:3200/</a>
+                                        </th>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td><strong>
+                                <p>Do It Right S.A. de C.V. Av. Gustavo Baz Prada 98-Piso 7, Industrial, Alce Blanco
+                                    C.P.53370 Naucalpan de Juárez,
+                                    Estado de México, México. <a
+                                        href="mailto:comunicacion@dirsamexico.com">comunicacion@dirsamexico.com</a> 01
+                                    (+52) 5571581257</p>
+                            </strong>
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">&nbsp;</td>
+            <td style="font-family:Arial, Helvetica, sans-serif; font-size:11px;color:#7a7a7a; line-height:1.4;">
+                <p>La información transmitida está destinada solo a la persona que se dirige este material o contenido
+                    el cual es confidencial. Cualquier modificación, difusión u otro uso en base a esta información por
+                    personas o entidades distintas al destinatario está prohibido. Si recibió este correo por error,
+                    favor de contactar al remitente y eliminar el material re su equipo de cómputo.</p>
+            </td>
+            <td align="center">&nbsp;</td>
+        </tr>
+    </table>
+</body>
+</html>
+                                '];
 
             Mail::send([], $emailData, function ($message) use ($emailData) {
                 $message->to($emailData['to'])
