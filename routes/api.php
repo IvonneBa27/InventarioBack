@@ -289,3 +289,4 @@ Route::post('user/retiervePassword', [UsuarioController::class, 'retiervePasswor
 // TODO: UPDATE IMG PROFILE
 Route::post('user/updateImgProfile', [UsuarioController::class, 'updateImgProfile']);
 
+Route::post('send-mail', [AuthController::class, 'sendEmail']);

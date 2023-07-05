@@ -6,9 +6,13 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+
 class AuthController extends Controller
 {
-    public function register(Request $request){
+    public function register(Request $request)
+    {
 
         //se valida la información que viene en $request
         $validatedData = $request->validate([
@@ -36,9 +40,10 @@ class AuthController extends Controller
         ]);
     }
 
-     public function login(Request $request){
+    public function login(Request $request)
+    {
         //valida las credenciales del usuario
-        if (!Auth::attempt($request->only('usuario', 'password'))){
+        if (!Auth::attempt($request->only('usuario', 'password'))) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Invalid access credentials'
@@ -59,17 +64,104 @@ class AuthController extends Controller
             'data' => $user
         ]);
     }
-    
-    public function dataUser(Request $request){
+
+    public function dataUser(Request $request)
+    {
         //devuelve la información del usuario
         return $request->user();
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth()->user()->tokens()->delete();
         return response()->json([
             'status' => 'success',
             'msg' => 'Sesión cerrada correctamente'
         ]);
+    }
+
+
+    public function sendEmail(Request $request)
+    {
+
+        $email = $request->email;
+
+
+
+        $user = User::where('email', '=', $email)->get();
+
+
+        if (count($user) > 0) {
+            $randstring = Str::random(10);
+
+
+            $newPass = Hash::make($randstring);
+            $user = User::where('email', '=', $email)
+                ->update(['password' => $newPass]);
+
+
+            $emailData = [
+                'to' => $email,
+                'subject' => 'Recuperacion de contraseña',
+                'message' => "<!DOCTYPE html>
+                                <html>
+                                <head>
+                                    <meta charset='UTF-8'>
+                                    <title></title>
+                                </head>
+                                <body>
+                                    <img src='ruta_de_la_imagen' alt='Descripción de la imagen'>
+                                    <h1>Título del correo electrónico</h1>
+                                    <p>" . $randstring . "</p>
+                                </body>
+                                </html>
+                                "];
+
+            Mail::send([], $emailData, function ($message) use ($emailData) {
+                $message->to($emailData['to'])
+                    ->subject($emailData['subject'])
+                    ->setBody($emailData['message'], 'text/html');
+            });
+
+
+
+            return response()->json(['status' => 'success', 'message' => 'Se envió su nueva contraseña a su correo.', 'data' => $randstring]);
+        }
+        return response()->json([
+            'status'    => 'error',
+            'msg'       => 'El correo ingresado no existe.',
+
+        ]);
+
+
+        //     $mailData = [
+        //         'title' =>  'Dirsa México - Solicitud de nueva contrasña',
+        //         'body' =>   'El cambio de contraseña se realizo correctamente.',
+        //         'pass' =>   $randstring
+        //     ];
+
+        //     Mail::to($email)->send(new DemoMail($mailData));
+        //     $newPass = Hash::make($randstring);
+
+        //     $user = User::where('email', '=', $email)
+        //         ->update(['password' => $newPass]);
+
+        //     return response()->json([
+        //         'status'    => 'success',
+        //         'msg'       => 'Se ha enviado a su correo la nueva contraseña.',
+
+        //     ]);
+        // }
+
+        // return response()->json([
+        //     'status'    => 'error',
+        //     'msg'       => 'El correo ingresado no existe.',
+
+        // ]);
+
+
+        // ->update(['title' => "Updated Title"]);
+
+
     }
 }
