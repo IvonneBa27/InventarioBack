@@ -32,9 +32,10 @@ class EmployeesController extends Controller
     {
         $param = $request->get('param');
         $company = $request->get('company');
+        $status = $request->get('status');
 
         if(isset($param)){
-            $users = Employees::where('id_estatus', '=', 1)->where('nombre_completo', 'like', '%' . $param . '%')->with('gender', 'company', 'administrative_execution')
+            $users = Employees::where('nombre_completo', 'like', '%' . $param . '%')->with('gender', 'company', 'administrative_execution')
                 ->orWhere('numero_empleado', 'like', '%' . $param . '%')
                 ->orWhere('curp', 'like', '%' . $param . '%');
             if ($company > 0) {
@@ -42,10 +43,15 @@ class EmployeesController extends Controller
             }
 
         }else{
-            $users = Employees::where('id_estatus', '=', 1)->with('gender', 'company', 'administrative_execution');
+            $users = Employees::with('gender', 'company', 'administrative_execution');
             if ($company > 0) {
-                $users->where('id_compania', '=', $company);
+                $users->where('id_empresa_rh', '=', $company);
             }
+        }
+
+        if($status > 0){
+            
+            $users->where('id_estatus', '=', $status);
         }
         
 
