@@ -59,4 +59,16 @@ class ReportsInventoryController extends Controller
             'data' => $reports
         ]);
     }
+
+
+    public function getListProductDetail(Request $request){
+        $idcategory = $request->get('idcategory');
+
+        $reports  = DB::SELECT('CALL get_list_productDetail(?)', [$idcategory]);
+           return response()->json([
+            'status' => 'success',
+            'msg' => 'Reporte de Inventario',
+            'data' => $reports
+        ]);
+    }
 }

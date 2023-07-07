@@ -287,7 +287,8 @@ Route::get('reports/getInventariable', [ReportsInventoryController::class, 'getR
 //Reporteria Inventario / Nivel Categoria Detalle 
 Route::get('reportsdetail/get', [ReportsInventoryController::class, 'getInventoryDetailAll']);
 Route::get('reportsdetail/getDetail', [ReportsInventoryController::class, 'getInventoryDetail']);
-
+//Reporteria Inventario / Producto
+Route::get('reportsproducts/get', [ReportsInventoryController::class, 'getListProductDetail']);
 
 
 // TODO: UPDATE IMG PROFILE
