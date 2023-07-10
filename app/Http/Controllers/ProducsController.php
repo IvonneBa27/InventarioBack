@@ -48,11 +48,11 @@ class ProducsController extends Controller
         
         $producs
         = DB::table('products')
-        ->select('products.id', 'products.name', 'cat_categories.name as namecat', 'cat_subcategories.name as namesubcat', 'cat_brands.name as namebrand', 'estatus.nombre as namestatus')
-        ->join('cat_categories','products.id_categoty','=','cat_categories.id')
-        ->join('cat_subcategories','products.id_subcategory','=','cat_subcategories.id')
-        ->join('cat_brands','products.id_brand','=','cat_brands.id')
-        ->join('estatus','products.id_status','=','estatus.id')
+        ->select('products.id', 'products.name', 'catalog_categories.name as namecat', 'catalog_subcategories.name as namesubcat', 'catalog_brands.name as namebrand', 'status.nombre as namestatus')
+        ->join('catalog_categories','products.id_categoty','=','catalog_categories.id')
+        ->join('catalog_subcategories','products.id_subcategory','=','catalog_subcategories.id')
+        ->join('catalog_brands','products.id_brand','=','catalog_brands.id')
+        ->join('status','products.id_status','=','status.id')
         ->orderBy('products.id','asc')
         ->get();
         return response()->json([

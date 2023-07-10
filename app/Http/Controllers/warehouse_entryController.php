@@ -68,6 +68,8 @@ class warehouse_entryController extends Controller
     public function update(Request $request){
         $incomeStore = warehouse_entry::find($request['id']);
         $incomeStore->observation=$request['observation'];
+        $incomeStore->id_status=$request['id_status'];
+        $incomeStore->user_id=$request['user_id'];
         $incomeStore->save();
         return response()->json([
             'status' => 'success',
