@@ -238,6 +238,7 @@ Route::get('incomeStores/ListIncome', [warehouse_entryController::class, 'getLis
 Route::post('incomeStoresDetail/create',[warehouse_entry_detailController::class, 'create']);
 Route::get('incomeStoresDetail/get',[warehouse_entry_detailController::class, 'get']);
 Route::get('incomeStoresDetail/id', [warehouse_entry_detailController::class, 'getById']);
+Route::post('incomeStoresDetail/updateAmount',[warehouse_entry_detailController::class, 'updateAmount']);
 
 //Product Detail Warehouse
 Route::post('incomeStoresDetailProduct/create',[product_detail_warehouse_entryController::class, 'create']);
@@ -259,7 +260,7 @@ Route::get('employees/delete', [EmployeesController::class, 'destroy']);
 //TransferDetailStore
 Route::post('transferStore/create',[transferStoreController::class, 'create']);
 Route::post('transferStore/update', [transferStoreController::class, 'update']);
-
+Route::post('transferStore/cancelled', [transferStoreController::class, 'updateCancelled']);
 //TransferStore
 Route::post('transferDetailStore/create',[transferStoreDetailController::class, 'create']);
 

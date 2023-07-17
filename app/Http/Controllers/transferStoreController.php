@@ -67,6 +67,21 @@ class transferStoreController extends Controller
 
     }
 
+    public function updateCancelled(Request $request){
+        $id = $request->get('id');
+        $transferStore = transferStore::find($id);
+        $transferStore->id_status=6;
+        $transferStore->user_id=$request['user_id'];
+        $transferStore->save();
+        
+         return response()->json([
+             'status' => 'success',
+             'msg'  => 'Registro cancelado',
+             'data' => $transferStore
+         ]);
+
+    }
+
 
 
 

@@ -46,5 +46,22 @@ class warehouse_entry_detailController extends Controller
             'msg' => 'Registro detallado obtenido por Id',
             'data' =>  $incomeStoreDetail
         ]);
-    }  
+    } 
+
+    public function updateAmount(Request $request){
+        $incomeStoreDetail =  warehouse_entry_detail::find($request['id']);
+        $incomeStoreDetail->total_received=$request['total_received'];
+        $incomeStoreDetail->save();
+        return response()->json([
+            'status' => 'success',
+            'msg'    => 'Monto actualizado',
+            'data'   =>   $incomeStoreDetail
+        ]);
+
+    }
+
+
+    
+    
+
 }

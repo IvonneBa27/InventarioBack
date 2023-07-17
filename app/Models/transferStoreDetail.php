@@ -11,13 +11,6 @@ class transferStoreDetail extends Model
     protected $table ="transfer_store_detail";
     protected $fillable = [
         'id_transfer_store',
-        'product_id',
-        'product_name',
-        'brand_name',
-        'model_name',
-        'sku',
-        'serial_number',
-        'id_det',
-
+        'product_income_id',
     ];
 }
