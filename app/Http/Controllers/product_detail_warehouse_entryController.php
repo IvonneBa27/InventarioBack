@@ -35,11 +35,8 @@ class product_detail_warehouse_entryController extends Controller
         ]);
     }
 
-
-
     public function getById(Request $request){  
-        $warehouse_entry_detail_id = $request->get('warehouse_entry_detail_id'); 
-       // $productDetail= product_detail_warehouse_entry::find($warehouse_entry_detail_id);   
+        $warehouse_entry_detail_id = $request->get('warehouse_entry_detail_id');  
        $productDetail= 
        DB::table('product_income_store_detail')
             ->select('*')
@@ -54,7 +51,7 @@ class product_detail_warehouse_entryController extends Controller
     } 
 
 
-    public function getListIncomeProduct(Request $request)
+    /*public function getListIncomeProduct(Request $request)
     {
         $warehouse_id = $request->get('warehouse_id'); 
         $section_id = $request->get('section_id'); 
@@ -64,6 +61,23 @@ class product_detail_warehouse_entryController extends Controller
             ->join('income_store','income_store.id','=','product_income_store_detail.warehouse_entry_detail_id')
             ->where('income_store.warehouse_id','=',$warehouse_id)
             ->where('income_store.section_id','=', $section_id)
+            ->get();
+
+        return response()->json([
+                'status' => 'success',
+                'msg'  => 'Registro detallado por Almacen y Seccion',
+                'data' => $productDetail
+            ]);
+    }*/
+
+    
+    public function getListIncomeProduct(Request $request)
+    {
+        $idIncome = $request->get('id'); 
+        $productDetail= 
+        DB::table('product_income_store_detail')
+             ->select('product_income_store_detail.id as idDet', 'product_income_store_detail.*')
+            ->where('product_income_store_detail.warehouse_entry_detail_id','=', $idIncome)
             ->get();
 
         return response()->json([

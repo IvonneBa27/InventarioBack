@@ -34,6 +34,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\CatalogCauseBlackList;
 use App\Models\CatalogReasonBlackList;
 use App\Models\typeStoreExits;
+use App\Models\inventory_status;
 
 
 
@@ -448,6 +449,18 @@ class GeneralController extends Controller
                  'msg' => 'Razones obtenidas correctamente',
                  'data' =>  $typeExit
              ]);
+     }
+
+     public function getInventoryStatus()
+     {
+        // $estatus = Estatus::where('id','!=',2)->where('id','!=',3)->get();
+         $inventoryStatus = inventory_status::all();
+         return response()->json([
+             'status' => 'success',
+             'msg' => 'Estatus de Inventario, Obtenidos correctamente',
+             'data' => $inventoryStatus
+         ]);
+ 
      }
 
 }

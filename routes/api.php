@@ -33,7 +33,7 @@ use App\Http\Controllers\StoreExitDetailsController;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\ReportsInventoryController;
-
+use App\Http\Controllers\DetailLogController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -114,6 +114,8 @@ Route::get( '/getCauses', [GeneralController::class, 'getCauses']);
 Route::get('/gerReasons', [GeneralController::class, 'gerReasons']);
 //Tipo de Salidas de Almacen
 Route::get('typeExit/get', [GeneralController::class, 'getTypeExitStore']);
+//Estatus de Inventario
+Route::get('/InventoryStatus/get', [GeneralController::class, 'getInventoryStatus']);
 
 //Modulo
 Route::post('/modulo/create', [catModuloController::class, 'create']);
@@ -138,6 +140,11 @@ Route::post('/logs/create', [LogController::class, 'create']);
 Route::get('/logs/get', [LogController::class, 'get']);
 
 
+//DetailLog
+
+Route::post('detailLog/create', [DetailLogController::class, 'create']);
+Route::get('detailLog/get', [DetailLogController::class, 'get']);
+Route::post('detailLog/update', [DetailLogController::class, 'update']);
 
 //Clientes
 Route::post('/customers/create', [CustomersController::class, 'create']);
@@ -224,6 +231,8 @@ Route::get('incomeStores/get',[warehouse_entryController::class, 'get']);
 Route::get('incomeStores/getListIncomeStore',[warehouse_entryController::class, 'getListIncomeStore']); // Stored para Lista de Ingresos al Almacen
 Route::get('incomeStores/id', [warehouse_entryController::class, 'getById']);
 Route::post('incomeStores/update', [warehouse_entryController::class, 'update']);
+Route::post('incomeStores/cancelled', [warehouse_entryController::class, 'updateCancelled']);
+Route::get('incomeStores/ListIncome', [warehouse_entryController::class, 'getListIncome']);
 
 //warehouse Entry Detail
 Route::post('incomeStoresDetail/create',[warehouse_entry_detailController::class, 'create']);

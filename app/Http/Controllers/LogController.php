@@ -31,7 +31,6 @@ class LogController extends Controller
 
     public function get(){
         $log = Logs::all();
-        
         return response()->json([
             'status' => 'success',
             'msg' => 'Registros obtenidos correctamente',

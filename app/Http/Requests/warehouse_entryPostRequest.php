@@ -27,7 +27,9 @@ class warehouse_entryPostRequest extends FormRequest
     {
         return [
 
-            'warehouse_id'=> 'required|integer',
+            'warehouse_id'=> 'required',
+            'section_id'=> 'required',
+            'warehouse_entry_type_id' => 'required'
         
     ];
 }
@@ -37,7 +39,9 @@ public function messages()
 
     return [
 
-        'warehouse_id.required' =>'El id del almacen es requerido',
+        'warehouse_id.required' =>'El Almacén es requerido',
+        'section_id.required' => 'La sección es requerida',
+        'warehouse_entre_type_id' => 'El tipo de ingreso es requerido',
      
 
        

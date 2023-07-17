@@ -20,6 +20,7 @@ class warehouse_entryController extends Controller
             'invoice'=>$request['invoice'],
             'invoice_date'=>$request['invoice_date'],
             'provider_id'=>$request['provider_id'],
+            'user_id'=>$request['user_id'],
         ]);
          return response()->json([
              'status' => 'success',
@@ -44,6 +45,7 @@ class warehouse_entryController extends Controller
          ]);
      }
 
+     //Lista de Almacen por ingreso de Almacen 
      public function getListIncomeStore(){
         $incomeStore = DB::SELECT('CALL get_list_income_store()');
         return response()->json([
@@ -52,6 +54,18 @@ class warehouse_entryController extends Controller
             'data' => $incomeStore
         ]);
      }
+
+    // Listas de SubCategorias
+    public function getListIncome(Request $request){  
+        $warehouse_id = $request->get('warehouse_id'); 
+        $incomeStore  = DB::SELECT('CALL get_list_income(?)', [$warehouse_id]);
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Lista de Ingresos de Almacen',
+            'data' => $incomeStore
+        ]);
+    }
+
  
 
     public function getById(Request $request){  
@@ -76,6 +90,21 @@ class warehouse_entryController extends Controller
             'msg'    => 'Registro detallado actualizado',
             'data'   =>  $incomeStore
         ]);
+
+    }
+
+    public function updateCancelled(Request $request){
+        $id = $request->get('id');
+        $incomeStore = warehouse_entry::find($id);
+        $incomeStore->id_status=6;
+        $incomeStore->user_id=$request['user_id'];
+        $incomeStore->save();
+        
+         return response()->json([
+             'status' => 'success',
+             'msg'  => 'Registro cancelado',
+             'data' =>  $incomeStore
+         ]);
 
     }
     
