@@ -22,6 +22,8 @@ class transferStore extends Model
         'id_status',
         'amount',
         'total_received',
+        'income_id',
+        'product_id',
     ];
 
 }

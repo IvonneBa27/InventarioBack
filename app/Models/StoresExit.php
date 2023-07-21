@@ -23,6 +23,8 @@ class StoresExit extends Model
         'amount',
         'total_received',
         'id_status',
+        'product_id',
+        'movement_id',
 
     ];
 }

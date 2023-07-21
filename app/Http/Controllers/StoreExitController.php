@@ -23,6 +23,8 @@ class StoreExitController extends Controller
             'category_id'=>$request['category_id'],
             'subcategory_id'=>$request['subcategory_id'],
             'brand_id'=>$request['brand_id'],
+            'product_id'=>$request['product_id'],
+            'movement_id'=>$request['movement_id'],
         ]);
 
         return response()->json([
@@ -59,6 +61,23 @@ class StoreExitController extends Controller
             'msg'    => 'Registro de salida de Almacen actualizdo',
             'data'   =>  $exitStore
         ]);
+    }
+
+    //Actualizacin de estatus por cacelacion de registro.
+    public function updateCancelled(Request $request){
+        $id = $request->get('id');
+        $exitStore = StoresExit::find($id);
+        $exitStore->id_status=6;
+        $exitStore->user_id=$request['user_id'];
+        $exitStore->save();
+        
+         return response()->json([
+             'status' => 'success',
+             'msg'  => 'Registro cancelado',
+             'data' => $exitStore
+         ]);
 
     }
+
+
 }

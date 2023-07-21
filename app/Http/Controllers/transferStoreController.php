@@ -21,6 +21,8 @@ class transferStoreController extends Controller
             'subcategory_id'=>$request['subcategory_id'],
             'brand_id'=>$request['brand_id'],
             'user_id'=>$request['user_id'],
+            'income_id'=>$request['income_id'],
+            'product_id'=>$request['product_id'],
              
         ]);
          return response()->json([
@@ -38,7 +40,6 @@ class transferStoreController extends Controller
             'msg' => 'Traspaso obtenido correctamente',
             'data' => $transferStore
         ]);
-
      }
 
      public function getById(Request $request){  
@@ -79,6 +80,41 @@ class transferStoreController extends Controller
              'msg'  => 'Registro cancelado',
              'data' => $transferStore
          ]);
+
+    }
+
+
+      //Lista de Almacen por ingreso de Almacen 
+      public function getListTransferStore(){
+        $transferStore = DB::SELECT('CALL get_list_transfer_store()');
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Lista de Traspasos de Almacen',
+            'data' => $transferStore
+        ]);
+     }
+
+
+    // Listas de
+    public function getListTransfer(Request $request){  
+        $store_destiny_id = $request->get('store_destiny_id'); 
+        $transferStore  = DB::SELECT('CALL get_list_transfer(?)', [$store_destiny_id]);
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Lista de Ingresos de Almacen',
+            'data' => $transferStore
+        ]);
+    }
+
+    public function updateAmount(Request $request){
+        $transferStore =  transferStore::find($request['id']);
+        $transferStore->total_received=$request['total_received'];
+        $transferStore->save();
+        return response()->json([
+            'status' => 'success',
+            'msg'    => 'Monto actualizado',
+            'data'   =>   $transferStore
+        ]);
 
     }
 

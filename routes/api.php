@@ -34,6 +34,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\ReportsInventoryController;
 use App\Http\Controllers\DetailLogController;
+use App\Http\Controllers\movementHistoryController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -261,8 +262,14 @@ Route::get('employees/delete', [EmployeesController::class, 'destroy']);
 Route::post('transferStore/create',[transferStoreController::class, 'create']);
 Route::post('transferStore/update', [transferStoreController::class, 'update']);
 Route::post('transferStore/cancelled', [transferStoreController::class, 'updateCancelled']);
+Route::get('transferStore/getListTransferStore',[transferStoreController::class, 'getListTransferStore']); // Stored para Lista de Traspasos al Almacen
+Route::get('transferStore/getListTransfer',[transferStoreController::class, 'getListTransfer']); // Stored para Lista de Traspasos al Almacen
+Route::post('transferStore/updateAmount',[transferStoreController::class, 'updateAmount']);
+
 //TransferStore
 Route::post('transferDetailStore/create',[transferStoreDetailController::class, 'create']);
+Route::get('transferDetailStore/getListTransferProduct', [transferStoreDetailController::class, 'getListTransferProduct']);
+
 
 //  TODO: BLACKLIST ROUTES
 Route::get('blacklist/list', [BlackListController::class, 'index']);
@@ -282,10 +289,17 @@ Route::get('blacklist/search', [BlackListController::class, 'search']);
 Route::post('storeExit/create',[StoreExitController::class, 'create']);
 Route::get('storeExit/getid', [StoreExitController::class, 'getById']);
 Route::post('storeExit/update', [StoreExitController::class, 'update']);
+Route::post('storeExit/cancelled', [StoreExitController::class, 'updateCancelled']);
 
 //Detalle de Salida de Almacén - StoreExitDetail
 Route::post('storeExitDetail/create',[StoreExitDetailsController::class, 'create']);
 
+//Detalle de Salida de Almacén - StoreExitDetail
+Route::post('historyKardex/createIncome',[movementHistoryController::class, 'create_Kardex_Income']);
+Route::post('historyKardex/createTransfer',[movementHistoryController::class, 'create_Kardex_Transfer']);
+Route::post('historyKardex/createExit',[movementHistoryController::class, 'create_Kardex_Exit']);
+Route::get('historyKardex/get',[movementHistoryController::class, 'get']);
+Route::get('historyKardex/searchKarex',[movementHistoryController::class, 'searchKardex']);
 
 // TODO: UPDATE PASSWORD
 Route::post('user/retiervePassword', [UsuarioController::class, 'retiervePassword']);
