@@ -12,98 +12,95 @@ use Illuminate\Support\Facades\DB;
 class UsuarioController extends Controller
 {
     //
-     public function create(UserPostRequest $request){
+    public function create(UserPostRequest $request)
+    {
 
-     
+
         $usuario = Usuario::create([
-            'id_tipo_usuario'=>$request['id_tipo_usuario'],
-            'usuario'=>$request['usuario'],
-            'nombre'=>$request['nombre'],
-            'apellido_pat'=>$request['apellido_pat'],
-            'apellido_mat'=>$request['apellido_mat'],
-            'id_ubicacion'=>$request['id_ubicacion'],
-            'id_empresa_rh'=>$request['id_empresa_rh'],
-            'email_personal'=>$request['email_personal'],
-            'email'=>$request['email'],
+            'id_tipo_usuario' => $request['id_tipo_usuario'],
+            'usuario' => $request['usuario'],
+            'nombre' => $request['nombre'],
+            'apellido_pat' => $request['apellido_pat'],
+            'apellido_mat' => $request['apellido_mat'],
+            'id_ubicacion' => $request['id_ubicacion'],
+            'id_empresa_rh' => $request['id_empresa_rh'],
+            'email_personal' => $request['email_personal'],
+            'email' => $request['email'],
             'password' => Hash::make($request['password']),
-            'numero_empleado'=>$request['numero_empleado'],
-            'nombre_completo'=>$request['nombre_completo'],
-            'curp'=>$request['curp'],
-            'rfc'=>$request['rfc'],
-            'nss'=>$request['nss'],
-            'id_sexo'=>$request['id_sexo'],
-            'id_subcategoria'=>$request['id_subcategoria'],
-            'ejecucion_administrativa:'=>$request['ejecucion_administrativa:'],
+            'numero_empleado' => $request['numero_empleado'],
+            'nombre_completo' => $request['nombre_completo'],
+            'curp' => $request['curp'],
+            'rfc' => $request['rfc'],
+            'nss' => $request['nss'],
+            'id_sexo' => $request['id_sexo'],
+            'id_subcategoria' => $request['id_subcategoria'],
+            'ejecucion_administrativa:' => $request['ejecucion_administrativa:'],
 
-            'id_puesto'=>$request['id_puesto'],
-            'sueldo'=>$request['sueldo'],
-            'id_banco'=>$request['id_banco'],
-            'numero_cuenta_bancaria'=>$request['numero_cuenta_bancaria'],
-            'clabe_inter_bancaria'=>$request['clabe_inter_bancaria'],
-            'fecha_ingreso'=>$request['fecha_ingreso'],
-            'fecha_nacimiento'=>$request['fecha_nacimiento'],
-            'id_departamento_empresa'=>$request['id_departamento_empresa'],
-            'id_estatus'=>$request['id_estatus'],
-            'id_turno'=>$request['id_turno'],
+            'id_puesto' => $request['id_puesto'],
+            'sueldo' => $request['sueldo'],
+            'id_banco' => $request['id_banco'],
+            'numero_cuenta_bancaria' => $request['numero_cuenta_bancaria'],
+            'clabe_inter_bancaria' => $request['clabe_inter_bancaria'],
+            'fecha_ingreso' => $request['fecha_ingreso'],
+            'fecha_nacimiento' => $request['fecha_nacimiento'],
+            'id_departamento_empresa' => $request['id_departamento_empresa'],
+            'id_estatus' => $request['id_estatus'],
+            'id_turno' => $request['id_turno'],
 
-            'img_profile'=>$request['img_profile'],
+            'img_profile' => $request['img_profile'],
 
         ]);
-         return response()->json([
-             'status' => 'success',
-             'msg' => 'Usuario agregado',
-             'data' => $usuario
-         ]);
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Usuario agregado',
+            'data' => $usuario
+        ]);
+    }
 
 
-     }
+    public function getOrderBy()
+    {
+        $usuario = Usuario::where('id_estatus', '=', 1)->orderBy('nombre_completo', 'asc')->get();
 
-
-    public function getOrderBy(){
-        $usuario = Usuario::where('id_estatus','=',1)->orderBy('nombre_completo','asc')->get();
-        
         return response()->json([
             'status' => 'success',
             'msg' => 'Usuarios obtenidos correctamente',
             'data' => $usuario
         ]);
-
-
     }
 
-    public function get(){
-   
-     $usuario = Usuario::where('id_estatus','=',1)->get();
-        
+    public function get()
+    {
+
+        $usuario = Usuario::where('id_estatus', '=', 1)->get();
+
         return response()->json([
             'status' => 'success',
             'msg' => 'Usuarios obtenidos correctamente',
             'data' => $usuario
-        
+
         ]);
-
-
     }
 
-    public function getStatus(Request $request){
+    public function getStatus(Request $request)
+    {
         $param = $request->get('param');
-        $usuario = Usuario::where('id_estatus','=',$param)->get();
-        
+        $usuario = Usuario::where('id_estatus', '=', $param)->get();
+
         return response()->json([
             'status' => 'success',
             'msg' => 'Usuarios obtenidos correctamente',
             'data' => $usuario
-        
+
         ]);
-
-
     }
 
 
-    public function getById(Request $request){  
+    public function getById(Request $request)
+    {
         $id = $request->get('id'); // Metodo por GET
         $usuario = Usuario::with('puesto')->find($id);
-        
+
         return response()->json([
             'status' => 'success',
             'msg' => 'Usuario por id obtenido correctamente',
@@ -111,36 +108,37 @@ class UsuarioController extends Controller
         ]);
     }
 
-      public function update(Request $request){
+    public function update(Request $request)
+    {
         $usuario = Usuario::find($request['id']);  //Get parametro por metodo post    
-        $usuario->id_tipo_usuario=$request['id_tipo_usuario'];
-        $usuario->usuario=$request['usuario'];
-        $usuario->nombre=$request['nombre'];
-        $usuario->apellido_pat=$request['apellido_pat'];
-        $usuario->apellido_mat=$request['apellido_mat'];
-        $usuario->id_ubicacion=$request['id_ubicacion'];
-        $usuario->id_empresa_rh=$request['id_empresa_rh'];
-        $usuario->email_personal=$request['email_personal'];
-        $usuario->email=$request['email'];
+        $usuario->id_tipo_usuario = $request['id_tipo_usuario'];
+        $usuario->usuario = $request['usuario'];
+        $usuario->nombre = $request['nombre'];
+        $usuario->apellido_pat = $request['apellido_pat'];
+        $usuario->apellido_mat = $request['apellido_mat'];
+        $usuario->id_ubicacion = $request['id_ubicacion'];
+        $usuario->id_empresa_rh = $request['id_empresa_rh'];
+        $usuario->email_personal = $request['email_personal'];
+        $usuario->email = $request['email'];
         /*$usuario->nombre_completo=$request['nombre_completo'];*/
-        $usuario->curp=$request['curp'];
-        $usuario->rfc=$request['rfc'];
-        $usuario->nss=$request['nss'];
-        $usuario->id_sexo=$request['id_sexo'];
-        $usuario->id_subcategoria=$request['id_subcategoria'];
-        $usuario->ejecucion_administrativa=$request['ejecucion_administrativa'];
-       /* $usuario->ola=$request['ola'];*/
-        $usuario->id_puesto=$request['id_puesto'];
-        $usuario->sueldo=$request['sueldo'];
-        $usuario->id_banco=$request['id_banco'];
-        $usuario->numero_cuenta_bancaria=$request['numero_cuenta_bancaria'];
-        $usuario->clabe_inter_bancaria=$request['clabe_inter_bancaria'];
-        $usuario->fecha_ingreso=$request['fecha_ingreso'];
-       /* $usuario->fecha_contrato=$request['fecha_contrato'];*/
-        $usuario->fecha_nacimiento=$request['fecha_nacimiento'];
-        $usuario->id_estatus=$request['id_estatus'];
-        $usuario->id_departamento_empresa=$request['id_departamento_empresa'];
-        $usuario->id_turno=$request['id_turno'];
+        $usuario->curp = $request['curp'];
+        $usuario->rfc = $request['rfc'];
+        $usuario->nss = $request['nss'];
+        $usuario->id_sexo = $request['id_sexo'];
+        $usuario->id_subcategoria = $request['id_subcategoria'];
+        $usuario->ejecucion_administrativa = $request['ejecucion_administrativa'];
+        /* $usuario->ola=$request['ola'];*/
+        $usuario->id_puesto = $request['id_puesto'];
+        $usuario->sueldo = $request['sueldo'];
+        $usuario->id_banco = $request['id_banco'];
+        $usuario->numero_cuenta_bancaria = $request['numero_cuenta_bancaria'];
+        $usuario->clabe_inter_bancaria = $request['clabe_inter_bancaria'];
+        $usuario->fecha_ingreso = $request['fecha_ingreso'];
+        /* $usuario->fecha_contrato=$request['fecha_contrato'];*/
+        $usuario->fecha_nacimiento = $request['fecha_nacimiento'];
+        $usuario->id_estatus = $request['id_estatus'];
+        $usuario->id_departamento_empresa = $request['id_departamento_empresa'];
+        $usuario->id_turno = $request['id_turno'];
         /*$usuario->fecha_baja=$request['fecha_baja'];
         $usuario->motivo_baja=$request['motivo_baja'];
         $usuario->mes_baja=$request['mes_baja'];
@@ -152,57 +150,38 @@ class UsuarioController extends Controller
             'msg' => 'Usuario actualizado',
             'data' => $usuario
         ]);
+    }
 
-
-     }
-
-     public function delete(Request $request){
+    public function delete(Request $request)
+    {
         $id = $request->get('id');
-        $usuario=Usuario::find($id);
-        $usuario->id_estatus=2;
-        $usuario->fecha_baja=$request['fecha_baja'];
-        $usuario->motivo_baja=$request['motivo_baja'];
-        $usuario->mes_baja=$request['mes_baja'];
+        $usuario = Usuario::find($id);
+        $usuario->id_estatus = 2;
+        $usuario->fecha_baja = $request['fecha_baja'];
+        $usuario->motivo_baja = $request['motivo_baja'];
+        $usuario->mes_baja = $request['mes_baja'];
         $usuario->save();
         /*$usuario->delete();*/
-         return response()->json([
-             'status' => 'success',
-             'msg' => 'Usuario eliminado',
-             'data' => $usuario
-         ]);
-     }
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Usuario eliminado',
+            'data' => $usuario
+        ]);
+    }
 
 
-     public function getModuleUser( Request $request){
+    public function getModuleUser(Request $request)
+    {
         $id = $request->get('id');
         $id_module = $request->get('id_module');
 
         $modules
-        = DB::table('users')
-        ->select('users.id as user_id', 'module_users_permissions.*', 'catalog_modules.name')
-        ->join('module_users_permissions', 'users.id', '=', 'module_users_permissions.id_usuario')
-        ->join('catalog_modules', 'module_users_permissions.id_modulo', '=', 'catalog_modules.id')
-        ->where('module_users_permissions.id_usuario', '=', $id)
-        ->where('module_users_permissions.id_modulo', '=', $id_module)
-        ->get();
-        return response()->json([
-            'status' => 'success',
-            'msg' => 'Modulos Obtenidos.',
-            'data' => $modules
-        ]);
-     }
-
-
-    public function getModuleUserById(Request $request)
-    {
-        $id = $request->get('id');
-
-        $modules
-        = DB::table('users')
+            = DB::table('users')
             ->select('users.id as user_id', 'module_users_permissions.*', 'catalog_modules.name')
             ->join('module_users_permissions', 'users.id', '=', 'module_users_permissions.id_usuario')
             ->join('catalog_modules', 'module_users_permissions.id_modulo', '=', 'catalog_modules.id')
             ->where('module_users_permissions.id_usuario', '=', $id)
+            ->where('module_users_permissions.id_modulo', '=', $id_module)
             ->get();
         return response()->json([
             'status' => 'success',
@@ -211,14 +190,53 @@ class UsuarioController extends Controller
         ]);
     }
 
-    public function addPermisse( Request $request){
+
+    public function getModuleUserById(Request $request)
+    {
+        $id_usuario = $request->get('id');
+
+        // $modules
+        // = DB::table('users')
+        //     ->select('users.id as user_id', 'module_users_permissions.*', 'catalog_modules.name')
+        //     ->join('module_users_permissions', 'users.id', '=', 'module_users_permissions.id_usuario')
+        //     ->join('catalog_modules', 'module_users_permissions.id_modulo', '=', 'catalog_modules.id')
+        //     ->where('module_users_permissions.id_usuario', '=', $id)
+        // ->get();
+
+        $modules
+        =
+        DB::table('catalog_modules')
+        ->select(
+            'catalog_modules.id_type as isModule',
+            'catalog_modules.id',
+            'catalog_modules.name',
+            DB::raw('COALESCE(module_users_permissions.read, 0) AS `read`'),
+            DB::raw('COALESCE(module_users_permissions.edit, 0) AS edit'),
+            DB::raw('COALESCE(module_users_permissions.create, 0) AS `create`'),
+            DB::raw('COALESCE(module_users_permissions.delete, 0) AS `delete`'),
+            DB::raw('COALESCE(module_users_permissions.show, 0) AS `show`')
+        )
+        ->leftJoin('module_users_permissions', function ($join) use ($id_usuario) {
+            $join->on('catalog_modules.id', '=', 'module_users_permissions.id_modulo')
+            ->where('module_users_permissions.id_usuario', '=', $id_usuario);
+        })
+        ->get();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Modulos Obtenidos.',
+            'data' => $modules
+        ]);
+    }
+
+    public function addPermisse(Request $request)
+    {
 
         try {
             foreach ($request->all() as $mod) {
 
                 $modexist = ModulePermisse::where('id_modulo', '=', $mod['id_modulo'])->where('id_usuario', '=', $mod['id_usuario'])->delete();
 
-                
+
                 // if($modexist->isNotEmpty()){
                 //     return response()->json([
                 //         'status' => 'success',
@@ -228,20 +246,17 @@ class UsuarioController extends Controller
                 //     $modexist->delete();
                 // }
 
-                
+
                 $module = ModulePermisse::create(
                     $mod
                 );
-
             }
-
         } catch (\Exception $e) {
             $error_code = $e->getMessage();
             return response()->json([
                 'msg' => ' Error al crear el registro',
                 'data' => $error_code
             ]);
-           
         }
 
 
@@ -251,12 +266,10 @@ class UsuarioController extends Controller
             'msg' => 'Permisos guardados correctamente.',
             'data' => $modexist
         ]);
-
-        
-
     }
 
-    public function getPermissionModules(Request $request){
+    public function getPermissionModules(Request $request)
+    {
         $id_usuario = $request->get('id_usuario');
 
         try {
@@ -270,17 +283,13 @@ class UsuarioController extends Controller
                 'msg' => 'Permisos obtenidos correctamente.',
                 'data' => $permission
             ]);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $error_code = $e->getMessage();
             return response()->json([
                 'status' => 'error',
                 'msg' => 'Error al obtener los permisos'
             ]);
         }
-
-
-
-
     }
 
 
@@ -307,7 +316,6 @@ class UsuarioController extends Controller
                 'data' => $error_code
             ]);
         }
-
     }
 
 
@@ -335,6 +343,4 @@ class UsuarioController extends Controller
             ]);
         }
     }
-
-
 }
