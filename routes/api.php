@@ -35,6 +35,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ReportsInventoryController;
 use App\Http\Controllers\DetailLogController;
 use App\Http\Controllers\movementHistoryController;
+use App\Http\Controllers\ExchangeRateController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -320,3 +321,10 @@ Route::post('user/updateImgProfile', [UsuarioController::class, 'updateImgProfil
 
 Route::post('send-mail', [AuthController::class, 'sendEmail']);
 
+
+//Api para obtener el tipo de dato 
+Route::get('exchangeRate/getExchange', [ExchangeRateController::class, 'getExchangeRate']);
+Route::get('exchangeRate/getAll', [ExchangeRateController::class, 'get']);
+Route::get('exchangeRate/id', [ExchangeRateController::class, 'getId']);
+Route::post('exchangeRate/update', [ExchangeRateController::class, 'update']);
+Route::get('exchangeRate/searchExchange', [ExchangeRateController::class, 'searchExchange']);
