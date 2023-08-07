@@ -38,7 +38,8 @@ class exchangeRateJob extends Command
      */
     public function handle()
     {
-        $response = Http::get('http://10.150.80.252:8080/api/exchangeRate/getExchange');
+        $response = Http::get('http://127.0.0.1:8000/api/exchangeRate/getExchange');
+       // $response = Http::get('http://10.150.80.252:8080/api/exchangeRate/getExchange');
         // Procesar la respuesta de la API externa aquí
         $this->info('Tarea programada ejecutada con éxito');
     }
