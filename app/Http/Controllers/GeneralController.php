@@ -35,6 +35,7 @@ use App\Models\CatalogCauseBlackList;
 use App\Models\CatalogReasonBlackList;
 use App\Models\typeStoreExits;
 use App\Models\inventory_status;
+use App\Models\GroupsSysca;
 
 
 
@@ -190,6 +191,17 @@ class GeneralController extends Controller
             'status' => 'success',
             'msg' => 'Tipo modulo obtenido correctamente',
             'data' => $tipomodulo
+        ]);
+
+    }
+
+    public function getGroupSysca()
+    {
+        $groupsSysca = GroupsSysca::all();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Campañas obtenido correctamente',
+            'data' => $groupsSysca
         ]);
 
     }

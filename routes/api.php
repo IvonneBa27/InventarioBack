@@ -29,14 +29,15 @@ use App\Http\Controllers\transferStoreController;
 use App\Http\Controllers\transferStoreDetailController;
 use App\Http\Controllers\StoreExitController;
 use App\Http\Controllers\StoreExitDetailsController;
-
 use Illuminate\Support\Facades\Auth;
-
 use App\Http\Controllers\ReportsInventoryController;
 use App\Http\Controllers\DetailLogController;
 use App\Http\Controllers\movementHistoryController;
 use App\Http\Controllers\ExchangeRateController;
-
+use App\Http\Controllers\AgeRangeController;
+use App\Http\Controllers\AcademicLevelController;
+use App\Http\Controllers\JobExperienceController;
+use App\Http\Controllers\VacanciesController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -118,6 +119,9 @@ Route::get('/gerReasons', [GeneralController::class, 'gerReasons']);
 Route::get('typeExit/get', [GeneralController::class, 'getTypeExitStore']);
 //Estatus de Inventario
 Route::get('/InventoryStatus/get', [GeneralController::class, 'getInventoryStatus']);
+Route::get('GroupsSysca/get', [GeneralController::class, 'getGroupSysca']);
+
+
 
 //Modulo
 Route::post('/modulo/create', [catModuloController::class, 'create']);
@@ -328,3 +332,33 @@ Route::get('exchangeRate/getAll', [ExchangeRateController::class, 'get']);
 Route::get('exchangeRate/id', [ExchangeRateController::class, 'getId']);
 Route::post('exchangeRate/update', [ExchangeRateController::class, 'update']);
 Route::get('exchangeRate/searchExchange', [ExchangeRateController::class, 'searchExchange']);
+
+//.:. V A C A N T E S 
+Route::post('vacancies/create', [VacanciesController::class, 'create']);
+Route::get('vacancies/get', [VacanciesController::class, 'getListVacancies']);
+
+
+//.:. C A T A L O G S
+//Catalogo Rango de Edad
+Route::post('catalogAgeRange/create', [AgeRangeController::class, 'create']);
+Route::get('catalogAgeRange/get', [AgeRangeController::class, 'getListAgeRange']);
+Route::get('catalogAgeRange/id', [AgeRangeController::class, 'getById']);
+Route::post('catalogAgeRange/update', [AgeRangeController::class, 'update']);
+Route::post('catalogAgeRange/delete', [AgeRangeController::class, 'delete']);
+
+//Catalogo Nivel de Estudios
+Route::post('catalogAcademicLevel/create', [AcademicLevelController::class, 'create']);
+Route::get('catalogAcademicLevel/get', [AcademicLevelController::class, 'getListAcademicLevel']);
+Route::get('catalogAcademicLevel/id', [AcademicLevelController::class, 'getById']);
+Route::post('catalogAcademicLevel/update', [AcademicLevelController::class, 'update']);
+Route::post('catalogAcademicLevel/delete', [AcademicLevelController::class, 'delete']);
+
+//Catalogo Experiencia Laboral
+Route::post('catalogJobExperience/create', [JobExperienceController::class, 'create']);
+Route::get('catalogJobExperience/get', [JobExperienceController::class, 'getListJobExperience']);
+Route::get('catalogJobExperience/id', [JobExperienceController::class, 'getById']);
+Route::post('catalogJobExperience/update', [JobExperienceController::class, 'update']);
+Route::post('catalogJobExperience/delete', [JobExperienceController::class, 'delete']);
+
+
+
