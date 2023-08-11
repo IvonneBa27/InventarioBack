@@ -216,34 +216,7 @@ class AuthController extends Controller
         ]);
 
 
-        //     $mailData = [
-        //         'title' =>  'Dirsa México - Solicitud de nueva contrasña',
-        //         'body' =>   'El cambio de contraseña se realizo correctamente.',
-        //         'pass' =>   $randstring
-        //     ];
-
-        //     Mail::to($email)->send(new DemoMail($mailData));
-        //     $newPass = Hash::make($randstring);
-
-        //     $user = User::where('email', '=', $email)
-        //         ->update(['password' => $newPass]);
-
-        //     return response()->json([
-        //         'status'    => 'success',
-        //         'msg'       => 'Se ha enviado a su correo la nueva contraseña.',
-
-        //     ]);
-        // }
-
-        // return response()->json([
-        //     'status'    => 'error',
-        //     'msg'       => 'El correo ingresado no existe.',
-
-        // ]);
-
-
-        // ->update(['title' => "Updated Title"]);
-
+        
 
     }
 }

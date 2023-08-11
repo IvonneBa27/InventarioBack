@@ -336,6 +336,7 @@ Route::get('exchangeRate/searchExchange', [ExchangeRateController::class, 'searc
 //.:. V A C A N T E S 
 Route::post('vacancies/create', [VacanciesController::class, 'create']);
 Route::get('vacancies/get', [VacanciesController::class, 'getListVacancies']);
+Route::post('vacancies/sendEmail', [VacanciesController::class, 'sendEmail']);
 
 
 //.:. C A T A L O G S

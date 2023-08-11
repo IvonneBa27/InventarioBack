@@ -27,6 +27,7 @@ class Vacancies extends Model
         'id_asiggned',
         "user_id",
         "id_status",
+        'deadline',
     ];
 }
 
