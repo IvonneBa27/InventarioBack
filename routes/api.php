@@ -38,6 +38,7 @@ use App\Http\Controllers\AgeRangeController;
 use App\Http\Controllers\AcademicLevelController;
 use App\Http\Controllers\JobExperienceController;
 use App\Http\Controllers\VacanciesController;
+use App\Http\Controllers\HistorialEmployeeStatusController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -92,6 +93,7 @@ Route::get('/User/get',[GeneralController::class, 'getUsuario']);
 Route::get('/getMaritalStatus',[GeneralController::class, 'getMaritalStatus']);
 Route::get('/getTypeBloods',[GeneralController::class, 'typeBloods']);
 Route::get('/getRelationship',[GeneralController::class, 'relationship']);
+Route::get('StatusEmployees/get', [GeneralController::class, 'getStatusEmployees']);
 
 //Catalogo Pais-Ciudad-Municipio
 
@@ -362,4 +364,5 @@ Route::post('catalogJobExperience/update', [JobExperienceController::class, 'upd
 Route::post('catalogJobExperience/delete', [JobExperienceController::class, 'delete']);
 
 
-
+// H I S T O R I C A L   S T A T U S   E M P L O Y E E S
+Route::post('historicalStatus/create', [HistorialEmployeeStatusController::class, 'create']);

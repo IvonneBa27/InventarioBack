@@ -71,8 +71,8 @@ class VacanciesController extends Controller
     {
       $id = $request->id;
 
-     //$email = 'ivonne.baca@dirsamexico.com';
-       $email = 'erick.nava@dirsamexico.com';
+       $email = 'ivonne.baca@dirsamexico.com';
+       //$email = 'erick.nava@dirsamexico.com';
            $vacancies = DB::table('vacancies_list')
            ->select('catalog_company_position.nombre as position', 'users.nombre_completo as full_name', 'vacancies_list.date', 'vacancies_list.deadline', 'type_schedule.nombre as type_schedule', 'ubicaciones.nombre as location', 'catalog_company_subcategories.nombre as company', 'company_department.nombre as department', 'groups_sysca.nombre as campaing', 'company_structure_type.nombre as type_structure', 'vacancies_list.vacancy_numbers', 'vacancies_list.salary')
                           ->join('catalog_company_position','vacancies_list.id_position','=','catalog_company_position.id')

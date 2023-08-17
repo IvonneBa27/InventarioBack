@@ -49,7 +49,8 @@ class Employees extends Model
         'contacto_emergencia_tip_sangre',
         'contacto_emergencia_padecimientos',
         'contacto_emergencia_movil',
-        'fecha_pago'
+        'fecha_pago',
+        'cause_id'
     ];
 
 

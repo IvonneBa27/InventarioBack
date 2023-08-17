@@ -193,6 +193,9 @@ class EmployeesController extends Controller
             $employee->contacto_emergencia_padecimientos = $request['contacto_emergencia_padecimientos'];
             $employee->contacto_emergencia_movil = $request['contacto_emergencia_movil'];
             $employee->fecha_pago = $request['fecha_pago'];
+            $employee->fecha_baja = $request['fecha_baja'];
+            $employee->motivo_baja = $request['motivo_baja'];
+            $employee->cause_id = $request['cause_id'];
 
             $employee->save();
 
@@ -210,11 +213,12 @@ class EmployeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //Se cambia el estatus a Eliminado que es 3
     public function destroy(Request $request)
     {
         $id = $request->get('id');
         $employee = Employees::find($id);
-        $employee->id_estatus = 2;
+        $employee->id_estatus = 3;
         $employee->save();
 
 

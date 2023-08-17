@@ -163,6 +163,21 @@ class GeneralController extends Controller
         ]);
 
     }
+
+    public function getStatusEmployees()
+    {
+         $status = DB::table('status')
+                 ->select('id', 'nombre')
+                 ->whereIn('id',[1, 2])
+                 ->get();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Estatus obtenido correctamente',
+            'data' => $status
+        ]);
+
+    }
+    
     public function getDepartamento()
     {
         $departamento = Departamento::all();
