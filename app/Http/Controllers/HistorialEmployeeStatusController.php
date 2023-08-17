@@ -10,7 +10,7 @@ use App\Http\Requests\HistorialEmployeeStatusRequest;
 
 class HistorialEmployeeStatusController extends Controller
 {
-    //
+    //Crear informacion en el historico
     public function create(HistorialEmployeeStatusRequest $request){
         $historialStatus = HistorialEmployeeStatus::create([
             'user_id'=>$request['user_id'],
