@@ -125,7 +125,8 @@ class VacanciesController extends Controller
                                                       </td>
                                                       <td>&nbsp;</td>
                                                       <td>
-                                                          <h1 style="color:#999; font:normal normal 24px/1.2 Arial, Helvetica, sans-serif">Sistema BAVER v1.0</h1>
+                                                          <h1 style="color:#999; font:normal normal 24px/1.2 Arial, Helvetica, sans-serif">Sistema BAVER <br>
+                                                                                                                                           Do It Right Solutions</h1>
                                                       </td>
                                                   </tr>
                                                   <tr>
@@ -184,10 +185,10 @@ class VacanciesController extends Controller
                                                             <tr style="margin-top: 15px;">
                                                                 <th scope="row" style="font-size: 18px;">Salario :  $' . $salary. ' MXN </th>
                                                             </tr>
-                                                              <tr style="margin-top: 15px;">
-                                                                  <th scope="row" style=" font-size: 18px;">Liga de acceso: <a href="https://10.150.80.252:3200/#/login/">https://10.150.80.252:3200/#/login/</a>
-                                                                      </th>
-                                                              </tr>
+                                                            <tr style="margin-top: 15px;">
+                                                                <th scope="row" style=" font-size: 18px;">Para ingresar al sistema BAVER <a href="http://10.150.80.252:3200/#/login">haz click aquí</a>
+                                                                </th>
+                                                            </tr>
                                                           </table>
                                                       </td>
                                                   </tr>

@@ -366,3 +366,4 @@ Route::post('catalogJobExperience/delete', [JobExperienceController::class, 'del
 
 // H I S T O R I C A L   S T A T U S   E M P L O Y E E S
 Route::post('historicalStatus/create', [HistorialEmployeeStatusController::class, 'create']);
+Route::post('historicalStatus/sendEmail', [HistorialEmployeeStatusController::class, 'sendEmail']);
