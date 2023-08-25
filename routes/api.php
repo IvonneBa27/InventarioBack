@@ -39,6 +39,7 @@ use App\Http\Controllers\AcademicLevelController;
 use App\Http\Controllers\JobExperienceController;
 use App\Http\Controllers\VacanciesController;
 use App\Http\Controllers\HistorialEmployeeStatusController;
+use App\Http\Controllers\prospectEmployeeController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -367,3 +368,11 @@ Route::post('catalogJobExperience/delete', [JobExperienceController::class, 'del
 // H I S T O R I C A L   S T A T U S   E M P L O Y E E S
 Route::post('historicalStatus/create', [HistorialEmployeeStatusController::class, 'create']);
 Route::post('historicalStatus/sendEmail', [HistorialEmployeeStatusController::class, 'sendEmail']);
+
+// P R O S P E C T   E M P L O Y E E  
+Route::post('prospectEmployee/receiveExcel', [prospectEmployeeController::class, 'receiveExcel']);
+Route::get('prospectEmployee/getAll', [prospectEmployeeController::class, 'get']);
+Route::get('prospectEmployee/dateRange', [prospectEmployeeController::class, 'dateRange']);
+Route::get('prospectEmployee/catalogCampaing', [prospectEmployeeController::class, 'getCampaing']);
+Route::get('prospectEmployee/searchName',[prospectEmployeeController::class, 'searchName']);
+Route::get('prospectEmployee/searchCampaing',[prospectEmployeeController::class, 'searchCampaing']);
