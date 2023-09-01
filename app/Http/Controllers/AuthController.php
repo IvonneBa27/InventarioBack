@@ -46,7 +46,7 @@ class AuthController extends Controller
         if (!Auth::attempt($request->only('usuario', 'password'))) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Invalid access credentials'
+                'message' => 'Acceso inválido'
             ], 200);
         }
 
