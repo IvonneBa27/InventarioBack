@@ -82,6 +82,28 @@ class UsuarioController extends Controller
         ]);
     }
 
+    public function getUserExcel(){
+        $usuario = DB::table('users')
+                    ->select('users.numero_empleado as NUMERO_EMPLEADO', 'users.nombre_completo as NOMBRE_COMPLETO', 'users.curp as CURP', 'company_structure_type.nombre as EJECUCION_ADMINISTRATIVA', 'company_department.nombre as ESTRUCTURA', 'catalog_company_position.nombre as PUESTO', 'users.sueldo as SUELDO', 'users.fecha_ingreso as FECHA_INGRESO', 'users.rfc as RFC', 'users.nss as NSS', 'users.fecha_nacimiento as FECHA_NACIMIENTO', 'gender.nombre as SEXO', 'users.email_personal as CORREO_ELECTRONICO_PERSONAL', 'users.email as CORREO_ELECTRONICO_LABORAL', 'users.fecha_pago as FECHA_PAGO', 'companies_payment.nombre as EMPRESA', 'status.nombre as ESTATUS', 'ubicaciones.nombre as UBICACIÓN', 'type_schedule.nombre as TURNO')
+                    ->join('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
+                    ->join('company_department','users.id_departamento_empresa','=','company_department.id')
+                    ->join('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
+                    ->join('gender','users.id_sexo','=','gender.id')
+                    ->join('companies_payment','users.id_empresa_rh','=','companies_payment.id')
+                    ->join('status','users.id_estatus','=','status.id')
+                    ->join('ubicaciones','users.id_ubicacion','=','ubicaciones.id')
+                    ->join('type_schedule','users.id_turno','=','type_schedule.id')
+                    ->get();
+            
+            return response()->json([
+                        'status' => 'success',
+                        'msg' => 'Usuarios obtenidos correctamente',
+                        'data' => $usuario
+            
+                    ]);
+    }
+
+
     public function getStatus(Request $request)
     {
         $param = $request->get('param');

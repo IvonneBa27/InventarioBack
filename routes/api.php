@@ -73,6 +73,7 @@ Route::get('/usuario/getModuleUserById', [UsuarioController::class, 'getModuleUs
 Route::post('/usuario/addPermisse', [UsuarioController::class, 'addPermisse']);
 Route::get('/usuario/getStatus', [UsuarioController::class, 'getStatus']);
 Route::get('/usuario/getPermissionModules', [UsuarioController::class, 'getPermissionModules']);
+Route::get('/usuario/getUserExcel', [UsuarioController::class, 'getUserExcel']);
 
 //Catalogos
 Route::get('/TipoUsuario/get', [GeneralController::class, 'getTipoUsuario']);
