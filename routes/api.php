@@ -40,6 +40,7 @@ use App\Http\Controllers\JobExperienceController;
 use App\Http\Controllers\VacanciesController;
 use App\Http\Controllers\HistorialEmployeeStatusController;
 use App\Http\Controllers\prospectEmployeeController;
+use App\Http\Controllers\creditorsController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -377,3 +378,13 @@ Route::get('prospectEmployee/dateRange', [prospectEmployeeController::class, 'da
 Route::get('prospectEmployee/catalogCampaing', [prospectEmployeeController::class, 'getCampaing']);
 Route::get('prospectEmployee/searchName',[prospectEmployeeController::class, 'searchName']);
 Route::get('prospectEmployee/searchCampaing',[prospectEmployeeController::class, 'searchCampaing']);
+
+
+// C R E D I T O R S
+Route::post('creditors/create', [creditorsController::class, 'create']);
+Route::get('creditors/get', [creditorsController::class, 'get']);
+Route::get('creditors/getListCreditors', [creditorsController::class, 'getListCreditors']);
+Route::get('creditors/id', [creditorsController::class, 'getById']);
+Route::post('creditors/update', [creditorsController::class, 'update']);
+Route::post('creditors/delete', [creditorsController::class, 'delete']);
+Route::get('creditors/search',[creditorsController::class, 'searchCreditors']);
