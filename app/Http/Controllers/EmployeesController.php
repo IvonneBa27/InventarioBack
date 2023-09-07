@@ -197,6 +197,23 @@ class EmployeesController extends Controller
             $employee->motivo_baja = $request['motivo_baja'];
             $employee->cause_id = $request['cause_id'];
 
+
+
+            $employee->referencia = $request['referencia'];
+            $employee->colonia = $request['colonia'];
+            $employee->no_int = $request['no_int'];
+            $employee->cp = $request['cp'];
+            $employee->tel_laboral = $request['tel_laboral'];
+            $employee->nacionalidad = $request['nacionalidad'];
+            $employee->id_estado_civil = $request['id_estado_civil'];
+            $employee->id_pais = $request['id_pais'];
+            $employee->id_estado = $request['id_estado'];
+            $employee->calle = $request['calle'];
+            $employee->no_ext = $request['no_ext'];
+            $employee->id_municipio = $request['id_municipio'];
+            $employee->tel_personal = $request['tel_personal'];
+     
+
             $employee->save();
 
         return response()->json([

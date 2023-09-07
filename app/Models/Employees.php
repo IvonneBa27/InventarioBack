@@ -50,7 +50,21 @@ class Employees extends Model
         'contacto_emergencia_padecimientos',
         'contacto_emergencia_movil',
         'fecha_pago',
-        'cause_id'
+        'referencia',
+        'colonia',
+        'no_int',
+        'cp',
+        'tel_laboral',
+        'nacionalidad',
+        'id_estado_civil',
+        'id_pais',
+        'id_estado',
+        'calle',
+        'no_ext',
+        'id_municipio',
+        'tel_personal',
+        'cause_id',
+ 
     ];
 
 

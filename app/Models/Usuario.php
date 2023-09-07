@@ -48,6 +48,21 @@ class Usuario extends Model
         /*'fecha_inicio_capacitacion',
         'fecha_fin_capacitacion',*/
         'img_profile',
+        'referencia',
+        'colonia',
+        'no_int',
+        'cp',
+        'tel_laboral',
+        'nacionalidad',
+        'id_estado_civil',
+        'id_pais',
+        'id_estado',
+        'calle',
+        'no_ext',
+        'id_municipio',
+        'tel_personal',
+        'cause_id',
+   
     ];
 
 
