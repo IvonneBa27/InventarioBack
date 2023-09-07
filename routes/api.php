@@ -125,7 +125,7 @@ Route::get('typeExit/get', [GeneralController::class, 'getTypeExitStore']);
 //Estatus de Inventario
 Route::get('/InventoryStatus/get', [GeneralController::class, 'getInventoryStatus']);
 Route::get('GroupsSysca/get', [GeneralController::class, 'getGroupSysca']);
-
+Route::get('StructureUsers/get', [GeneralController::class, 'getStructureUser']);
 
 
 //Modulo

@@ -490,4 +490,21 @@ class GeneralController extends Controller
  
      }
 
+     public function getStructureUser(Request $request){
+        $id = $request->get('id');
+         $structureUsers = DB::table('users')
+                                    ->select('company_structure_type.nombre as structureType', 'company_department.nombre as department', 'catalog_company_position.nombre as position')
+                                    ->join('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
+                                    ->join('company_department','users.id_departamento_empresa','=','company_department.id')
+                                    ->join('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
+                                    ->where('users.id','=',$id)
+                                    ->get();
+         return response()->json([
+             'status' => 'success',
+             'msg' => 'User obtenido',
+             'data' => $structureUsers
+         ]);
+ 
+     }
+
 }
