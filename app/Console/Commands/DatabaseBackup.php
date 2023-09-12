@@ -40,7 +40,7 @@ class DatabaseBackup extends Command
     public function handle()
     {
   
-        $backupFileName = "C:\Users\BacaI\Desktop\backUP-BD\backup-" . Carbon::now()->format('Y-m-d') . ".sql";
+        $backupFileName = "C:\Users\madrigalra\Documents\sites\ERP\InventarioBack\storage\app\backup\backup-" . Carbon::now()->format('Y-m-d') . ".sql";
         $dumpPath = env('DB_DUMP_PATH', 'mysqldump');
         $user = env('DB_USERNAME');
         $password = env('DB_PASSWORD');
