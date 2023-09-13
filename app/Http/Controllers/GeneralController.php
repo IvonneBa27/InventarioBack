@@ -23,7 +23,7 @@ use App\Models\Delegaciones;
 use App\Models\Paises;
 use App\Models\Customers;
 use App\Models\Suppliers;
-use App\Models\Cat_brands;
+use App\Models\cat_brands;
 use App\Models\producs;
 use App\Models\stores;
 use App\Models\catalogCivilstatuses;
@@ -339,7 +339,24 @@ class GeneralController extends Controller
 
     public function getBrand()
     {
-        $brand = Cat_brands::all();
+        $brand = cat_brands::all();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Marcas obtenidos correctamente',
+            'data' => $brand
+        ]);
+
+    }
+
+    public function getbrandProduct(Request $request)
+    {
+        $id_subcategory = $request->get('id_subcategory');
+        $brand
+        =DB::table('catalog_brands')
+        ->select('*')
+        ->where('id_subcategory','=',  $id_subcategory)
+        ->get(); 
+
         return response()->json([
             'status' => 'success',
             'msg' => 'Marcas obtenidos correctamente',
