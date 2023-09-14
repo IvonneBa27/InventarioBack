@@ -41,6 +41,7 @@ use App\Http\Controllers\VacanciesController;
 use App\Http\Controllers\HistorialEmployeeStatusController;
 use App\Http\Controllers\prospectEmployeeController;
 use App\Http\Controllers\creditorsController;
+use App\Http\Controllers\TestController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -359,6 +360,8 @@ Route::get('catalogAcademicLevel/get', [AcademicLevelController::class, 'getList
 Route::get('catalogAcademicLevel/id', [AcademicLevelController::class, 'getById']);
 Route::post('catalogAcademicLevel/update', [AcademicLevelController::class, 'update']);
 Route::post('catalogAcademicLevel/delete', [AcademicLevelController::class, 'delete']);
+
+Route::post('catalogAcademicLevel/test', [TestController::class, 'createTest']);
 
 //Catalogo Experiencia Laboral
 Route::post('catalogJobExperience/create', [JobExperienceController::class, 'create']);
