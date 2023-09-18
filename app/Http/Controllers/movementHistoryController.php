@@ -50,9 +50,9 @@ class movementHistoryController extends Controller
 
 
      public function searchKardexT(Request $request){
-        $param = $request->get('param');
+        $serial_number = $request->get('serial_number');
 
-        $movementHistory  = DB::SELECT('CALL get_searchKardex(?)', [$param]);
+        $movementHistory  = DB::SELECT('CALL get_searchKardex(?)', [$serial_number]);
         return response()->json([
             'status' => 'success',
             'msg' => 'Lista de movimientos Kardex',

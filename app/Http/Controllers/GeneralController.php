@@ -41,6 +41,7 @@ use App\Models\GroupsSysca;
 
 
 
+
 use Illuminate\Http\Request;
 
 class GeneralController extends Controller
@@ -523,5 +524,7 @@ class GeneralController extends Controller
          ]);
  
      }
+
+
 
 }

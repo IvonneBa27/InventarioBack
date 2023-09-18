@@ -64,6 +64,7 @@ class Employees extends Model
         'id_municipio',
         'tel_personal',
         'cause_id',
+        'id_campania',
  
     ];
 

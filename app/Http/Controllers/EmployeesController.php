@@ -126,6 +126,7 @@ class EmployeesController extends Controller
             $usuario->id_municipio  = $request['id_municipio'];
             $usuario->calle  = $request['calle'];
             $usuario->tel_personal  = $request['tel_personal'];
+            $usuario->id_campania = $request['id_campania'];
             $usuario->save();
 
         return response()->json([
@@ -212,6 +213,7 @@ class EmployeesController extends Controller
             $employee->no_ext = $request['no_ext'];
             $employee->id_municipio = $request['id_municipio'];
             $employee->tel_personal = $request['tel_personal'];
+            $employee->id_campania = $request['id_campania'];
      
 
             $employee->save();

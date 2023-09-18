@@ -311,7 +311,7 @@ Route::post('historyKardex/createIncome',[movementHistoryController::class, 'cre
 Route::post('historyKardex/createTransfer',[movementHistoryController::class, 'create_Kardex_Transfer']);
 Route::post('historyKardex/createExit',[movementHistoryController::class, 'create_Kardex_Exit']);
 Route::get('historyKardex/get',[movementHistoryController::class, 'get']);
-Route::get('historyKardex/searchKarex',[movementHistoryController::class, 'searchKardex']);
+Route::get('historyKardex/searchKardexT',[movementHistoryController::class, 'searchKardexT']);
 
 // TODO: UPDATE PASSWORD
 Route::post('user/retiervePassword', [UsuarioController::class, 'retiervePassword']);

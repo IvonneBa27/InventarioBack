@@ -38,9 +38,10 @@ class ReportsInventoryController extends Controller
         ]); 
     }
 
-    public function getInventoryDetailAll(){
+    public function getInventoryDetailAll(Request $request){
+        $secction_id = $request->get('secction_id');
  
-        $reports = DB::SELECT('CALL get_list_detail_all()');
+        $reports = DB::SELECT('CALL get_list_detail_all(?)', [$secction_id]);
 
            return response()->json([
             'status' => 'success',
@@ -62,9 +63,9 @@ class ReportsInventoryController extends Controller
 
 
     public function getListProductDetail(Request $request){
-        $idcategory = $request->get('idcategory');
+        $secction = $request->get('secction');
 
-        $reports  = DB::SELECT('CALL get_list_productDetail(?)', [$idcategory]);
+        $reports  = DB::SELECT('CALL get_list_productDetail(?)', [$secction]);
            return response()->json([
             'status' => 'success',
             'msg' => 'Reporte de Inventario',
