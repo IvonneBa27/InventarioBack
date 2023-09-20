@@ -50,7 +50,7 @@ class warehouse_entry_detailController extends Controller
 
     public function updateAmount(Request $request){
         $incomeStoreDetail =  warehouse_entry_detail::find($request['id']);
-        $incomeStoreDetail->total_received=$request['total_received'];
+        $incomeStoreDetail->amount=$request['amount'];
         $incomeStoreDetail->save();
         return response()->json([
             'status' => 'success',
