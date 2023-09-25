@@ -16,7 +16,7 @@ class product_detail_warehouse_entry extends Model
         'brand_name',
         'sku',
         'serial_number',
-        'amount',
+        'id_movement',
 
     ];
 }

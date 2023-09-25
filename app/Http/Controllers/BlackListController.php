@@ -76,6 +76,7 @@ class BlackListController extends Controller
         if (isset($param)) {
             $users = EmployeesBlackList::where('name', 'like', '%' . $param . '%')
             ->where('id_status', '=', 1)
+            ->orWhere('name', 'like', '%' . $param . '%')
             ->orWhere('apellido_pat', 'like', '%' . $param . '%')
             ->orWhere('apellido_mat', 'like', '%' . $param . '%')->get();
         } else {

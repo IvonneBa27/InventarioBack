@@ -18,6 +18,7 @@ class product_detail_warehouse_entryController extends Controller
             'product_name'=>$request['product_name'],
             'brand_name'=>$request['brand_name'],
             'sku'=>$request['sku'],
+            'id_movement'=>$request['id_movement'],
         ]);
         return response()->json([
             'status' => 'success',
