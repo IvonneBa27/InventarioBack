@@ -49,15 +49,16 @@ class VacanciesController extends Controller
 
     //Lista de Vacantes
      public function getListVacancies(Request $request){    
-        $vacancies =
-                DB::table('vacancies_list')
-                ->select('vacancies_list.id','vacancies_list.date', 'catalog_company_position.nombre as position', 'groups_sysca.nombre as campaing', 'users.nombre_completo as requester', 'status.nombre as status')
+       /* $vacancies =
+        ->select('vacancies_list.id', 'vacancies_list.date', 'catalog_company_position.nombre as position', DB::raw("'concat'(COALESCE('groups_sysca.nombre', ''), '/', COALESCE('company_department.nombre', '')) as campaing"), 'users.nombre_completo as requester', 'status.nombre as status')
                 ->join('status','vacancies_list.id_status','=','status.id')
                 ->join('catalog_company_position','vacancies_list.id_position','=','catalog_company_position.id')
                 ->leftjoin('groups_sysca','vacancies_list.id_campaing','=','groups_sysca.id')
                 ->join('users','vacancies_list.user_id','=','users.id')
-                ->get();
-     
+                ->get();*/
+
+
+        $vacancies = DB::SELECT('CALL get_listVacancies()');
          return response()->json([
                  'status' => 'success',
                  'msg' => 'Lista de Vacantes',
@@ -71,7 +72,7 @@ class VacanciesController extends Controller
     {
       $id = $request->id;
 
-       $email = 'ivonne.baca@dirsamexico.com';
+       $email = ['ivonne.baca@dirsamexico.com', 'erick.nava@dirsamexico.com'];
        //$email = 'erick.nava@dirsamexico.com';
            $vacancies = DB::table('vacancies_list')
            ->select('catalog_company_position.nombre as position', 'users.nombre_completo as full_name', 'vacancies_list.date', 'vacancies_list.deadline', 'type_schedule.nombre as type_schedule', 'ubicaciones.nombre as location', 'catalog_company_subcategories.nombre as company', 'company_department.nombre as department', 'groups_sysca.nombre as campaing', 'company_structure_type.nombre as type_structure', 'vacancies_list.vacancy_numbers', 'vacancies_list.salary')

@@ -58,6 +58,7 @@ class product_detail_warehouse_entryController extends Controller
         DB::table('product_income_store_detail')
              ->select('product_income_store_detail.id as idDet', 'product_income_store_detail.*')
             ->where('product_income_store_detail.warehouse_entry_detail_id','=', $idIncome)
+            ->where('product_income_store_detail.id_movement','=',1)
             ->get();
 
         return response()->json([
