@@ -259,6 +259,7 @@ Route::get('incomeStoresDetailProduct/get',[product_detail_warehouse_entryContro
 Route::get('incomeStoresDetailProduct/id', [product_detail_warehouse_entryController::class, 'getById']);
 Route::get('incomeStoresDetailProduct/getListIncomeProduct', [product_detail_warehouse_entryController::class, 'getListIncomeProduct']);
 Route::post('incomeStoresDetailProduct/update',[product_detail_warehouse_entryController::class, 'update']);
+Route::post('incomeStoresDetailProduct/updateTransfer',[product_detail_warehouse_entryController::class, 'updateMovementTransfer']);
 
 
 

@@ -7,6 +7,7 @@ use App\Models\transferStoreDetail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
+
 class transferStoreDetailController extends Controller
 {
 
@@ -52,6 +53,9 @@ class transferStoreDetailController extends Controller
                  'data' => $transferStoreDetail
              ]);
      }
+
+
+  
 
 
 }

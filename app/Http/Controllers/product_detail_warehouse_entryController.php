@@ -78,6 +78,20 @@ class product_detail_warehouse_entryController extends Controller
         ]);
 
     }
+
+    public function updateMovementTransfer(Request $request){
+        $id_transfer_store = $request->get('id_transfer_store'); 
+        $productDetail = DB::table('product_income_store_detail as pisd')
+        ->join('transfer_store_detail as tsd', 'tsd.product_income_id', '=', 'pisd.id')
+        ->where('tsd.id_transfer_store',  '=', $id_transfer_store)
+        ->update(['pisd.id_movement' => 2]);
+
+        return response()->json([
+            'status' => 'success',
+            'msg'    => 'Registro detallado actualizado',
+            'data'   =>  $productDetail
+        ]);
+     }
     
     
    

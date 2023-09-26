@@ -49,7 +49,7 @@ class warehouse_entry_detailController extends Controller
     } 
 
     public function updateAmount(Request $request){
-        $incomeStoreDetail =  warehouse_entry_detail::find($request['id']);
+        $incomeStoreDetail = warehouse_entry_detail::find($request['warehouse_entry_id']);
         $incomeStoreDetail->amount=$request['amount'];
         $incomeStoreDetail->save();
         return response()->json([
@@ -59,6 +59,7 @@ class warehouse_entry_detailController extends Controller
         ]);
 
     }
+
 
 
     
