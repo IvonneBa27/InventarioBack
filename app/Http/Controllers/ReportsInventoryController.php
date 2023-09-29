@@ -63,9 +63,11 @@ class ReportsInventoryController extends Controller
 
 
     public function getListProductDetail(Request $request){
-        $secction = $request->get('secction');
 
-        $reports  = DB::SELECT('CALL get_list_productDetail(?)', [$secction]);
+        $type_movement_id = $request->get('type_movement_id');
+        $product_id = $request->get('product_id');
+
+        $reports  = DB::SELECT('CALL get_list_productDetail(?,?)', [$type_movement_id, $product_id]);
            return response()->json([
             'status' => 'success',
             'msg' => 'Reporte de Inventario',

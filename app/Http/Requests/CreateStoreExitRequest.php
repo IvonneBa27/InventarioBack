@@ -29,7 +29,7 @@ class CreateStoreExitRequest extends FormRequest
            
             'id_type_exit' => 'required', //
             'authorized_id' => 'required',
-            'person_who_receives' => 'required',
+            
             
         ];
     }
@@ -40,7 +40,7 @@ class CreateStoreExitRequest extends FormRequest
         
             'id_type_exit.required' => 'El tipo de salida es requerido',
             'authorized_id.required' => 'La persona que autoriza es requerida',
-            'person_who_receives.required'  => 'La persona que recibe es requerida',
+        
           
 
         ];

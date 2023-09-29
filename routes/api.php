@@ -76,6 +76,8 @@ Route::post('/usuario/addPermisse', [UsuarioController::class, 'addPermisse']);
 Route::get('/usuario/getStatus', [UsuarioController::class, 'getStatus']);
 Route::get('/usuario/getPermissionModules', [UsuarioController::class, 'getPermissionModules']);
 Route::get('/usuario/getUserExcel', [UsuarioController::class, 'getUserExcel']);
+Route::get('/usuario/getUsersAuthorized', [UsuarioController::class, 'getUsersAuthorized']);
+Route::get('/usuario/getUsersReceives', [UsuarioController::class, 'getUsersReceives']);
 
 //Catalogos
 Route::get('/TipoUsuario/get', [GeneralController::class, 'getTipoUsuario']);
@@ -260,7 +262,7 @@ Route::get('incomeStoresDetailProduct/id', [product_detail_warehouse_entryContro
 Route::get('incomeStoresDetailProduct/getListIncomeProduct', [product_detail_warehouse_entryController::class, 'getListIncomeProduct']);
 Route::post('incomeStoresDetailProduct/update',[product_detail_warehouse_entryController::class, 'update']);
 Route::post('incomeStoresDetailProduct/updateTransfer',[product_detail_warehouse_entryController::class, 'updateMovementTransfer']);
-
+Route::post('incomeStoresDetailProduct/updateExit',[product_detail_warehouse_entryController::class, 'updateMovementExit']);
 
 
 // TODO : EMPLOYEES ROUTES

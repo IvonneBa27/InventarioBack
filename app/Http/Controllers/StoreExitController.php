@@ -25,6 +25,7 @@ class StoreExitController extends Controller
             'brand_id'=>$request['brand_id'],
             'product_id'=>$request['product_id'],
             'movement_id'=>$request['movement_id'],
+            'receives_id'=>$request['receives_id'],
         ]);
 
         return response()->json([

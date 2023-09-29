@@ -82,6 +82,37 @@ class UsuarioController extends Controller
         ]);
     }
 
+
+    public function getUsersAuthorized(){
+        $usuario = DB::table('users')
+                    ->select('*')
+                    ->join('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
+                    ->where('catalog_company_position.nombre','like','%Gerente')
+                    ->where('users.id_estatus','=',1)
+                    ->get();
+
+        return response()->json([
+                        'status' => 'success',
+                        'msg' => 'Usuarios obtenidos correctamente',
+                        'data' => $usuario
+                    ]);
+    }
+
+    public function getUsersReceives(){
+        $usuario = DB::table('users')
+                    ->select('*')
+                    ->whereNotIn('id_puesto',[34, 56])
+                    ->where('users.id_estatus','=',1)
+                    ->orderBy('nombre_completo','asc')
+                    ->get();
+
+        return response()->json([
+                        'status' => 'success',
+                        'msg' => 'Usuarios obtenidos correctamente',
+                        'data' => $usuario
+                    ]);
+    }
+
     public function getUserExcel(){
         $usuario = DB::table('users')
                     ->select('users.numero_empleado as NUMERO_EMPLEADO', 'users.nombre_completo as NOMBRE_COMPLETO', 'users.curp as CURP', 'company_structure_type.nombre as EJECUCION_ADMINISTRATIVA', 'company_department.nombre as ESTRUCTURA', 'catalog_company_position.nombre as PUESTO', 'users.sueldo as SUELDO', 'users.fecha_ingreso as FECHA_INGRESO', 'users.rfc as RFC', 'users.nss as NSS', 'users.fecha_nacimiento as FECHA_NACIMIENTO', 'gender.nombre as SEXO', 'users.email_personal as CORREO_ELECTRONICO_PERSONAL', 'users.email as CORREO_ELECTRONICO_LABORAL', 'users.fecha_pago as FECHA_PAGO', 'companies_payment.nombre as EMPRESA', 'status.nombre as ESTATUS', 'ubicaciones.nombre as UBICACIÓN', 'type_schedule.nombre as TURNO')

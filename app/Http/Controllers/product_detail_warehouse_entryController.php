@@ -93,6 +93,21 @@ class product_detail_warehouse_entryController extends Controller
             'data'   =>  $productDetail
         ]);
      }
+
+     
+    public function updateMovementExit(Request $request){
+        $id_store_exit = $request->get('id_store_exit'); 
+        $productDetail = DB::table('product_income_store_detail as pisd')
+                        ->join('store_exit_details as sed', 'sed.product_income_id', '=', 'pisd.id')
+                        ->where('sed.id_store_exit',  '=', $id_store_exit)
+                        ->update(['pisd.id_movement' => 3]);
+
+        return response()->json([
+            'status' => 'success',
+            'msg'    => 'Registro detallado actualizado',
+            'data'   =>  $productDetail
+        ]);
+     }
     
     
    
