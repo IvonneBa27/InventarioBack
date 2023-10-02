@@ -60,7 +60,7 @@ class GeneralController extends Controller
 
     public function getUbicaciones()
     {
-        $ubicaciones = Ubicaciones::all();
+        $ubicaciones = Ubicaciones::orderBy('nombre', 'asc')->get();
         return response()->json([
             'status' => 'success',
             'msg' => 'Ubicaciones obtenido correctamente',
@@ -70,7 +70,7 @@ class GeneralController extends Controller
 
     public function getEmpresa()
     {
-        $empresa = Empresa::all();
+        $empresa = Empresa::orderBy('nombre', 'asc')->get();
         return response()->json([
             'status' => 'success',
             'msg' => 'Empresa obtenido correctamente',
@@ -80,7 +80,7 @@ class GeneralController extends Controller
     }
     public function getSexo()
     {
-        $sexo = Sexo::all();
+        $sexo = Sexo::orderBy('nombre', 'asc')->get();
         return response()->json([
             'status' => 'success',
             'msg' => 'Sexo obtenido correctamente',
@@ -90,7 +90,7 @@ class GeneralController extends Controller
     }
     public function getSubCategoria()
     {
-        $subcategoria = SubCategoria::all();
+        $subcategoria = SubCategoria::orderBy('nombre', 'asc')->get();
         return response()->json([
             'status' => 'success',
             'msg' => 'SubCategoria obtenido correctamente',
@@ -111,7 +111,7 @@ class GeneralController extends Controller
     }
     public function getEjecucionAdministrativa()
     {
-        $ejecucionadministrativa = EjecucionAdministrativa::all();
+        $ejecucionadministrativa = EjecucionAdministrativa::orderBy('nombre', 'asc')->get();
         return response()->json([
             'status' => 'success',
             'msg' => 'Ejecucion Administrativa obtenido correctamente',
@@ -122,7 +122,7 @@ class GeneralController extends Controller
 
     public function getCompania()
     {
-        $compania = Compania::all();
+        $compania = Compania::orderBy('nombre', 'asc')->get();
         return response()->json([
             'status' => 'success',
             'msg' => 'Compania obtenido correctamente',
@@ -134,7 +134,7 @@ class GeneralController extends Controller
 
     public function getPuesto()
     {
-        $puesto = Puesto::all();
+        $puesto = Puesto::orderBy('nombre', 'asc')->get();
         return response()->json([
             'status' => 'success',
             'msg' => 'Puesto obtenido correctamente',
@@ -145,7 +145,7 @@ class GeneralController extends Controller
 
     //Catalogo de Bancos
     public function getBanco(){
-        $banco = Banco::all();
+        $banco = Banco::orderBy('nombre', 'asc')->get();
         return response()->json([
             'status' => 'success',
             'msg' => 'Banco obtenido correctamente',
@@ -156,7 +156,7 @@ class GeneralController extends Controller
     public function getEstatus()
     {
        // $estatus = Estatus::where('id','!=',2)->where('id','!=',3)->get();
-        $estatus = Estatus::all();
+        $estatus = Estatus::orderBy('nombre', 'asc')->get();
         return response()->json([
             'status' => 'success',
             'msg' => 'Estatus obtenido correctamente',
@@ -181,7 +181,7 @@ class GeneralController extends Controller
     
     public function getDepartamento()
     {
-        $departamento = Departamento::all();
+        $departamento = Departamento::orderBy('nombre', 'asc')->get();
         return response()->json([
             'status' => 'success',
             'msg' => 'Departamento obtenido correctamente',
@@ -213,7 +213,7 @@ class GeneralController extends Controller
 
     public function getGroupSysca()
     {
-        $groupsSysca = GroupsSysca::all();
+        $groupsSysca = GroupsSysca::orderBy('nombre', 'asc')->get();
         return response()->json([
             'status' => 'success',
             'msg' => 'Campañas obtenido correctamente',
