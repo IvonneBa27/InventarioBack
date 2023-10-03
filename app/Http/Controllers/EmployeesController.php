@@ -8,6 +8,7 @@ use App\Models\Employees;
 
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\CreateEmployeeRequest;
+use Illuminate\Support\Facades\DB;
 
 class EmployeesController extends Controller
 {
@@ -18,7 +19,19 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        $employeed = Employees::where('id_estatus', '=', 1)->with('gender', 'company', 'administrative_execution')->orderBy('numero_empleado', 'asc')->get();
+        /*Codigo de
+        /*$employeed = Employees::where('id_estatus', '=', 1)->with('gender', 'company', 'administrative_execution')->orderBy('numero_empleado', 'asc')->get();*/
+
+        $employeed = DB::table('users')
+        ->select('store_exits.receives_id', 'numero_empleado', 'nombre_completo', 'curp', 'company_structure_type.nombre as Ejecucion_Administrativa', 'companies_payment.nombre as Empresa', 'product_income_store_detail.product_id as Equipamiento', 'users.*')
+        ->join('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
+        ->join('companies_payment','users.id_empresa_rh','=','companies_payment.id')
+        ->leftJoin('store_exits','users.id','=','store_exits.receives_id')
+        ->leftJoin('store_exit_details','store_exits.id','=','store_exit_details.id')
+        ->leftJoin('product_income_store_detail','store_exit_details.product_income_id','=','product_income_store_detail.id')
+        ->where('users.id_estatus','=',1)
+        ->orderBy('users.numero_empleado','asc')
+        ->get();
 
         return response()->json([
             'status' => 'success',
@@ -31,10 +44,10 @@ class EmployeesController extends Controller
     public function searchEmployees(Request $request)
     {
         $param = $request->get('param');
-        $company = $request->get('company');
-        $status = $request->get('status');
+       // $company = $request->get('company');
+       // $status = $request->get('status');
 
-        if(isset($param)){
+       /* if(isset($param)){
             $users = Employees::where('nombre_completo', 'like', '%' . $param . '%')->with('gender', 'company', 'administrative_execution')
                 ->orWhere('numero_empleado', 'like', '%' . $param . '%')
                 ->orWhere('curp', 'like', '%' . $param . '%');
@@ -56,6 +69,24 @@ class EmployeesController extends Controller
         
 
         $users = $users->orderBy('numero_empleado', 'asc')->get();
+        */
+
+        $users = DB::table('users')
+        ->select('numero_empleado', 'nombre_completo', 'curp', 'company_structure_type.nombre as Ejecucion_Administrativa', 'companies_payment.nombre as Empresa', 'product_income_store_detail.product_id as Equipamiento')
+        ->join('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
+        ->join('companies_payment','users.id_empresa_rh','=','companies_payment.id')
+        ->leftJoin('store_exits','users.id','=','store_exits.receives_id')
+        ->leftJoin('store_exit_details','store_exits.id','=','store_exit_details.id')
+        ->leftJoin('product_income_store_detail','store_exit_details.product_income_id','=','product_income_store_detail.id')
+        ->where('users.id_estatus','=', $param)
+        ->orWhere('users.numero_empleado', 'like', '%' . $param . '%')
+        ->orWhere('users.curp', 'like', '%' . $param . '%')
+        ->orWhere('users.nombre_completo', 'like', '%' . $param . '%')
+        ->orwhere('users.id_empresa_rh', '=', $param)
+        ->orderBy('users.numero_empleado','asc')
+        ->get();
+
+
 
         return response()->json([
             'status' => 'success',
@@ -246,5 +277,42 @@ class EmployeesController extends Controller
                 'message' => 'Empleados eliminado correctamente',
                 'data' => $employee
             ]);
+    }
+
+    public function IdEmployee(Request $request){  
+        $id = $request->get('id'); 
+        $employee = DB::table('users')
+                    ->select('users.apellido_pat', 'users.apellido_mat', 'users.nombre', 'users.numero_empleado', 'users.curp', 'users.rfc', 'catalog_company_position.nombre as Puesto', 'catalog_company_subcategories.nombre as Area', 'company_department.nombre as Departamento')
+                    ->join('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
+                    ->join('catalog_company_subcategories','users.id_subcategoria','=','catalog_company_subcategories.id')
+                    ->join('company_department','users.id_departamento_empresa','=','company_department.id')
+                    ->where('users.id','=',$id)
+                    ->get();
+                    
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Empleado personal',
+            'data' => $employee
+        ]);
+    }
+
+    public function EmployeeProduct(Request $request){
+        $id = $request->get('id'); 
+        $employee = DB::table('store_exits')
+                    ->select('product_income_store_detail.sku', 'product_income_store_detail.serial_number', 'product_income_store_detail.product_name', 'catalog_categories.name as Categorie', 'catalog_subcategories.name as SubCategorie', 'product_income_store_detail.brand_name', 'products.model as Model')
+                    ->join('store_exit_details','store_exits.id','=','store_exit_details.id_store_exit')
+                    ->join('product_income_store_detail','store_exit_details.product_income_id','=','product_income_store_detail.id')
+                    ->join('catalog_categories','product_income_store_detail.product_id','=','catalog_categories.id')
+                    ->join('products','product_income_store_detail.product_id','=','products.id')
+                    ->join('catalog_subcategories','products.id_subcategory','=','catalog_subcategories.id')
+                    ->where('store_exits.receives_id','=', $id)
+                    ->get();
+
+        return response()->json([
+                        'status' => 'success',
+                        'msg' => 'Empleado personal',
+                        'data' => $employee
+                    ]);
+                
     }
 }

@@ -271,7 +271,8 @@ Route::get('employees/searchEmployees', [EmployeesController::class, 'searchEmpl
 Route::post('employees/create', [EmployeesController::class, 'create']);
 Route::post('employees/update', [EmployeesController::class, 'update']);
 Route::get('employees/delete', [EmployeesController::class, 'destroy']);
-
+Route::get('employees/EmployeeId', [EmployeesController::class, 'IdEmployee']);
+Route::get('employees/EmployeeProduct', [EmployeesController::class, 'EmployeeProduct']);
 
 //TransferDetailStore
 Route::post('transferStore/create',[transferStoreController::class, 'create']);
