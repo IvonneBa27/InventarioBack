@@ -44,10 +44,10 @@ class EmployeesController extends Controller
     public function searchEmployees(Request $request)
     {
         $param = $request->get('param');
-       // $company = $request->get('company');
-       // $status = $request->get('status');
+        $company = $request->get('company');
+        $status = $request->get('status');
 
-       /* if(isset($param)){
+        if(isset($param)){
             $users = Employees::where('nombre_completo', 'like', '%' . $param . '%')->with('gender', 'company', 'administrative_execution')
                 ->orWhere('numero_empleado', 'like', '%' . $param . '%')
                 ->orWhere('curp', 'like', '%' . $param . '%');
@@ -69,9 +69,9 @@ class EmployeesController extends Controller
         
 
         $users = $users->orderBy('numero_empleado', 'asc')->get();
-        */
+        
 
-        $users = DB::table('users')
+       /* $users = DB::table('users')
         ->select('numero_empleado', 'nombre_completo', 'curp', 'company_structure_type.nombre as Ejecucion_Administrativa', 'companies_payment.nombre as Empresa', 'product_income_store_detail.product_id as Equipamiento')
         ->join('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
         ->join('companies_payment','users.id_empresa_rh','=','companies_payment.id')
@@ -84,7 +84,7 @@ class EmployeesController extends Controller
         ->orWhere('users.nombre_completo', 'like', '%' . $param . '%')
         ->orwhere('users.id_empresa_rh', '=', $param)
         ->orderBy('users.numero_empleado','asc')
-        ->get();
+        ->get();*/
 
 
 
