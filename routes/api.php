@@ -42,6 +42,7 @@ use App\Http\Controllers\HistorialEmployeeStatusController;
 use App\Http\Controllers\prospectEmployeeController;
 use App\Http\Controllers\creditorsController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\CatalogSectionController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -78,7 +79,8 @@ Route::get('/usuario/getPermissionModules', [UsuarioController::class, 'getPermi
 Route::get('/usuario/getUserExcel', [UsuarioController::class, 'getUserExcel']);
 Route::get('/usuario/getUsersAuthorized', [UsuarioController::class, 'getUsersAuthorized']);
 Route::get('/usuario/getUsersReceives', [UsuarioController::class, 'getUsersReceives']);
-
+Route::get('/usuario/getSectionUserById', [UsuarioController::class, 'getSectionUserById']);
+Route::get( '/usuario/getSections', [UsuarioController::class, 'getSectionUser']);
 //Catalogos
 Route::get('/TipoUsuario/get', [GeneralController::class, 'getTipoUsuario']);
 Route::get('/Ubicaciones/get', [GeneralController::class, 'getUbicaciones']);
@@ -138,6 +140,7 @@ Route::get('/modulo/get', [catModuloController::class, 'get']);
 Route::get('/modulo/id', [catModuloController::class, 'getById']);
 Route::post('/modulo/update', [catModuloController::class, 'update']);
 Route::post('/modulo/delete', [catModuloController::class, 'delete']);
+Route::get('/modulo/getList',[catModuloController::class, 'get_ListCatModules']);//Stored para Lista de SubCategoria
 
 
 //TipoModulo
@@ -396,3 +399,7 @@ Route::get('creditors/id', [creditorsController::class, 'getById']);
 Route::post('creditors/update', [creditorsController::class, 'update']);
 Route::post('creditors/delete', [creditorsController::class, 'delete']);
 Route::get('creditors/search',[creditorsController::class, 'searchCreditors']);
+
+//S E C T I O N
+Route::post('subsection/create', [CatalogSectionController::class, 'create']);
+Route::get('subsection/getList', [CatalogSectionController::class, 'get_ListSubsections']);//Stored para Lista de SubCategoria

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class catModuloPostRequest extends FormRequest
+class CatalogSectionCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,7 +29,7 @@ class catModuloPostRequest extends FormRequest
             //
             
             
-                'name'=> 'required|unique:catalog_modules',
+              //  'name'=> 'required|unique:catalog_modules',
              
             
         ];

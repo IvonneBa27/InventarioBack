@@ -82,37 +82,6 @@ class UsuarioController extends Controller
         ]);
     }
 
-
-    public function getUsersAuthorized(){
-        $usuario = DB::table('users')
-                    ->select('*')
-                    ->join('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
-                    ->where('catalog_company_position.nombre','like','%Gerente')
-                    ->where('users.id_estatus','=',1)
-                    ->get();
-
-        return response()->json([
-                        'status' => 'success',
-                        'msg' => 'Usuarios obtenidos correctamente',
-                        'data' => $usuario
-                    ]);
-    }
-
-    public function getUsersReceives(){
-        $usuario = DB::table('users')
-                    ->select('*')
-                    ->whereNotIn('id_puesto',[34, 56])
-                    ->where('users.id_estatus','=',1)
-                    ->orderBy('nombre_completo','asc')
-                    ->get();
-
-        return response()->json([
-                        'status' => 'success',
-                        'msg' => 'Usuarios obtenidos correctamente',
-                        'data' => $usuario
-                    ]);
-    }
-
     public function getUserExcel(){
         $usuario = DB::table('users')
                     ->select('users.numero_empleado as NUMERO_EMPLEADO', 'users.nombre_completo as NOMBRE_COMPLETO', 'users.curp as CURP', 'company_structure_type.nombre as EJECUCION_ADMINISTRATIVA', 'company_department.nombre as ESTRUCTURA', 'catalog_company_position.nombre as PUESTO', 'users.sueldo as SUELDO', 'users.fecha_ingreso as FECHA_INGRESO', 'users.rfc as RFC', 'users.nss as NSS', 'users.fecha_nacimiento as FECHA_NACIMIENTO', 'gender.nombre as SEXO', 'users.email_personal as CORREO_ELECTRONICO_PERSONAL', 'users.email as CORREO_ELECTRONICO_LABORAL', 'users.fecha_pago as FECHA_PAGO', 'companies_payment.nombre as EMPRESA', 'status.nombre as ESTATUS', 'ubicaciones.nombre as UBICACIÓN', 'type_schedule.nombre as TURNO')
@@ -243,6 +212,28 @@ class UsuarioController extends Controller
         ]);
     }
 
+    public function getSectionUser(Request $request)
+    {
+        $id = $request->get('id');
+        $id_module = $request->get('id_module');
+
+        $modules
+            = DB::table('users')
+          //  ->select('users.id as user_id', 'catalog_sections.name', 'sections_permissions.id_section', 'sections_permissions.show', 'catalog_modules.name as Module')
+            ->select('sections_permissions.id_section', 'sections_permissions.show')
+            ->join('sections_permissions','users.id','=','sections_permissions.id_user')
+            ->join('catalog_sections','sections_permissions.id_section','=','catalog_sections.id')
+            ->join('catalog_modules','catalog_modules.id','=','catalog_sections.id_parent')
+            ->where('sections_permissions.id_user','=', $id)
+            ->where('catalog_modules.id','=',$id_module)
+            ->get();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Modulos Obtenidos.',
+            'data' => $modules
+        ]);
+    }
+
 
     public function getModuleUserById(Request $request)
     {
@@ -280,6 +271,72 @@ class UsuarioController extends Controller
             'data' => $modules
         ]);
     }
+
+
+    public function getSectionUserById(Request $request)
+    {
+        $id_usuario = $request->get('id');
+        $modules
+        =
+        DB::table('catalog_sections')
+        ->select(
+            'catalog_modules.id as id_module',
+            'catalog_modules.name as name_module',
+            'catalog_sections.id AS id_section',
+            'catalog_sections.name AS name_section',
+            DB::raw('COALESCE(sections_permissions.show, 0) AS `show_section`')
+        )
+        ->leftJoin('catalog_modules','catalog_modules.id','=','catalog_sections.id_parent')
+        ->leftJoin('sections_permissions', function ($join) use ($id_usuario) {
+            $join->on('catalog_sections.id', '=', 'sections_permissions.id_section')
+            ->where('sections_permissions.id_user', '=', $id_usuario);
+        })
+        ->get();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Secciones Obtenidos.',
+            'data' => $modules
+        ]);
+    }
+
+  /*  public function getModuleUserById(Request $request)
+    {
+        $id_usuario = $request->get('id');
+
+
+        $modules
+        =
+        DB::table('catalog_modules')
+        ->select(
+            'catalog_modules.id_type as isModule',
+            'catalog_modules.id',
+            'catalog_modules.name',
+            DB::raw('COALESCE(module_users_permissions.read, 0) AS `read`'),
+            DB::raw('COALESCE(module_users_permissions.edit, 0) AS edit'),
+            DB::raw('COALESCE(module_users_permissions.create, 0) AS `create`'),
+            DB::raw('COALESCE(module_users_permissions.delete, 0) AS `delete`'),
+            DB::raw('COALESCE(module_users_permissions.show, 0) AS `show`'),
+            'catalog_sections.id as idSection', 
+            'catalog_sections.name as nameSection', 
+            DB::raw('COALESCE(sections_permissions.show, 0) as `showSection`')
+            
+        )
+        ->leftJoin('module_users_permissions', function ($join) use ($id_usuario) {
+            $join->on('catalog_modules.id', '=', 'module_users_permissions.id_modulo')
+            ->where('module_users_permissions.id_usuario', '=', $id_usuario);
+        })
+        ->leftJoin('catalog_sections','catalog_modules.id','=','catalog_sections.id_parent')
+        ->leftJoin('sections_permissions','catalog_sections.id','=','sections_permissions.id_section')
+        ->get();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Modulos Obtenidos.',
+            'data' => $modules
+        ]);
+    }*/
+
+
+
 
     public function addPermisse(Request $request)
     {

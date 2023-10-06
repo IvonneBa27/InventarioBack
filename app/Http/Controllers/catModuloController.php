@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\catModulo;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\catModuloPostRequest;
+use Illuminate\Support\Facades\DB;
 
 class catModuloController extends Controller
 {
@@ -39,6 +40,16 @@ class catModuloController extends Controller
         ]);
     }
 
+    // Listas de Modulos 
+    public function get_ListCatModules(){
+        $modulo  = DB::SELECT('CALL get_list_modules()');
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Lista de Modulos',
+            'data' =>   $modulo 
+        ]);
+    }
+
 
     public function getById(Request $request){  
         $id = $request->get('id'); 
@@ -54,7 +65,7 @@ class catModuloController extends Controller
       public function update(Request $request){
         
         $modulo = catModulo::find($request['id']);   
-       $modulo->name=$request['name'];
+        $modulo->name=$request['name'];
         $modulo->id_type=$request['id_type'];
         $modulo->order=$request['order'];
         $modulo->status=$request['status'];
