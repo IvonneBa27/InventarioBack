@@ -81,6 +81,11 @@ Route::get('/usuario/getUsersAuthorized', [UsuarioController::class, 'getUsersAu
 Route::get('/usuario/getUsersReceives', [UsuarioController::class, 'getUsersReceives']);
 Route::get('/usuario/getSectionUserById', [UsuarioController::class, 'getSectionUserById']);
 Route::get( '/usuario/getSections', [UsuarioController::class, 'getSectionUser']);
+Route::get('/usuario/getPermissionSection', [UsuarioController::class, 'getPermissionSection']);
+Route::post('/usuario/addPermisseSection', [UsuarioController::class, 'addPermisseSection']);
+
+
+
 //Catalogos
 Route::get('/TipoUsuario/get', [GeneralController::class, 'getTipoUsuario']);
 Route::get('/Ubicaciones/get', [GeneralController::class, 'getUbicaciones']);

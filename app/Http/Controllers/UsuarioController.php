@@ -8,6 +8,7 @@ use App\Models\ModulePermisse;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserPostRequest;
 use Illuminate\Support\Facades\DB;
+use App\Models\SectionsPermissions;
 
 class UsuarioController extends Controller
 {
@@ -276,85 +277,73 @@ class UsuarioController extends Controller
     public function getSectionUserById(Request $request)
     {
         $id_usuario = $request->get('id');
-        $modules
-        =
+        $modules =
         DB::table('catalog_sections')
-        ->select(
-            'catalog_modules.id as id_module',
-            'catalog_modules.name as name_module',
-            'catalog_sections.id AS id_section',
-            'catalog_sections.name AS name_section',
-            DB::raw('COALESCE(sections_permissions.show, 0) AS `show_section`')
-        )
-        ->leftJoin('catalog_modules','catalog_modules.id','=','catalog_sections.id_parent')
-        ->leftJoin('sections_permissions', function ($join) use ($id_usuario) {
-            $join->on('catalog_sections.id', '=', 'sections_permissions.id_section')
-            ->where('sections_permissions.id_user', '=', $id_usuario);
-        })
-        ->get();
+            ->select('catalog_sections.id as id_section', 
+                     'catalog_sections.name as name_section', 
+                     'catalog_sections.id_parent', 
+                     DB::raw('COALESCE(sections_permissions.show, 0) AS `show_section`'))
+            ->leftJoin('sections_permissions','catalog_sections.id','=','sections_permissions.id_section')
+            ->where('sections_permissions.id_user','=',$id_usuario)
+            ->get();
         return response()->json([
             'status' => 'success',
             'msg' => 'Secciones Obtenidos.',
             'data' => $modules
         ]);
+
     }
-
-  /*  public function getModuleUserById(Request $request)
-    {
-        $id_usuario = $request->get('id');
-
-
-        $modules
-        =
-        DB::table('catalog_modules')
-        ->select(
-            'catalog_modules.id_type as isModule',
-            'catalog_modules.id',
-            'catalog_modules.name',
-            DB::raw('COALESCE(module_users_permissions.read, 0) AS `read`'),
-            DB::raw('COALESCE(module_users_permissions.edit, 0) AS edit'),
-            DB::raw('COALESCE(module_users_permissions.create, 0) AS `create`'),
-            DB::raw('COALESCE(module_users_permissions.delete, 0) AS `delete`'),
-            DB::raw('COALESCE(module_users_permissions.show, 0) AS `show`'),
-            'catalog_sections.id as idSection', 
-            'catalog_sections.name as nameSection', 
-            DB::raw('COALESCE(sections_permissions.show, 0) as `showSection`')
-            
-        )
-        ->leftJoin('module_users_permissions', function ($join) use ($id_usuario) {
-            $join->on('catalog_modules.id', '=', 'module_users_permissions.id_modulo')
-            ->where('module_users_permissions.id_usuario', '=', $id_usuario);
-        })
-        ->leftJoin('catalog_sections','catalog_modules.id','=','catalog_sections.id_parent')
-        ->leftJoin('sections_permissions','catalog_sections.id','=','sections_permissions.id_section')
-        ->get();
-        return response()->json([
-            'status' => 'success',
-            'msg' => 'Modulos Obtenidos.',
-            'data' => $modules
-        ]);
-    }*/
 
 
 
 
     public function addPermisse(Request $request)
     {
-
         try {
+            $requestData = $request->all(); 
+        
+            foreach ($requestData as $item) {
+
+                if (isset($item['seccion']) && is_array($item['seccion']) && isset($item['id_modulo'])) {
+                    ModulePermisse::where('id_usuario', $item['id_usuario'])
+                        ->where('id_modulo', $item['id_modulo'])
+                        ->update(['show' => $item['show']]);
+        
+                   
+                    foreach ($item['seccion'] as $subSection) {
+                        SectionsPermissions::where('id_user', $subSection['id_user'])
+                            ->where('id_section', $subSection['id_section'])
+                            ->update(['show' => $subSection['show']]);
+                    }
+                }
+            }
+        
+   
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Permisos guardados correctamente.',
+                'data' => $requestData
+            ]);
+        } catch (Exception $e) {
+       
+            $error_code = $e->getMessage();
+            return response()->json([
+                //'msg' => ' Error al crear el registro',
+               // 'data' => $error_code
+            ]);
+        }
+
+       /* try {
             foreach ($request->all() as $mod) {
 
-                $modexist = ModulePermisse::where('id_modulo', '=', $mod['id_modulo'])->where('id_usuario', '=', $mod['id_usuario'])->delete();
+              $modexist = ModulePermisse::where('id_modulo', '=', $mod['id_modulo'])->where('id_usuario', '=', $mod['id_usuario'])->delete();
 
 
-                // if($modexist->isNotEmpty()){
-                //     return response()->json([
-                //         'status' => 'success',
-                //         'msg' => 'Permisos guardados correctamente.',
-                //         'data' => $modexist
-                //     ]);
-                //     $modexist->delete();
-                // }
+
+                // TOMAR EL NODO DE SUBSECCIONES Y GUARDARLO EN LA TABLA DE SECCIONES
+
+                // OJO SI HACE ELIMINACION 
+                // SOLO ACTUALIZAR EL CAMPO SHOW 
 
 
                 $module = ModulePermisse::create(
@@ -364,8 +353,37 @@ class UsuarioController extends Controller
         } catch (\Exception $e) {
             $error_code = $e->getMessage();
             return response()->json([
-                'msg' => ' Error al crear el registro',
-                'data' => $error_code
+                //'msg' => ' Error al crear el registro',
+               // 'data' => $error_code
+            ]);
+        }*/
+
+
+
+        /*return response()->json([
+            'status' => 'success',
+            'msg' => 'Permisos guardados correctamente.',
+            'data' => $dataToUpdate
+        ]);*/
+    }
+
+    public function addPermisseSection(Request $request)
+    {
+
+        try {
+            foreach ($request->all() as $sec) {
+
+                $setexist = SectionsPermissions::where('id_section', '=', $sec['id_section'])->where('id_user', '=', $sec['id_user'])->delete();
+
+                $section = SectionsPermissions::create(
+                    $sec
+                );
+            }
+        } catch (\Exception $e) {
+            $error_code = $e->getMessage();
+            return response()->json([
+              'msg' => ' Error al crear el registro',
+              'data' => $error_code
             ]);
         }
 
@@ -373,10 +391,12 @@ class UsuarioController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'msg' => 'Permisos guardados correctamente.',
-            'data' => $modexist
+            'msg' => 'Permisos de Secciones guardados correctamente.',
+            'data' => $setexist
         ]);
     }
+
+
 
     public function getPermissionModules(Request $request)
     {
@@ -387,6 +407,31 @@ class UsuarioController extends Controller
             $permission = DB::table('module_users_permissions')
                 ->select('module_users_permissions.id_modulo', 'module_users_permissions.show')
                 ->where('id_usuario', '=', $id_usuario)
+                ->get();
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Permisos obtenidos correctamente.',
+                'data' => $permission
+            ]);
+        } catch (\Exception $e) {
+            $error_code = $e->getMessage();
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Error al obtener los permisos'
+            ]);
+        }
+    }
+
+
+    public function getPermissionSection(Request $request)
+    {
+        $id_usuario = $request->get('id_usuario');
+
+        try {
+
+            $permission = DB::table('sections_permissions')
+                ->select('sections_permissions.id_section', 'sections_permissions.show')
+                ->where('id_user', '=', $id_usuario)
                 ->get();
             return response()->json([
                 'status' => 'success',
