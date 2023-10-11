@@ -67,7 +67,7 @@ class catModuloController extends Controller
         $modulo = catModulo::find($request['id']);   
         $modulo->name=$request['name'];
         $modulo->id_type=$request['id_type'];
-        $modulo->order=$request['order'];
+       // $modulo->order=$request['order'];
         $modulo->status=$request['status'];
 
         $modulo->save();

@@ -65,6 +65,7 @@ Route::post('/producto/update', [ProductoController::class, 'update']);
 Route::delete('/producto/delete', [ProductoController::class, 'delete']);
 
 
+
 Route::post('/usuario/create', [UsuarioController::class, 'create']);
 Route::get('/usuario/get', [UsuarioController::class, 'get']);
 Route::get('/usuario/getOrderBy', [UsuarioController::class, 'getOrderBy']);
@@ -408,3 +409,5 @@ Route::get('creditors/search',[creditorsController::class, 'searchCreditors']);
 //S E C T I O N
 Route::post('subsection/create', [CatalogSectionController::class, 'create']);
 Route::get('subsection/getList', [CatalogSectionController::class, 'get_ListSubsections']);//Stored para Lista de SubCategoria
+Route::get('subsection/id', [CatalogSectionController::class, 'getById']);
+Route::post('subsection/update', [CatalogSectionController::class, 'update']);

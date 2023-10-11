@@ -15,5 +15,6 @@ class CatalogSections extends Model
          'name',
          'status',
          'id_parent',
+         'nomeclature',
      ];
 }
