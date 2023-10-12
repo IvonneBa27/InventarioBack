@@ -473,6 +473,23 @@ class GeneralController extends Controller
             ]);
     }
 
+
+    public function getCausesByReason(Request $request)
+    {
+        $id_parent = $request->get('id_parent');
+        $causes =
+                DB::table('catalog_cause_black_lists')
+                ->select('*')
+                ->where('id_parent','=',$id_parent)
+                ->get();
+
+                return response()->json([
+                    'status' => 'success',
+                    'msg' => 'Causas obtenidas correctamente',
+                    'data' => $causes
+                ]);
+    }
+
     // parentesco
     public function gerReasons()
     {

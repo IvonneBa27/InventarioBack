@@ -131,6 +131,8 @@ Route::get('/searchProducts/get',[GeneralController::class, 'searchProducts']);
 Route::get('/searchStores/get',[GeneralController::class, 'searchStores']);
 
 Route::get( '/getCauses', [GeneralController::class, 'getCauses']);
+
+Route::get( '/getCausesByReason', [GeneralController::class, 'getCausesByReason']);
 Route::get('/gerReasons', [GeneralController::class, 'gerReasons']);
 //Tipo de Salidas de Almacen
 Route::get('typeExit/get', [GeneralController::class, 'getTypeExitStore']);

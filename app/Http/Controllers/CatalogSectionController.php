@@ -18,6 +18,7 @@ class CatalogSectionController extends Controller
             'name'=>$request['name'],
             'status'=>$request['status'],
             'id_parent'=>$request['id_parent'],
+            'nomenclature'=>$request['nomenclature'],
            
         ]);
          return response()->json([
@@ -56,7 +57,10 @@ class CatalogSectionController extends Controller
         
        // $sectionmodule = CatalogSections::where('id_parent', '=',$id)->get();
           $sectionmodule =   DB::table('catalog_sections')
-                            ->select('catalog_sections.id', 'catalog_sections.name', 'status.nombre as Estatus')
+                            ->select('catalog_sections.id', 
+                                     'catalog_sections.name', 
+                                     'status.nombre as Estatus',
+                                     'catalog_sections.nomenclature')
                             ->join('status','catalog_sections.status','=','status.id')
                             ->where('catalog_sections.id_parent','=',$id)
                             ->get();
@@ -73,6 +77,7 @@ class CatalogSectionController extends Controller
         $sectionmodule = CatalogSections::find($request['id']);   
         $sectionmodule->name=$request['name'];
         $sectionmodule->status=$request['status'];
+        $sectionmodule->nomenclature=$request['nomenclature'];
         $sectionmodule ->save();
         return response()->json([
             'status' => 'success',

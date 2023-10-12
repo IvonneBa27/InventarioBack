@@ -205,6 +205,7 @@ class UsuarioController extends Controller
             ->join('catalog_modules', 'module_users_permissions.id_modulo', '=', 'catalog_modules.id')
             ->where('module_users_permissions.id_usuario', '=', $id)
             ->where('module_users_permissions.id_modulo', '=', $id_module)
+            ->where('catalog_modules.status', '=', 1)
             ->get();
         return response()->json([
             'status' => 'success',
@@ -220,12 +221,13 @@ class UsuarioController extends Controller
 
         $modules
             = DB::table('users')
-            ->select('sections_permissions.id_section', 'sections_permissions.show')
+            ->select('sections_permissions.id_section','catalog_sections.nomenclature', 'sections_permissions.show')
             ->join('sections_permissions','users.id','=','sections_permissions.id_user')
             ->join('catalog_sections','sections_permissions.id_section','=','catalog_sections.id')
             ->join('catalog_modules','catalog_modules.id','=','catalog_sections.id_parent')
             ->where('sections_permissions.id_user','=', $id)
             ->where('catalog_modules.id','=',$id_module)
+            ->where('catalog_sections.status', '=', 1)
             ->get();
         return response()->json([
             'status' => 'success',
@@ -263,7 +265,9 @@ class UsuarioController extends Controller
         ->leftJoin('module_users_permissions', function ($join) use ($id_usuario) {
             $join->on('catalog_modules.id', '=', 'module_users_permissions.id_modulo')
             ->where('module_users_permissions.id_usuario', '=', $id_usuario);
+       
         })
+        ->where('catalog_modules.status','=', 1)
         ->get();
         return response()->json([
             'status' => 'success',
@@ -306,8 +310,10 @@ class UsuarioController extends Controller
                      ->leftJoin('sections_permissions', function ($join) use ($id_usuario) {
                         $join->on('catalog_sections.id','=','sections_permissions.id_section')
                         ->where('sections_permissions.id_user', '=', $id_usuario);
+                      
                         
                     })
+                    ->where('catalog_sections.status', '=', 1)
                     ->get();
         return response()->json([
             'status' => 'success',
