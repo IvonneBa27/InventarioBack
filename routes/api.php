@@ -84,8 +84,13 @@ Route::get('/usuario/getSectionUserById', [UsuarioController::class, 'getSection
 Route::get( '/usuario/getSections', [UsuarioController::class, 'getSectionUser']);
 Route::get('/usuario/getPermissionSection', [UsuarioController::class, 'getPermissionSection']);
 Route::post('/usuario/addPermisseSection', [UsuarioController::class, 'addPermisseSection']);
-
-
+// G R A P H 
+Route::get('usuario/graphStaff', [UsuarioController::class, 'getGraphStaff']);
+Route::get('usuario/graphLocation', [UsuarioController::class, 'getGraphLocation']);
+Route::get('usuario/graphCampaign', [UsuarioController::class, 'getGraphCampaing']);
+Route::get('usuario/graphInternet', [UsuarioController::class, 'getGraphInternet']);
+// E X C E L - P E R M I S S I O N S
+Route::get('usuario/getDataUser', [UsuarioController::class, 'getDataUser']);
 
 //Catalogos
 Route::get('/TipoUsuario/get', [GeneralController::class, 'getTipoUsuario']);

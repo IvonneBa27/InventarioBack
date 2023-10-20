@@ -29,7 +29,7 @@ class EmployeesController extends Controller
         ->leftJoin('store_exits','users.id','=','store_exits.receives_id')
         ->leftJoin('store_exit_details','store_exits.id','=','store_exit_details.id')
         ->leftJoin('product_income_store_detail','store_exit_details.product_income_id','=','product_income_store_detail.id')
-        ->where('users.id_estatus','=',1)
+        //->where('users.id_estatus','=',1)
         ->orderBy('users.numero_empleado','asc')
         ->get();
 
@@ -47,16 +47,16 @@ class EmployeesController extends Controller
         $company = $request->get('company');
         $status = $request->get('status');
 
-        if(isset($param)){
-            $users = Employees::where('nombre_completo', 'like', '%' . $param . '%')->with('gender', 'company', 'administrative_execution')
+    /*   if(isset($param)){
+            $users = Employees::where('nombre_completo', 'like', '%' . $param . '%')->with('administrative_execution','company', )
                 ->orWhere('numero_empleado', 'like', '%' . $param . '%')
                 ->orWhere('curp', 'like', '%' . $param . '%');
             if ($company > 0) {
-                $users->orWhere('id_compania', '=', $company);
+                $users->orWhere('id_campania', '=', $company);
             }
 
         }else{
-            $users = Employees::with('gender', 'company', 'administrative_execution');
+            $users = Employees::with('administrative_execution','company');
             if ($company > 0) {
                 $users->where('id_empresa_rh', '=', $company);
             }
@@ -68,23 +68,44 @@ class EmployeesController extends Controller
         }
         
 
-        $users = $users->orderBy('numero_empleado', 'asc')->get();
-        
+        $users = $users->orderBy('numero_empleado', 'asc')->get();*/
 
-       /* $users = DB::table('users')
-        ->select('numero_empleado', 'nombre_completo', 'curp', 'company_structure_type.nombre as Ejecucion_Administrativa', 'companies_payment.nombre as Empresa', 'product_income_store_detail.product_id as Equipamiento')
-        ->join('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
-        ->join('companies_payment','users.id_empresa_rh','=','companies_payment.id')
-        ->leftJoin('store_exits','users.id','=','store_exits.receives_id')
-        ->leftJoin('store_exit_details','store_exits.id','=','store_exit_details.id')
-        ->leftJoin('product_income_store_detail','store_exit_details.product_income_id','=','product_income_store_detail.id')
-        ->where('users.id_estatus','=', $param)
-        ->orWhere('users.numero_empleado', 'like', '%' . $param . '%')
-        ->orWhere('users.curp', 'like', '%' . $param . '%')
-        ->orWhere('users.nombre_completo', 'like', '%' . $param . '%')
-        ->orwhere('users.id_empresa_rh', '=', $param)
-        ->orderBy('users.numero_empleado','asc')
-        ->get();*/
+        $users = DB::table('users')
+                        ->select(
+                            'store_exits.receives_id',
+                            'numero_empleado',
+                            'nombre_completo',
+                            'curp',
+                            'company_structure_type.nombre as Ejecucion_Administrativa',
+                            'companies_payment.nombre as Empresa',
+                            'product_income_store_detail.product_id as Equipamiento',
+                            'users.*'
+                        )
+                        ->join('company_structure_type', 'users.ejecucion_administrativa', '=', 'company_structure_type.id')
+                        ->join('companies_payment', 'users.id_empresa_rh', '=', 'companies_payment.id')
+                        ->leftJoin('store_exits', 'users.id', '=', 'store_exits.receives_id')
+                        ->leftJoin('store_exit_details', 'store_exits.id', '=', 'store_exit_details.id')
+                        ->leftJoin('product_income_store_detail', 'store_exit_details.product_income_id', '=', 'product_income_store_detail.id')
+                        //->where('users.id_estatus', '=', 1)
+                        ->orderBy('users.numero_empleado', 'asc');
+
+                    if (isset($param)) {
+                        $users->where(function ($query) use ($param) {
+                            $query->where('nombre_completo', 'like', '%' . $param . '%')
+                                ->orWhere('numero_empleado', 'like', '%' . $param . '%')
+                                ->orWhere('curp', 'like', '%' . $param . '%');
+                        });
+                    }
+
+                    if ($company > 0) {
+                        $users->where('id_campania', '=', $company);
+                    }
+
+                    if ($status > 0) {
+                        $users->where('id_estatus', '=', $status);
+                    }
+
+                    $users = $users->get();
 
 
 

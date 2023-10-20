@@ -502,4 +502,510 @@ class UsuarioController extends Controller
             ]);
         }
     }
+
+
+    public function getGraphStaff(){
+
+        $graph = DB::SELECT('CALL get_GraphStaff()');
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Grafica Staff',
+            'data' => $graph
+        ]);
+    }
+
+
+    public function getGraphLocation(){
+
+        $graph = DB::SELECT('CALL get_GraphLocation()');
+
+                return response()->json([
+                    'status' => 'success',
+                    'msg' => 'Grafica Ubicación',
+                    'data' => $graph
+                ]);
+        }
+
+    public function getGraphCampaing(){
+        $graph = DB::SELECT('CALL get_GraphCampaing()');
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Grafica Campaña',
+            'data' => $graph
+        ]);
+
+    }
+
+    public function getGraphInternet(){
+        $graph = DB::SELECT('CALL get_GraphInternet()');
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Grafica Internet',
+            'data' => $graph
+        ]);
+
+    }
+
+    public function getDataUser(Request $request)
+    {
+        $id = $request['id']; 
+        $permission  = DB::table('catalog_sections as cs')
+                    ->join('sections_permissions as sp', 'cs.id', '=', 'sp.id_section')
+                    ->select('cs.nomenclature')
+                    ->where('sp.id_user', $id)
+                    ->where('sp.show', 1)
+                    ->get()
+                    ->pluck('nomenclature')
+                    ->toArray();
+          
+
+        $dataUser = [];
+
+      
+        switch(true){
+    
+
+             case in_array('Emp-01', $permission) && in_array('Emp-02', $permission) && in_array('Emp-03', $permission) && in_array('Emp-04', $permission) && in_array('Emp-05', $permission) && in_array('Emp-06', $permission)  && in_array('Emp-07', $permission) && in_array('Emp-08', $permission):
+            $dataUser = DB::table('users')
+            ->select('users.id', 'users.nombre_completo', 'users.apellido_pat', 'users.apellido_mat', 'users.nombre', 'users.fecha_nacimiento', 'users.rfc', 'users.curp', 'gender.nombre as Sexo', 'catalog_civil_statuses.nombre as Estado_Civil', 'users.nss', 'users.numero_empleado', 'countries.pais', 'cities.ciudad', 'township.delegacion', 'users.colonia', 'users.calle', 'users.no_ext', 'users.no_int', 'users.cp', 'users.referencia', 'users.tel_personal', 'users.email_personal', 'users.contacto_emergencia_nombre', 'relationships.nombre as Parentesco', 'users.contacto_emergencia_telefono', 'type_bloods.nombre as tipo_sangre', 'users.contacto_emergencia_padecimientos', 'users.contacto_emergencia_movil', 'catalog_company_position.nombre as Puesto', 'catalog_company_subcategories.nombre as Area', 'company_department.nombre as Departamento', 'groups_sysca.nombre as Campaña', 'company_structure_type.nombre as ejecucion_administrativa', 'ubicaciones.nombre as ubicacion', 'type_schedule.nombre as turno', 'users.fecha_ingreso', 'users.tel_laboral', 'users.email', 'companies_payment.nombre as empresa_pago', 'users.sueldo', 'users.fecha_pago', 'banks_catalog.nombre as banco', 'users.numero_cuenta_bancaria', 'users.clabe_inter_bancaria', 'users.usuario', 'status.nombre')
+                            ->leftJoin('status','users.id_estatus','=','status.id')
+                            ->leftJoin('banks_catalog','users.id_banco','=','banks_catalog.id')
+                            ->leftJoin('companies_payment','users.id_empresa_rh','=','companies_payment.id')
+                            ->leftJoin('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
+                            ->leftJoin('catalog_company_subcategories','users.id_subcategoria','=','catalog_company_subcategories.id')
+                            ->leftJoin('company_department','users.id_departamento_empresa','=','company_department.id')
+                            ->leftJoin('groups_sysca','users.id_campania','=','groups_sysca.id')
+                            ->leftJoin('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
+                            ->leftJoin('type_schedule','users.id_turno','=','type_schedule.id')
+                            ->leftJoin('ubicaciones','users.id_ubicacion','=','ubicaciones.id')
+                            ->leftJoin('gender','users.id_sexo','=','gender.id')
+                            ->leftJoin('catalog_civil_statuses','users.id_estado_civil','=','catalog_civil_statuses.id')
+                            ->leftJoin('countries','users.id_pais','=','countries.idpais')
+                            ->leftJoin('township','users.id_municipio','=','township.iddelegacion')
+                            ->leftJoin('cities','users.id_estado','=','cities.idciudad')
+                            ->leftJoin('relationships','users.contacto_emergencia_parentesco','=','relationships.id')
+                            ->leftJoin('type_bloods','users.contacto_emergencia_tip_sangre','=','type_bloods.id')
+                            ->where('users.id_estatus','=',1)
+                            ->orderBy('users.id','asc')
+                            ->get();
+            break;
+            case in_array('Emp-01', $permission) && in_array('Emp-07', $permission) && in_array('Emp-08', $permission):
+                $dataUser = DB::table('users')
+                            ->select('users.id', 'users.nombre_completo', 'users.apellido_pat', 'users.apellido_mat', 'users.nombre', 'users.fecha_nacimiento', 'users.rfc', 'users.curp', 'gender.nombre as Sexo', 'catalog_civil_statuses.nombre as Estado_Civil', 'users.nss', 'users.numero_empleado', 'banks_catalog.nombre as banco', 'users.numero_cuenta_bancaria', 'users.clabe_inter_bancaria', 'users.usuario', 'status.nombre')
+                            ->leftJoin('status','users.id_estatus','=','status.id')
+                            ->leftJoin('banks_catalog','users.id_banco','=','banks_catalog.id')
+                            ->leftJoin('gender','users.id_sexo','=','gender.id')
+                            ->leftJoin('catalog_civil_statuses','users.id_estado_civil','=','catalog_civil_statuses.id')
+                            ->where('users.id_estatus','=',1)
+                            ->orderBy('users.id','asc')
+                            ->get();
+            break;
+            case in_array('Emp-01', $permission) && in_array('Emp-08', $permission):
+                $dataUser = DB::table('users')
+                ->select('users.id', 'users.nombre_completo', 'users.apellido_pat', 'users.apellido_mat', 'users.nombre', 'users.fecha_nacimiento', 'users.rfc', 'users.curp', 'gender.nombre as Sexo', 'catalog_civil_statuses.nombre as Estado_Civil', 'users.nss', 'users.numero_empleado', 'users.usuario', 'status.nombre')
+                                ->leftJoin('status','users.id_estatus','=','status.id')
+                                ->leftJoin('gender','users.id_sexo','=','gender.id')
+                                ->leftJoin('catalog_civil_statuses','users.id_estado_civil','=','catalog_civil_statuses.id')
+                                ->where('users.id_estatus','=',1)
+                                ->orderBy('users.id','asc')
+                                ->get();
+             break;
+       
+            case in_array('Emp-01', $permission) && in_array('Emp-07', $permission):
+                $dataUser = DB::table('users')
+                            ->select('users.id', 'users.nombre_completo', 'users.apellido_pat', 'users.apellido_mat', 'users.nombre', 'users.fecha_nacimiento', 'users.rfc', 'users.curp', 'gender.nombre as Sexo', 'catalog_civil_statuses.nombre as Estado_Civil', 'users.nss', 'users.numero_empleado', 'banks_catalog.nombre as banco', 'users.numero_cuenta_bancaria', 'users.clabe_inter_bancaria')
+                            ->leftJoin('banks_catalog','users.id_banco','=','banks_catalog.id')
+                            ->leftJoin('gender','users.id_sexo','=','gender.id')
+                            ->leftJoin('catalog_civil_statuses','users.id_estado_civil','=','catalog_civil_statuses.id')
+                            ->where('users.id_estatus','=',1)
+                            ->orderBy('users.id','asc')
+                            ->get();
+            break;
+      
+
+            case in_array('Emp-01', $permission) && in_array('Emp-02', $permission) && in_array('Emp-03', $permission) && in_array('Emp-04', $permission) && in_array('Emp-05', $permission) && in_array('Emp-06', $permission)  && in_array('Emp-07', $permission):
+                $dataUser = DB::table('users')
+                            ->select('users.id', 'users.nombre_completo', 'users.apellido_pat', 'users.apellido_mat', 'users.nombre', 'users.fecha_nacimiento', 'users.rfc', 'users.curp', 'gender.nombre as Sexo', 'catalog_civil_statuses.nombre as Estado_Civil', 'users.nss', 'users.numero_empleado', 'countries.pais', 'cities.ciudad', 'township.delegacion', 'users.colonia', 'users.calle', 'users.no_ext', 'users.no_int', 'users.cp', 'users.referencia', 'users.tel_personal', 'users.email_personal', 'users.contacto_emergencia_nombre', 'relationships.nombre as Parentesco', 'users.contacto_emergencia_telefono', 'type_bloods.nombre as tipo_sangre', 'users.contacto_emergencia_padecimientos', 'users.contacto_emergencia_movil', 'catalog_company_position.nombre as Puesto', 'catalog_company_subcategories.nombre as Area', 'company_department.nombre as Departamento', 'groups_sysca.nombre as Campaña', 'company_structure_type.nombre as ejecucion_administrativa', 'ubicaciones.nombre as ubicacion', 'type_schedule.nombre as turno', 'users.fecha_ingreso', 'users.tel_laboral', 'users.email', 'companies_payment.nombre as empresa_pago', 'users.sueldo', 'users.fecha_pago', 'banks_catalog.nombre as banco', 'users.numero_cuenta_bancaria', 'users.clabe_inter_bancaria')
+                            ->leftJoin('banks_catalog','users.id_banco','=','banks_catalog.id')
+                            ->leftJoin('companies_payment','users.id_empresa_rh','=','companies_payment.id')
+                            ->leftJoin('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
+                            ->leftJoin('catalog_company_subcategories','users.id_subcategoria','=','catalog_company_subcategories.id')
+                            ->leftJoin('company_department','users.id_departamento_empresa','=','company_department.id')
+                            ->leftJoin('groups_sysca','users.id_campania','=','groups_sysca.id')
+                            ->leftJoin('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
+                            ->leftJoin('type_schedule','users.id_turno','=','type_schedule.id')
+                            ->leftJoin('ubicaciones','users.id_ubicacion','=','ubicaciones.id')
+                            ->leftJoin('gender','users.id_sexo','=','gender.id')
+                            ->leftJoin('catalog_civil_statuses','users.id_estado_civil','=','catalog_civil_statuses.id')
+                            ->leftJoin('countries','users.id_pais','=','countries.idpais')
+                            ->leftJoin('township','users.id_municipio','=','township.iddelegacion')
+                            ->leftJoin('cities','users.id_estado','=','cities.idciudad')
+                            ->leftJoin('relationships','users.contacto_emergencia_parentesco','=','relationships.id')
+                            ->leftJoin('type_bloods','users.contacto_emergencia_tip_sangre','=','type_bloods.id')
+                            ->where('users.id_estatus','=',1)
+                            ->orderBy('users.id','asc')
+                            ->get();
+            break;
+            case in_array('Emp-01', $permission)  && in_array('Emp-06', $permission):
+                $dataUser = DB::table('users')
+                            ->select('users.id', 'users.nombre_completo', 'users.apellido_pat', 'users.apellido_mat', 'users.nombre', 'users.fecha_nacimiento', 'users.rfc', 'users.curp', 'gender.nombre as Sexo', 'catalog_civil_statuses.nombre as Estado_Civil', 'users.nss', 'users.numero_empleado',  'companies_payment.nombre as empresa_pago', 'users.sueldo', 'users.fecha_pago')
+                            ->leftJoin('companies_payment','users.id_empresa_rh','=','companies_payment.id')
+                            ->leftJoin('gender','users.id_sexo','=','gender.id')
+                            ->leftJoin('catalog_civil_statuses','users.id_estado_civil','=','catalog_civil_statuses.id')        
+                            ->where('users.id_estatus','=',1)
+                            ->orderBy('users.id','asc')
+                            ->get();
+            break;
+            case in_array('Emp-01', $permission) && in_array('Emp-02', $permission) && in_array('Emp-03', $permission) && in_array('Emp-04', $permission) && in_array('Emp-05', $permission) && in_array('Emp-06', $permission):
+                $dataUser = DB::table('users')
+                            ->select('users.id', 'users.nombre_completo', 'users.apellido_pat', 'users.apellido_mat', 'users.nombre', 'users.fecha_nacimiento', 'users.rfc', 'users.curp', 'gender.nombre as Sexo', 'catalog_civil_statuses.nombre as Estado_Civil', 'users.nss', 'users.numero_empleado', 'countries.pais', 'cities.ciudad', 'township.delegacion', 'users.colonia', 'users.calle', 'users.no_ext', 'users.no_int', 'users.cp', 'users.referencia', 'users.tel_personal', 'users.email_personal', 'users.contacto_emergencia_nombre', 'relationships.nombre as Parentesco', 'users.contacto_emergencia_telefono', 'type_bloods.nombre as tipo_sangre', 'users.contacto_emergencia_padecimientos', 'users.contacto_emergencia_movil', 'catalog_company_position.nombre as Puesto', 'catalog_company_subcategories.nombre as Area', 'company_department.nombre as Departamento', 'groups_sysca.nombre as Campaña', 'company_structure_type.nombre as ejecucion_administrativa', 'ubicaciones.nombre as ubicacion', 'type_schedule.nombre as turno', 'users.fecha_ingreso', 'users.tel_laboral', 'users.email', 'companies_payment.nombre as empresa_pago', 'users.sueldo', 'users.fecha_pago')
+                            ->leftJoin('companies_payment','users.id_empresa_rh','=','companies_payment.id')
+                            ->leftJoin('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
+                            ->leftJoin('catalog_company_subcategories','users.id_subcategoria','=','catalog_company_subcategories.id')
+                            ->leftJoin('company_department','users.id_departamento_empresa','=','company_department.id')
+                            ->leftJoin('groups_sysca','users.id_campania','=','groups_sysca.id')
+                            ->leftJoin('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
+                            ->leftJoin('type_schedule','users.id_turno','=','type_schedule.id')
+                            ->leftJoin('ubicaciones','users.id_ubicacion','=','ubicaciones.id')
+                            ->leftJoin('gender','users.id_sexo','=','gender.id')
+                            ->leftJoin('catalog_civil_statuses','users.id_estado_civil','=','catalog_civil_statuses.id')
+                            ->leftJoin('countries','users.id_pais','=','countries.idpais')
+                            ->leftJoin('township','users.id_municipio','=','township.iddelegacion')
+                            ->leftJoin('cities','users.id_estado','=','cities.idciudad')
+                            ->leftJoin('relationships','users.contacto_emergencia_parentesco','=','relationships.id')
+                            ->leftJoin('type_bloods','users.contacto_emergencia_tip_sangre','=','type_bloods.id')
+                            ->where('users.id_estatus','=',1)
+                            ->orderBy('users.id','asc')
+                            ->get();
+            break;
+            case in_array('Emp-01', $permission) && in_array('Emp-02', $permission) && in_array('Emp-03', $permission):
+                $dataUser = DB::table('users')
+                            ->select('users.id', 'users.nombre_completo', 'users.apellido_pat', 'users.apellido_mat', 'users.nombre', 'users.fecha_nacimiento', 'users.rfc', 'users.curp', 'gender.nombre as Sexo', 'catalog_civil_statuses.nombre as Estado_Civil', 'users.nss', 'users.numero_empleado', 'countries.pais', 'cities.ciudad', 'township.delegacion', 'users.colonia', 'users.calle', 'users.no_ext', 'users.no_int', 'users.cp', 'users.referencia', 'users.tel_personal', 'users.email_personal')
+                            ->leftJoin('gender','users.id_sexo','=','gender.id')
+                            ->leftJoin('catalog_civil_statuses','users.id_estado_civil','=','catalog_civil_statuses.id')
+                            ->leftJoin('countries','users.id_pais','=','countries.idpais')
+                            ->leftJoin('township','users.id_municipio','=','township.iddelegacion')
+                            ->leftJoin('cities','users.id_estado','=','cities.idciudad')
+                            ->where('users.id_estatus','=',1)
+                            ->orderBy('users.id','asc')
+                            ->get();
+            break;
+            case in_array('Emp-01', $permission)  && in_array('Emp-05', $permission):
+                $dataUser = DB::table('users')
+                            ->select('users.id', 'users.nombre_completo', 'users.apellido_pat', 'users.apellido_mat', 'users.nombre', 'users.fecha_nacimiento', 'users.rfc', 'users.curp', 'gender.nombre as Sexo', 'catalog_civil_statuses.nombre as Estado_Civil', 'users.nss', 'users.numero_empleado', 'catalog_company_position.nombre as Puesto', 'catalog_company_subcategories.nombre as Area', 'company_department.nombre as Departamento', 'groups_sysca.nombre as Campaña', 'company_structure_type.nombre as ejecucion_administrativa', 'ubicaciones.nombre as ubicacion', 'type_schedule.nombre as turno', 'users.fecha_ingreso', 'users.tel_laboral', 'users.email')
+                            ->leftJoin('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
+                            ->leftJoin('catalog_company_subcategories','users.id_subcategoria','=','catalog_company_subcategories.id')
+                            ->leftJoin('company_department','users.id_departamento_empresa','=','company_department.id')
+                            ->leftJoin('groups_sysca','users.id_campania','=','groups_sysca.id')
+                            ->leftJoin('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
+                            ->leftJoin('type_schedule','users.id_turno','=','type_schedule.id')
+                            ->leftJoin('ubicaciones','users.id_ubicacion','=','ubicaciones.id')
+                            ->leftJoin('gender','users.id_sexo','=','gender.id')
+                            ->leftJoin('catalog_civil_statuses','users.id_estado_civil','=','catalog_civil_statuses.id')
+                            ->where('users.id_estatus','=',1)
+                            ->orderBy('users.id','asc')
+                            ->get();
+            break;
+            case in_array('Emp-01', $permission) && in_array('Emp-02', $permission) && in_array('Emp-03', $permission) && in_array('Emp-04', $permission) && in_array('Emp-05', $permission):
+                $dataUser = DB::table('users')
+                            ->select('users.id', 'users.nombre_completo', 'users.apellido_pat', 'users.apellido_mat', 'users.nombre', 'users.fecha_nacimiento', 'users.rfc', 'users.curp', 'gender.nombre as Sexo', 'catalog_civil_statuses.nombre as Estado_Civil', 'users.nss', 'users.numero_empleado', 'countries.pais', 'cities.ciudad', 'township.delegacion', 'users.colonia', 'users.calle', 'users.no_ext', 'users.no_int', 'users.cp', 'users.referencia', 'users.tel_personal', 'users.email_personal', 'users.contacto_emergencia_nombre', 'relationships.nombre as Parentesco', 'users.contacto_emergencia_telefono', 'type_bloods.nombre as tipo_sangre', 'users.contacto_emergencia_padecimientos', 'users.contacto_emergencia_movil', 'catalog_company_position.nombre as Puesto', 'catalog_company_subcategories.nombre as Area', 'company_department.nombre as Departamento', 'groups_sysca.nombre as Campaña', 'company_structure_type.nombre as ejecucion_administrativa', 'ubicaciones.nombre as ubicacion', 'type_schedule.nombre as turno', 'users.fecha_ingreso', 'users.tel_laboral', 'users.email')
+                            ->leftJoin('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
+                            ->leftJoin('catalog_company_subcategories','users.id_subcategoria','=','catalog_company_subcategories.id')
+                            ->leftJoin('company_department','users.id_departamento_empresa','=','company_department.id')
+                            ->leftJoin('groups_sysca','users.id_campania','=','groups_sysca.id')
+                            ->leftJoin('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
+                            ->leftJoin('type_schedule','users.id_turno','=','type_schedule.id')
+                            ->leftJoin('ubicaciones','users.id_ubicacion','=','ubicaciones.id')
+                            ->leftJoin('gender','users.id_sexo','=','gender.id')
+                            ->leftJoin('catalog_civil_statuses','users.id_estado_civil','=','catalog_civil_statuses.id')
+                            ->leftJoin('countries','users.id_pais','=','countries.idpais')
+                            ->leftJoin('township','users.id_municipio','=','township.iddelegacion')
+                            ->leftJoin('cities','users.id_estado','=','cities.idciudad')
+                            ->leftJoin('relationships','users.contacto_emergencia_parentesco','=','relationships.id')
+                            ->leftJoin('type_bloods','users.contacto_emergencia_tip_sangre','=','type_bloods.id')
+                            ->where('users.id_estatus','=',1)
+                            ->orderBy('users.id','asc')
+                            ->get();
+            break;
+            case in_array('Emp-01', $permission)  && in_array('Emp-04', $permission):
+                $dataUser = DB::table('users')
+                            ->select('users.id', 'users.nombre_completo', 'users.apellido_pat', 'users.apellido_mat', 'users.nombre', 'users.fecha_nacimiento', 'users.rfc', 'users.curp', 'gender.nombre as Sexo', 'catalog_civil_statuses.nombre as Estado_Civil', 'users.nss', 'users.numero_empleado','users.contacto_emergencia_nombre', 'relationships.nombre as Parentesco', 'users.contacto_emergencia_telefono', 'type_bloods.nombre as tipo_sangre', 'users.contacto_emergencia_padecimientos', 'users.contacto_emergencia_movil')
+                            ->leftJoin('gender','users.id_sexo','=','gender.id')
+                            ->leftJoin('catalog_civil_statuses','users.id_estado_civil','=','catalog_civil_statuses.id')
+                            ->leftJoin('relationships','users.contacto_emergencia_parentesco','=','relationships.id')
+                            ->leftJoin('type_bloods','users.contacto_emergencia_tip_sangre','=','type_bloods.id')
+                            ->where('users.id_estatus','=',1)
+                            ->orderBy('users.id','asc')
+                            ->get();
+            break;
+            case in_array('Emp-01', $permission) && in_array('Emp-02', $permission) && in_array('Emp-03', $permission) && in_array('Emp-04', $permission):
+                $dataUser = DB::table('users')
+                            ->select('users.id', 'users.nombre_completo', 'users.apellido_pat', 'users.apellido_mat', 'users.nombre', 'users.fecha_nacimiento', 'users.rfc', 'users.curp', 'gender.nombre as Sexo', 'catalog_civil_statuses.nombre as Estado_Civil', 'users.nss', 'users.numero_empleado', 'countries.pais', 'cities.ciudad', 'township.delegacion', 'users.colonia', 'users.calle', 'users.no_ext', 'users.no_int', 'users.cp', 'users.referencia', 'users.tel_personal', 'users.email_personal', 'users.contacto_emergencia_nombre', 'relationships.nombre as Parentesco', 'users.contacto_emergencia_telefono', 'type_bloods.nombre as tipo_sangre', 'users.contacto_emergencia_padecimientos', 'users.contacto_emergencia_movil')
+                            ->leftJoin('gender','users.id_sexo','=','gender.id')
+                            ->leftJoin('catalog_civil_statuses','users.id_estado_civil','=','catalog_civil_statuses.id')
+                            ->leftJoin('countries','users.id_pais','=','countries.idpais')
+                            ->leftJoin('township','users.id_municipio','=','township.iddelegacion')
+                            ->leftJoin('cities','users.id_estado','=','cities.idciudad')
+                            ->leftJoin('relationships','users.contacto_emergencia_parentesco','=','relationships.id')
+                            ->leftJoin('type_bloods','users.contacto_emergencia_tip_sangre','=','type_bloods.id')
+                            ->where('users.id_estatus','=',1)
+                            ->orderBy('users.id','asc')
+                            ->get();
+            break;
+            case in_array('Emp-01', $permission) && in_array('Emp-03', $permission):
+                $dataUser = DB::table('users')
+                            ->select('users.id', 'users.nombre_completo', 'users.apellido_pat', 'users.apellido_mat', 'users.nombre', 'users.fecha_nacimiento', 'users.rfc', 'users.curp', 'gender.nombre as Sexo', 'catalog_civil_statuses.nombre as Estado_Civil', 'users.nss', 'users.numero_empleado', 'users.tel_personal', 'users.email_personal')
+                            ->leftJoin('gender','users.id_sexo','=','gender.id')
+                            ->leftJoin('catalog_civil_statuses','users.id_estado_civil','=','catalog_civil_statuses.id')
+                            ->where('users.id_estatus','=',1)
+                            ->orderBy('users.id','asc')
+                            ->get();
+            break;
+    
+            case in_array('Emp-01', $permission) && in_array('Emp-02', $permission):
+                $dataUser = DB::table('users')
+                            ->select('users.id', 'users.nombre_completo', 'users.apellido_pat', 'users.apellido_mat', 'users.nombre', 'users.fecha_nacimiento', 'users.rfc', 'users.curp', 'gender.nombre as Sexo', 'catalog_civil_statuses.nombre as Estado_Civil', 'users.nss', 'users.numero_empleado', 'countries.pais', 'cities.ciudad', 'township.delegacion', 'users.colonia', 'users.calle', 'users.no_ext', 'users.no_int', 'users.cp', 'users.referencia')
+                            ->leftJoin('gender','users.id_sexo','=','gender.id')
+                            ->leftJoin('catalog_civil_statuses','users.id_estado_civil','=','catalog_civil_statuses.id')
+                            ->leftJoin('countries','users.id_pais','=','countries.idpais')
+                            ->leftJoin('township','users.id_municipio','=','township.iddelegacion')
+                            ->leftJoin('cities','users.id_estado','=','cities.idciudad')
+                            ->where('users.id_estatus','=',1)
+                            ->orderBy('users.id','asc')
+                            ->get();
+            break;
+            //Datos Personales
+            case in_array('Emp-01', $permission):
+                $dataUser = DB::table('users')
+                            ->select('users.id', 'users.nombre_completo', 'users.apellido_pat', 'users.apellido_mat', 'users.nombre', 'users.fecha_nacimiento', 'users.rfc', 'users.curp', 'gender.nombre as Sexo', 'catalog_civil_statuses.nombre as Estado_Civil', 'users.nss', 'users.numero_empleado')
+                            ->leftJoin('gender','users.id_sexo','=','gender.id')
+                            ->leftJoin('catalog_civil_statuses','users.id_estado_civil','=','catalog_civil_statuses.id')
+                            ->where('users.id_estatus','=',1)
+                            ->orderBy('users.id','asc')
+                            ->get();
+            break;
+
+            case in_array('Emp-02', $permission) && in_array('Emp-03', $permission) && in_array('Emp-04', $permission) && in_array('Emp-05', $permission) && in_array('Emp-06', $permission)  && in_array('Emp-07', $permission) && in_array('Emp-08', $permission):
+                $dataUser = DB::table('users')
+                ->select('users.id', 'users.nombre_completo','countries.pais', 'cities.ciudad', 'township.delegacion', 'users.colonia', 'users.calle', 'users.no_ext', 'users.no_int', 'users.cp', 'users.referencia', 'users.tel_personal', 'users.email_personal', 'users.contacto_emergencia_nombre', 'relationships.nombre as Parentesco', 'users.contacto_emergencia_telefono', 'type_bloods.nombre as tipo_sangre', 'users.contacto_emergencia_padecimientos', 'users.contacto_emergencia_movil', 'catalog_company_position.nombre as Puesto', 'catalog_company_subcategories.nombre as Area', 'company_department.nombre as Departamento', 'groups_sysca.nombre as Campaña', 'company_structure_type.nombre as ejecucion_administrativa', 'ubicaciones.nombre as ubicacion', 'type_schedule.nombre as turno', 'users.fecha_ingreso', 'users.tel_laboral', 'users.email', 'companies_payment.nombre as empresa_pago', 'users.sueldo', 'users.fecha_pago', 'banks_catalog.nombre as banco', 'users.numero_cuenta_bancaria', 'users.clabe_inter_bancaria', 'users.usuario', 'status.nombre')
+                                ->leftJoin('status','users.id_estatus','=','status.id')
+                                ->leftJoin('banks_catalog','users.id_banco','=','banks_catalog.id')
+                                ->leftJoin('companies_payment','users.id_empresa_rh','=','companies_payment.id')
+                                ->leftJoin('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
+                                ->leftJoin('catalog_company_subcategories','users.id_subcategoria','=','catalog_company_subcategories.id')
+                                ->leftJoin('company_department','users.id_departamento_empresa','=','company_department.id')
+                                ->leftJoin('groups_sysca','users.id_campania','=','groups_sysca.id')
+                                ->leftJoin('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
+                                ->leftJoin('type_schedule','users.id_turno','=','type_schedule.id')
+                                ->leftJoin('ubicaciones','users.id_ubicacion','=','ubicaciones.id')
+                                ->leftJoin('countries','users.id_pais','=','countries.idpais')
+                                ->leftJoin('township','users.id_municipio','=','township.iddelegacion')
+                                ->leftJoin('cities','users.id_estado','=','cities.idciudad')
+                                ->leftJoin('relationships','users.contacto_emergencia_parentesco','=','relationships.id')
+                                ->leftJoin('type_bloods','users.contacto_emergencia_tip_sangre','=','type_bloods.id')
+                                ->where('users.id_estatus','=',1)
+                                ->orderBy('users.id','asc')
+                                ->get();
+                break;
+                case in_array('Emp-02', $permission) && in_array('Emp-03', $permission) && in_array('Emp-04', $permission) && in_array('Emp-05', $permission) && in_array('Emp-06', $permission)  && in_array('Emp-07', $permission):
+                    $dataUser = DB::table('users')
+                    ->select('users.id', 'users.nombre_completo','countries.pais', 'cities.ciudad', 'township.delegacion', 'users.colonia', 'users.calle', 'users.no_ext', 'users.no_int', 'users.cp', 'users.referencia', 'users.tel_personal', 'users.email_personal', 'users.contacto_emergencia_nombre', 'relationships.nombre as Parentesco', 'users.contacto_emergencia_telefono', 'type_bloods.nombre as tipo_sangre', 'users.contacto_emergencia_padecimientos', 'users.contacto_emergencia_movil', 'catalog_company_position.nombre as Puesto', 'catalog_company_subcategories.nombre as Area', 'company_department.nombre as Departamento', 'groups_sysca.nombre as Campaña', 'company_structure_type.nombre as ejecucion_administrativa', 'ubicaciones.nombre as ubicacion', 'type_schedule.nombre as turno', 'users.fecha_ingreso', 'users.tel_laboral', 'users.email', 'companies_payment.nombre as empresa_pago', 'users.sueldo', 'users.fecha_pago', 'banks_catalog.nombre as banco', 'users.numero_cuenta_bancaria', 'users.clabe_inter_bancaria')
+                                    ->leftJoin('banks_catalog','users.id_banco','=','banks_catalog.id')
+                                    ->leftJoin('companies_payment','users.id_empresa_rh','=','companies_payment.id')
+                                    ->leftJoin('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
+                                    ->leftJoin('catalog_company_subcategories','users.id_subcategoria','=','catalog_company_subcategories.id')
+                                    ->leftJoin('company_department','users.id_departamento_empresa','=','company_department.id')
+                                    ->leftJoin('groups_sysca','users.id_campania','=','groups_sysca.id')
+                                    ->leftJoin('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
+                                    ->leftJoin('type_schedule','users.id_turno','=','type_schedule.id')
+                                    ->leftJoin('ubicaciones','users.id_ubicacion','=','ubicaciones.id')
+                                    ->leftJoin('countries','users.id_pais','=','countries.idpais')
+                                    ->leftJoin('township','users.id_municipio','=','township.iddelegacion')
+                                    ->leftJoin('cities','users.id_estado','=','cities.idciudad')
+                                    ->leftJoin('relationships','users.contacto_emergencia_parentesco','=','relationships.id')
+                                    ->leftJoin('type_bloods','users.contacto_emergencia_tip_sangre','=','type_bloods.id')
+                                    ->where('users.id_estatus','=',1)
+                                    ->orderBy('users.id','asc')
+                                    ->get();
+                break;
+                case in_array('Emp-02', $permission) && in_array('Emp-03', $permission) && in_array('Emp-04', $permission) && in_array('Emp-05', $permission) && in_array('Emp-06', $permission):
+                        $dataUser = DB::table('users')
+                        ->select('users.id', 'users.nombre_completo','countries.pais', 'cities.ciudad', 'township.delegacion', 'users.colonia', 'users.calle', 'users.no_ext', 'users.no_int', 'users.cp', 'users.referencia', 'users.tel_personal', 'users.email_personal', 'users.contacto_emergencia_nombre', 'relationships.nombre as Parentesco', 'users.contacto_emergencia_telefono', 'type_bloods.nombre as tipo_sangre', 'users.contacto_emergencia_padecimientos', 'users.contacto_emergencia_movil', 'catalog_company_position.nombre as Puesto', 'catalog_company_subcategories.nombre as Area', 'company_department.nombre as Departamento', 'groups_sysca.nombre as Campaña', 'company_structure_type.nombre as ejecucion_administrativa', 'ubicaciones.nombre as ubicacion', 'type_schedule.nombre as turno', 'users.fecha_ingreso', 'users.tel_laboral', 'users.email', 'companies_payment.nombre as empresa_pago', 'users.sueldo', 'users.fecha_pago')
+                                        ->leftJoin('companies_payment','users.id_empresa_rh','=','companies_payment.id')
+                                        ->leftJoin('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
+                                        ->leftJoin('catalog_company_subcategories','users.id_subcategoria','=','catalog_company_subcategories.id')
+                                        ->leftJoin('company_department','users.id_departamento_empresa','=','company_department.id')
+                                        ->leftJoin('groups_sysca','users.id_campania','=','groups_sysca.id')
+                                        ->leftJoin('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
+                                        ->leftJoin('type_schedule','users.id_turno','=','type_schedule.id')
+                                        ->leftJoin('ubicaciones','users.id_ubicacion','=','ubicaciones.id')
+                                        ->leftJoin('countries','users.id_pais','=','countries.idpais')
+                                        ->leftJoin('township','users.id_municipio','=','township.iddelegacion')
+                                        ->leftJoin('cities','users.id_estado','=','cities.idciudad')
+                                        ->leftJoin('relationships','users.contacto_emergencia_parentesco','=','relationships.id')
+                                        ->leftJoin('type_bloods','users.contacto_emergencia_tip_sangre','=','type_bloods.id')
+                                        ->where('users.id_estatus','=',1)
+                                        ->orderBy('users.id','asc')
+                                        ->get();
+            break;
+            case in_array('Emp-02', $permission) && in_array('Emp-03', $permission) && in_array('Emp-04', $permission) && in_array('Emp-05', $permission):
+                $dataUser = DB::table('users')
+                ->select('users.id', 'users.nombre_completo','countries.pais', 'cities.ciudad', 'township.delegacion', 'users.colonia', 'users.calle', 'users.no_ext', 'users.no_int', 'users.cp', 'users.referencia', 'users.tel_personal', 'users.email_personal', 'users.contacto_emergencia_nombre', 'relationships.nombre as Parentesco', 'users.contacto_emergencia_telefono', 'type_bloods.nombre as tipo_sangre', 'users.contacto_emergencia_padecimientos', 'users.contacto_emergencia_movil', 'catalog_company_position.nombre as Puesto', 'catalog_company_subcategories.nombre as Area', 'company_department.nombre as Departamento', 'groups_sysca.nombre as Campaña', 'company_structure_type.nombre as ejecucion_administrativa', 'ubicaciones.nombre as ubicacion', 'type_schedule.nombre as turno', 'users.fecha_ingreso', 'users.tel_laboral', 'users.email')
+                                ->leftJoin('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
+                                ->leftJoin('catalog_company_subcategories','users.id_subcategoria','=','catalog_company_subcategories.id')
+                                ->leftJoin('company_department','users.id_departamento_empresa','=','company_department.id')
+                                ->leftJoin('groups_sysca','users.id_campania','=','groups_sysca.id')
+                                ->leftJoin('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
+                                ->leftJoin('type_schedule','users.id_turno','=','type_schedule.id')
+                                ->leftJoin('ubicaciones','users.id_ubicacion','=','ubicaciones.id')
+                                ->leftJoin('countries','users.id_pais','=','countries.idpais')
+                                ->leftJoin('township','users.id_municipio','=','township.iddelegacion')
+                                ->leftJoin('cities','users.id_estado','=','cities.idciudad')
+                                ->leftJoin('relationships','users.contacto_emergencia_parentesco','=','relationships.id')
+                                ->leftJoin('type_bloods','users.contacto_emergencia_tip_sangre','=','type_bloods.id')
+                                ->where('users.id_estatus','=',1)
+                                ->orderBy('users.id','asc')
+                                ->get();
+            break;
+
+            case in_array('Emp-02', $permission) && in_array('Emp-03', $permission) && in_array('Emp-04', $permission):
+                $dataUser = DB::table('users')
+                ->select('users.id', 'users.nombre_completo','countries.pais', 'cities.ciudad', 'township.delegacion', 'users.colonia', 'users.calle', 'users.no_ext', 'users.no_int', 'users.cp', 'users.referencia', 'users.tel_personal', 'users.email_personal', 'users.contacto_emergencia_nombre', 'relationships.nombre as Parentesco', 'users.contacto_emergencia_telefono', 'type_bloods.nombre as tipo_sangre', 'users.contacto_emergencia_padecimientos', 'users.contacto_emergencia_movil')
+                                ->leftJoin('countries','users.id_pais','=','countries.idpais')
+                                ->leftJoin('township','users.id_municipio','=','township.iddelegacion')
+                                ->leftJoin('cities','users.id_estado','=','cities.idciudad')
+                                ->leftJoin('relationships','users.contacto_emergencia_parentesco','=','relationships.id')
+                                ->leftJoin('type_bloods','users.contacto_emergencia_tip_sangre','=','type_bloods.id')
+                                ->where('users.id_estatus','=',1)
+                                ->orderBy('users.id','asc')
+                                ->get();
+            break;
+            case in_array('Emp-02', $permission) && in_array('Emp-03', $permission):
+                $dataUser = DB::table('users')
+                ->select('users.id', 'users.nombre_completo','countries.pais', 'cities.ciudad', 'township.delegacion', 'users.colonia', 'users.calle', 'users.no_ext', 'users.no_int', 'users.cp', 'users.referencia', 'users.tel_personal', 'users.email_personal')
+                                ->leftJoin('countries','users.id_pais','=','countries.idpais')
+                                ->leftJoin('township','users.id_municipio','=','township.iddelegacion')
+                                ->leftJoin('cities','users.id_estado','=','cities.idciudad')
+                                ->where('users.id_estatus','=',1)
+                                ->orderBy('users.id','asc')
+                                ->get();
+            break;
+  
+            //Datos de Domicilio
+            case in_array('Emp-02', $permission):
+                $dataUser = DB::table('users')
+                            ->select('users.id', 'users.nombre_completo','countries.pais', 'cities.ciudad', 'township.delegacion', 'users.colonia', 'users.calle', 'users.no_ext', 'users.no_int', 'users.cp', 'users.referencia')
+                            ->leftJoin('countries','users.id_pais','=','countries.idpais')
+                            ->leftJoin('township','users.id_municipio','=','township.iddelegacion')
+                            ->leftJoin('cities','users.id_estado','=','cities.idciudad')
+                            ->where('users.id_estatus','=',1)
+                            ->orderBy('users.id','asc')
+                            ->get();
+            break;
+            case in_array('Emp-03', $permission) && in_array('Emp-04', $permission) && in_array('Emp-05', $permission) && in_array('Emp-06', $permission)  && in_array('Emp-07', $permission) && in_array('Emp-08', $permission):
+                $dataUser = DB::table('users')
+                ->select('users.id', 'users.nombre_completo','users.tel_personal', 'users.email_personal', 'users.contacto_emergencia_nombre', 'relationships.nombre as Parentesco', 'users.contacto_emergencia_telefono', 'type_bloods.nombre as tipo_sangre', 'users.contacto_emergencia_padecimientos', 'users.contacto_emergencia_movil', 'catalog_company_position.nombre as Puesto', 'catalog_company_subcategories.nombre as Area', 'company_department.nombre as Departamento', 'groups_sysca.nombre as Campaña', 'company_structure_type.nombre as ejecucion_administrativa', 'ubicaciones.nombre as ubicacion', 'type_schedule.nombre as turno', 'users.fecha_ingreso', 'users.tel_laboral', 'users.email', 'companies_payment.nombre as empresa_pago', 'users.sueldo', 'users.fecha_pago', 'banks_catalog.nombre as banco', 'users.numero_cuenta_bancaria', 'users.clabe_inter_bancaria', 'users.usuario', 'status.nombre')
+                                ->leftJoin('status','users.id_estatus','=','status.id')
+                                ->leftJoin('banks_catalog','users.id_banco','=','banks_catalog.id')
+                                ->leftJoin('companies_payment','users.id_empresa_rh','=','companies_payment.id')
+                                ->leftJoin('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
+                                ->leftJoin('catalog_company_subcategories','users.id_subcategoria','=','catalog_company_subcategories.id')
+                                ->leftJoin('company_department','users.id_departamento_empresa','=','company_department.id')
+                                ->leftJoin('groups_sysca','users.id_campania','=','groups_sysca.id')
+                                ->leftJoin('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
+                                ->leftJoin('type_schedule','users.id_turno','=','type_schedule.id')
+                                ->leftJoin('ubicaciones','users.id_ubicacion','=','ubicaciones.id')
+                                ->leftJoin('relationships','users.contacto_emergencia_parentesco','=','relationships.id')
+                                ->leftJoin('type_bloods','users.contacto_emergencia_tip_sangre','=','type_bloods.id')
+                                ->where('users.id_estatus','=',1)
+                                ->orderBy('users.id','asc')
+                                ->get();
+                break;
+
+            //Datos de Contacto
+            case in_array('Emp-03', $permission):
+                $dataUser = DB::table('users')
+                            ->select('users.id', 'users.nombre_completo','users.tel_personal', 'users.email_personal')
+                            ->where('users.id_estatus','=',1)
+                            ->orderBy('users.id','asc')
+                            ->get();
+            break;
+            //Datos de Contacto de Emergencia
+            case in_array('Emp-04', $permission):
+                $dataUser = DB::table('users')
+                            ->select('users.id', 'users.nombre_completo', 'users.contacto_emergencia_nombre', 'relationships.nombre as Parentesco', 'users.contacto_emergencia_telefono', 'type_bloods.nombre as tipo_sangre', 'users.contacto_emergencia_padecimientos', 'users.contacto_emergencia_movil')
+                            ->leftJoin('relationships','users.contacto_emergencia_parentesco','=','relationships.id')
+                            ->leftJoin('type_bloods','users.contacto_emergencia_tip_sangre','=','type_bloods.id')
+                            ->where('users.id_estatus','=',1)
+                            ->orderBy('users.id','asc')
+                            ->get();
+                break;
+            //Datos Laborales
+            case in_array('Emp-05', $permission):
+                $dataUser = DB::table('users')
+                                ->select('users.id', 'users.nombre_completo', 'catalog_company_position.nombre as Puesto', 'catalog_company_subcategories.nombre as Area', 'company_department.nombre as Departamento', 'groups_sysca.nombre as Campaña', 'company_structure_type.nombre as ejecucion_administrativa', 'ubicaciones.nombre as ubicacion', 'type_schedule.nombre as turno', 'users.fecha_ingreso', 'users.tel_laboral', 'users.email')
+                                ->leftJoin('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
+                                ->leftJoin('catalog_company_subcategories','users.id_subcategoria','=','catalog_company_subcategories.id')
+                                ->leftJoin('company_department','users.id_departamento_empresa','=','company_department.id')
+                                ->leftJoin('groups_sysca','users.id_campania','=','groups_sysca.id')
+                                ->leftJoin('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
+                                ->leftJoin('type_schedule','users.id_turno','=','type_schedule.id')
+                                ->leftJoin('ubicaciones','users.id_ubicacion','=','ubicaciones.id')
+                                ->where('users.id_estatus','=',1)
+                                ->orderBy('users.id','asc')
+                                ->get();
+            break;
+            //Datos de Nómina
+            case in_array('Emp-06', $permission):
+                $dataUser = DB::table('users')
+                                ->select('users.id', 'users.nombre_completo', 'companies_payment.nombre as empresa_pago', 'users.sueldo', 'users.fecha_pago')
+                                ->leftJoin('companies_payment','users.id_empresa_rh','=','companies_payment.id')
+                                ->where('users.id_estatus','=',1)
+                                ->orderBy('users.id','asc')
+                                ->get();
+            break;
+
+            //Datos de Cuenta Bancaria
+
+            case in_array('Emp-07', $permission):
+                $dataUser = DB::table('users')
+                                ->select('users.id', 'users.nombre_completo', 'banks_catalog.nombre as banco', 'users.numero_cuenta_bancaria', 'users.clabe_inter_bancaria')
+                                ->leftJoin('banks_catalog','users.id_banco','=','banks_catalog.id')
+                                ->where('users.id_estatus','=',1)
+                                ->orderBy('users.id','asc')
+                                ->get();
+            break;
+
+            //Datos de Acceso
+
+            case in_array('Emp-08', $permission):
+                $dataUser = DB::table('users')
+                            ->select('users.id', 'users.nombre_completo', 'users.usuario', 'status.nombre')
+                            ->leftJoin('status','users.id_estatus','=','status.id')
+                            ->where('users.id_estatus','=',1)
+                            ->orderBy('users.id','asc')
+                            ->get();
+            break;
+
+          
+        }
+        
+
+
+
+        
+                    return response()->json([
+                        'status' => 'success',
+                        'msg' => 'Datos obtenidos',
+                       //'data' => $permission
+                        'data' => $dataUser
+                    ]);
+
+    }
+
+
+
 }
