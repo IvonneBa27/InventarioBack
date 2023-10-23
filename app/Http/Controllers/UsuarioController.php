@@ -477,7 +477,6 @@ class UsuarioController extends Controller
         }
     }
 
-
     public function updateImgProfile(Request $request)
     {
         $id = $request['id']; // Metodo por GET

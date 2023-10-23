@@ -92,6 +92,7 @@ Route::get('usuario/graphInternet', [UsuarioController::class, 'getGraphInternet
 // E X C E L - P E R M I S S I O N S
 Route::get('usuario/getDataUser', [UsuarioController::class, 'getDataUser']);
 
+
 //Catalogos
 Route::get('/TipoUsuario/get', [GeneralController::class, 'getTipoUsuario']);
 Route::get('/Ubicaciones/get', [GeneralController::class, 'getUbicaciones']);
