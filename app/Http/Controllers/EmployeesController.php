@@ -86,7 +86,7 @@ class EmployeesController extends Controller
                         ->leftJoin('store_exits', 'users.id', '=', 'store_exits.receives_id')
                         ->leftJoin('store_exit_details', 'store_exits.id', '=', 'store_exit_details.id')
                         ->leftJoin('product_income_store_detail', 'store_exit_details.product_income_id', '=', 'product_income_store_detail.id')
-                        //->where('users.id_estatus', '=', 1)
+                        ->where('users.id_estatus', '=', 1)
                         ->orderBy('users.numero_empleado', 'asc');
 
                     if (isset($param)) {
@@ -98,7 +98,7 @@ class EmployeesController extends Controller
                     }
 
                     if ($company > 0) {
-                        $users->where('id_campania', '=', $company);
+                        $users->where('id_empresa_rh', '=', $company);
                     }
 
                     if ($status > 0) {
