@@ -43,6 +43,8 @@ use App\Http\Controllers\prospectEmployeeController;
 use App\Http\Controllers\creditorsController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\CatalogSectionController;
+use App\Http\Controllers\recruitmentSourcesController;
+use App\Http\Controllers\FollowUpController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -114,6 +116,8 @@ Route::get('/getMaritalStatus',[GeneralController::class, 'getMaritalStatus']);
 Route::get('/getTypeBloods',[GeneralController::class, 'typeBloods']);
 Route::get('/getRelationship',[GeneralController::class, 'relationship']);
 Route::get('StatusEmployees/get', [GeneralController::class, 'getStatusEmployees']);
+Route::get('/getRecruitmentIndustries', [GeneralController::class, 'getRecruitmentIndustries']);
+Route::get('/getCatalogRecruitmentSources', [GeneralController::class, 'getCatalogRecruitmentSources']);
 
 //Catalogo Pais-Ciudad-Municipio
 
@@ -419,3 +423,22 @@ Route::post('subsection/create', [CatalogSectionController::class, 'create']);
 Route::get('subsection/getList', [CatalogSectionController::class, 'get_ListSubsections']);//Stored para Lista de SubCategoria
 Route::get('subsection/id', [CatalogSectionController::class, 'getById']);
 Route::post('subsection/update', [CatalogSectionController::class, 'update']);
+
+
+//  TODO : MODULO RECLUTAMUENTO
+Route::post('recruitment', [ recruitmentSourcesController::class, 'create']);
+Route::get('recruitment', [recruitmentSourcesController::class, 'index']);
+Route::get('recruitment/filters', [recruitmentSourcesController::class, 'filterParams']);
+Route::get('recruitment/filterDates', [recruitmentSourcesController::class, 'filterDates']);
+Route::get('recruitment/delete', [recruitmentSourcesController::class, 'delete']);
+Route::get('recruitment/getDetail', [recruitmentSourcesController::class, 'getDetail']);
+Route::post('recruitment/update', [recruitmentSourcesController::class, 'update']);
+
+
+//  TODO : MODULO SEGUIMIENTO
+Route::post('followuup', [FollowUpController::class, 'create']);
+Route::get('followuup', [FollowUpController::class, 'index']);
+
+
+
+
