@@ -43,6 +43,7 @@ use App\Http\Controllers\prospectEmployeeController;
 use App\Http\Controllers\creditorsController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\CatalogSectionController;
+use App\Http\Controllers\catalogPositionSalaryController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -419,3 +420,6 @@ Route::post('subsection/create', [CatalogSectionController::class, 'create']);
 Route::get('subsection/getList', [CatalogSectionController::class, 'get_ListSubsections']);//Stored para Lista de SubCategoria
 Route::get('subsection/id', [CatalogSectionController::class, 'getById']);
 Route::post('subsection/update', [CatalogSectionController::class, 'update']);
+
+//C A T A L O G - S A L A R Y - P O S I T I O N 
+Route::get('catalogSalary/index', [catalogPositionSalaryController::class, 'index']);
