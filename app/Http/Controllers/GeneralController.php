@@ -36,6 +36,8 @@ use App\Models\CatalogReasonBlackList;
 use App\Models\typeStoreExits;
 use App\Models\inventory_status;
 use App\Models\GroupsSysca;
+use App\Models\RecruitmentIndustries;
+use App\Models\CatalogRecruitmentSources;
 
 
 
@@ -541,6 +543,32 @@ class GeneralController extends Controller
          ]);
  
      }
+
+
+
+    // parentesco
+    public function getRecruitmentIndustries()
+    {
+
+        $causes = RecruitmentIndustries::all();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Causas obtenidas correctamente',
+            'data' => $causes
+        ]);
+    }
+
+ // parentesco
+    public function getCatalogRecruitmentSources()
+    {
+
+        $causes = CatalogRecruitmentSources::all();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Causas obtenidas correctamente',
+            'data' => $causes
+        ]);
+    }
 
 
 
