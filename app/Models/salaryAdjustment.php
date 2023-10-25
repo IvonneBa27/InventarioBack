@@ -24,5 +24,6 @@ class salaryAdjustment extends Model
         "updated_campania_id",
         "updated_salary",
         "authorized_user_id",
+        "observations",
     ];
 }

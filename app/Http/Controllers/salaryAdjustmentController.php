@@ -12,6 +12,7 @@ class salaryAdjustmentController extends Controller
 {
     //
     public function create(salaryAdjustmentRequest $request){
+        
         $salaryAdjustment = salaryAdjustment::create([
             'user_id' => $request['user_id'],
             'previous_departament_id' => $request['previous_departament_id'],
@@ -27,6 +28,7 @@ class salaryAdjustmentController extends Controller
             'updated_campania_id' => $request['updated_campania_id'],
             'updated_salary' => $request['updated_salary'],
             'authorized_user_id' => $request['authorized_user_id'],
+            'observations' => $request['observations'],
         ]);
     
 

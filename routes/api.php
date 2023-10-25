@@ -44,6 +44,7 @@ use App\Http\Controllers\creditorsController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\CatalogSectionController;
 use App\Http\Controllers\catalogPositionSalaryController;
+use App\Http\Controllers\salaryAdjustmentController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -423,3 +424,6 @@ Route::post('subsection/update', [CatalogSectionController::class, 'update']);
 
 //C A T A L O G - S A L A R Y - P O S I T I O N 
 Route::get('catalogSalary/index', [catalogPositionSalaryController::class, 'index']);
+
+// S A L A R Y - A D J U S T M E N T 
+Route::post('salaryAdjustment/create', [salaryAdjustmentController::class, 'create']);
