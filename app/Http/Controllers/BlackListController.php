@@ -9,7 +9,7 @@ use App\Models\EmployeesBlackList;
 class BlackListController extends Controller
 {
     public function index(){
-        $blackList = EmployeesBlackList::where('id_status', '=', 1)->with('reasons', 'cause')->get();
+        $blackList = EmployeesBlackList::where('id_status', '=', 1)->with('reasons', 'cause')->orderBy('date', 'DESC')->get();
 
         return response()->json([
             'status' => 'success',
