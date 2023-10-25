@@ -433,6 +433,7 @@ Route::get('recruitment/filterDates', [recruitmentSourcesController::class, 'fil
 Route::get('recruitment/delete', [recruitmentSourcesController::class, 'delete']);
 Route::get('recruitment/getDetail', [recruitmentSourcesController::class, 'getDetail']);
 Route::post('recruitment/update', [recruitmentSourcesController::class, 'update']);
+Route::post('recruitment/cargar-cv', [recruitmentSourcesController::class, 'cargarPDF']);
 
 
 //  TODO : MODULO SEGUIMIENTO
