@@ -43,8 +43,13 @@ use App\Http\Controllers\prospectEmployeeController;
 use App\Http\Controllers\creditorsController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\CatalogSectionController;
+
 use App\Http\Controllers\recruitmentSourcesController;
 use App\Http\Controllers\FollowUpController;
+
+use App\Http\Controllers\catalogPositionSalaryController;
+use App\Http\Controllers\salaryAdjustmentController;
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -425,6 +430,7 @@ Route::get('subsection/id', [CatalogSectionController::class, 'getById']);
 Route::post('subsection/update', [CatalogSectionController::class, 'update']);
 
 
+
 //  TODO : MODULO RECLUTAMUENTO
 Route::post('recruitment', [ recruitmentSourcesController::class, 'create']);
 Route::get('recruitment', [recruitmentSourcesController::class, 'index']);
@@ -443,3 +449,14 @@ Route::get('followuup', [FollowUpController::class, 'index']);
 
 
 
+//C A T A L O G - S A L A R Y - P O S I T I O N 
+Route::get('catalogSalary/index', [catalogPositionSalaryController::class, 'index']);
+Route::get('catalogSalary/idSalary', [catalogPositionSalaryController::class, 'idSalaryPosition']);
+Route::get('catalogSalary/id', [catalogPositionSalaryController::class, 'idSalary']);
+Route::post('catalogSalary/create', [catalogPositionSalaryController::class, 'create']);
+Route::post('catalogSalary/update', [catalogPositionSalaryController::class, 'update']);
+
+// S A L A R Y - A D J U S T M E N T 
+Route::post('salaryAdjustment/create', [salaryAdjustmentController::class, 'create']);
+Route::post('salaryAdjustment/update', [salaryAdjustmentController::class, 'updateSalaryAdjustment']);
+Route::get('salaryAdjustment/index', [salaryAdjustmentController::class, 'indexSalaryAdjustment']);
