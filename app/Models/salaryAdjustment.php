@@ -11,14 +11,14 @@ class salaryAdjustment extends Model
     protected $table="salary_adjustment";
     protected $fillable=[
         "user_id",
-        "previous_departament_id",
+        "previous_department_id",
         "previous_subcategory_id",
         "previous_position_id",
         "previous_campania_id",
         "previous_salary",
         "admission_date",
         "salary_adjustment",
-        "updated_departament_id",
+        "updated_department_id",
         "updated_subcategory_id",
         "updated_position_id",
         "updated_campania_id",
