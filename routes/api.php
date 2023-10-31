@@ -50,6 +50,11 @@ use App\Http\Controllers\FollowUpController;
 use App\Http\Controllers\catalogPositionSalaryController;
 use App\Http\Controllers\salaryAdjustmentController;
 
+use App\Http\Controllers\vacationsController;
+use App\Http\Controllers\usersVacationsController;
+use App\Http\Controllers\usersVacationsDetailsController;
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -460,3 +465,11 @@ Route::post('catalogSalary/update', [catalogPositionSalaryController::class, 'up
 Route::post('salaryAdjustment/create', [salaryAdjustmentController::class, 'create']);
 Route::post('salaryAdjustment/update', [salaryAdjustmentController::class, 'updateSalaryAdjustment']);
 Route::get('salaryAdjustment/index', [salaryAdjustmentController::class, 'indexSalaryAdjustment']);
+
+
+
+
+// V A C A T I O N S 
+Route::get('vacation/index', [vacationsController::class, 'index']);
+Route::post('usersVacations/create', [usersVacationsController::class, 'create']);
+Route::post('usersVacationsDetails/create', [usersVacationsDetailsController::class, 'create']);

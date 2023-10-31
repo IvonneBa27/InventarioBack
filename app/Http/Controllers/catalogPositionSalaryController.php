@@ -86,6 +86,7 @@ class catalogPositionSalaryController extends Controller
             'data' => $catalogSalary
         ]);
     }
+    
 
 
 }
