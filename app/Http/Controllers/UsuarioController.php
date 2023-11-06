@@ -1006,5 +1006,45 @@ class UsuarioController extends Controller
     }
 
 
+    public function getUsersAuthorized()
+    {
+        $usuario = DB::table('users')
+                    ->select('users.id', 'users.nombre_completo')
+                    ->join('status','users.id_estatus','=','status.id')
+                    ->join('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
+                    ->where('status.id','=',1)
+                    ->whereIn('catalog_company_position.id',[34, 56])
+                    ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Usuarios authorizados',
+            'data' => $usuario
+
+        ]);
+    }
+
+
+    
+    public function getUsersReceives()
+    {
+        $usuario = DB::table('users')
+                    ->select('users.id', 'users.nombre_completo')
+                    ->join('status','users.id_estatus','=','status.id')
+                    ->join('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
+                    ->where('status.id','=',1)
+                    ->whereNotIn('catalog_company_position.id',[34, 56])
+                    ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Usuarios authorizados',
+            'data' => $usuario
+
+        ]);
+    }
+
+
+
 
 }
