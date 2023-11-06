@@ -14,7 +14,7 @@ class usersVacationsDetails extends Model
         "application_date",
         "days_requested",
         "start_date",
-        "end_date";
+        "end_date",
         "observations",
     ];
 }

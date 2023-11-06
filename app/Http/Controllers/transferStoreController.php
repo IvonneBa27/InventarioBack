@@ -21,8 +21,10 @@ class transferStoreController extends Controller
             'subcategory_id'=>$request['subcategory_id'],
             'brand_id'=>$request['brand_id'],
             'user_id'=>$request['user_id'],
+            'total_received'=>$request['total_received'],
             'income_id'=>$request['income_id'],
             'product_id'=>$request['product_id'],
+
              
         ]);
          return response()->json([
@@ -108,15 +110,36 @@ class transferStoreController extends Controller
     }
 
     public function updateAmount(Request $request){
-        $transferStore =  transferStore::find($request['id']);
-        $transferStore->total_received=$request['total_received'];
+       /* $transferStore =  transferStore::find($request['id']);
+        $transferStore->total_received = $request['total_received'];
         $transferStore->save();
+          
+
         return response()->json([
             'status' => 'success',
             'msg'    => 'Monto actualizado',
             'data'   =>   $transferStore
-        ]);
+        ]);*/
 
+        $transferStore = transferStore::find($request['id']);
+
+    if ($transferStore) {
+        $transferStore->total_received = $request['total_received'];
+        $transferStore->save();
+
+        return response()->json([
+            'status' => 'success',
+            'msg'    => 'Monto actualizado',
+            'data'   => $transferStore
+        ]);
+    } else {
+        return response()->json([
+            'status' => 'error',
+            'msg'    => 'Registro no encontrado'
+        ], 404); // Puedes elegir el código de estado HTTP adecuado (404 en este caso).
+    }
+
+       
     }
 
 

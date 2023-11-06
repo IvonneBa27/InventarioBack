@@ -471,5 +471,10 @@ Route::get('salaryAdjustment/index', [salaryAdjustmentController::class, 'indexS
 
 // V A C A T I O N S 
 Route::get('vacation/index', [vacationsController::class, 'index']);
+Route::get('vacation/vacationCalculation', [vacationsController::class, 'vacationCalculation']);
+
+
+Route::get('usersVacations/index',[usersVacationsController::class, 'index']);
 Route::post('usersVacations/create', [usersVacationsController::class, 'create']);
+Route::post('usersVacations/update', [usersVacationsController::class, 'update']);
 Route::post('usersVacationsDetails/create', [usersVacationsDetailsController::class, 'create']);

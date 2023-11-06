@@ -14,6 +14,7 @@ class usersVacations extends Model
         "admission_date",
         "period",
         "total_days",
+        "update_days",
         "status_id",
         "admin_user_id",
     ];

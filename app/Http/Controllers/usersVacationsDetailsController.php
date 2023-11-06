@@ -13,7 +13,7 @@ class usersVacationsDetailsController extends Controller
     //
     public function create(usersVacationsDetailsRequest $request){
 
-        $usersVacationsDetails= usersVacations::create([
+        $usersVacationsDetails= usersVacationsDetails::create([
         'vacation_id' => $request['vacation_id'],
         'application_date' => $request['application_date'],
         'days_requested' => $request['days_requested'],

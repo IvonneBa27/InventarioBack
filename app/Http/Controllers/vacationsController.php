@@ -23,4 +23,37 @@ class vacationsController extends Controller
                                 'data' =>    $vacationSettings
                             ]);
     }
+
+    public function vacationCalculation(Request $request){
+        $id = $request->get('id'); 
+        $yearsUsers = DB::table('users')
+            ->selectRaw('TIMESTAMPDIFF(YEAR, fecha_ingreso, CURDATE()) AS years')
+            ->where('id_estatus', 1)
+            ->where('id', '=', $id)
+            ->first(); 
+    
+        if($yearsUsers->years == 0){
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'No cuenta con antiguedad',
+                'data' => $yearsUsers
+            ]);
+        } else {
+            $daysVacation = DB::table('vacation_settings')
+                ->select('days_year')
+                ->where('antiquity', '=', $yearsUsers->years) // Corrección aquí
+                ->get();
+    
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Dias de vacaciones',
+                'data' => $daysVacation
+            ]);
+        }
+    }
 }
+   
+    
+    
+    
+    
