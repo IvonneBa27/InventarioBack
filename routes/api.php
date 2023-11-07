@@ -478,3 +478,7 @@ Route::get('usersVacations/index',[usersVacationsController::class, 'index']);
 Route::post('usersVacations/create', [usersVacationsController::class, 'create']);
 Route::post('usersVacations/update', [usersVacationsController::class, 'update']);
 Route::post('usersVacationsDetails/create', [usersVacationsDetailsController::class, 'create']);
+
+Route::get('usersVacations/id',[usersVacationsController::class, 'getById']);
+Route::get('usersVacations/indexId',[usersVacationsController::class, 'indexId']);
+Route::get('usersVacations/search',[usersVacationsController::class, 'searchUsersVacation']);
