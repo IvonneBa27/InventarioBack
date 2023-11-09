@@ -271,7 +271,8 @@ class GeneralController extends Controller
 
     public function getIdCiudadT(Request $request)
     {
-        $ciudad = Ciudades::all();
+        $ciudad = Ciudades::orderBy('ciudad','ASC')
+                          ->get();
         return response()->json([
             'status' => 'success',
             'msg' => 'Ciudades obtenidos correctamente',
