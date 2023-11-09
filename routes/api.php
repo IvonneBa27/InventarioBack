@@ -104,6 +104,13 @@ Route::get('usuario/graphInternet', [UsuarioController::class, 'getGraphInternet
 // E X C E L - P E R M I S S I O N S
 Route::get('usuario/getDataUser', [UsuarioController::class, 'getDataUser']);
 
+Route::get('usuario/GraphTala', [UsuarioController::class, 'getGraphCampaingTala']);
+Route::get('usuario/GraphCox', [UsuarioController::class, 'getGraphCampaingCox']);
+Route::get('usuario/GraphSurfmed', [UsuarioController::class, 'getGraphCampaingSurfmed']);
+Route::get('usuario/GraphBancoppel', [UsuarioController::class, 'getGraphCampaingBancoppel']);
+Route::get('usuario/GraphMontePiedad', [UsuarioController::class, 'getGraphCampaingMontePiedad']);
+Route::get('usuario/GraphPeddle', [UsuarioController::class, 'getGraphCampaingPeddle']);
+Route::get('usuario/GraphShriners', [UsuarioController::class, 'getGraphCampaingShriners']);
 
 //Catalogos
 Route::get('/TipoUsuario/get', [GeneralController::class, 'getTipoUsuario']);

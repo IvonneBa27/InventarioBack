@@ -1045,6 +1045,141 @@ class UsuarioController extends Controller
     }
 
 
+    public function getGraphCampaingTala(){
+        $graph = DB::table('groups_sysca as g')
+        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'))
+        ->join('users as uu', 'g.id', '=', 'uu.id_campania')
+        ->leftJoin('ubicaciones as u', 'uu.id_ubicacion', '=', 'u.id')
+        ->where('uu.id_estatus', 1)
+        ->where('g.id', 1) // Filtros por campaña
+        ->groupBy('u.id', 'u.nombre')
+        ->orderBy('u.id')
+        ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Grafica Campaña - Tala',
+            'data' => $graph
+        ]);
+
+    }
+
+    public function getGraphCampaingCox(){
+        $graph = DB::table('groups_sysca as g')
+        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'))
+        ->join('users as uu', 'g.id', '=', 'uu.id_campania')
+        ->leftJoin('ubicaciones as u', 'uu.id_ubicacion', '=', 'u.id')
+        ->where('uu.id_estatus', 1)
+        ->where('g.id', 2) // Filtros por campaña
+        ->groupBy('u.id', 'u.nombre')
+        ->orderBy('u.id')
+        ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Grafica Campaña - Cox',
+            'data' => $graph
+        ]);
+
+    }
+
+    
+    public function getGraphCampaingSurfmed(){
+        $graph = DB::table('groups_sysca as g')
+        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'))
+        ->join('users as uu', 'g.id', '=', 'uu.id_campania')
+        ->leftJoin('ubicaciones as u', 'uu.id_ubicacion', '=', 'u.id')
+        ->where('uu.id_estatus', 1)
+        ->where('g.id', 3) // Filtros por campaña
+        ->groupBy('u.id', 'u.nombre')
+        ->orderBy('u.id')
+        ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Grafica Campaña - Surfmed',
+            'data' => $graph
+        ]);
+
+    }
+
+    public function getGraphCampaingBancoppel(){
+        $graph = DB::table('groups_sysca as g')
+        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'))
+        ->join('users as uu', 'g.id', '=', 'uu.id_campania')
+        ->leftJoin('ubicaciones as u', 'uu.id_ubicacion', '=', 'u.id')
+        ->where('uu.id_estatus', 1)
+        ->where('g.id', 4) // Filtros por campaña
+        ->groupBy('u.id', 'u.nombre')
+        ->orderBy('u.id')
+        ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Grafica Campaña - Bancoppel',
+            'data' => $graph
+        ]);
+
+    }
+
+    public function getGraphCampaingMontePiedad(){
+        $graph = DB::table('groups_sysca as g')
+        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'))
+        ->join('users as uu', 'g.id', '=', 'uu.id_campania')
+        ->leftJoin('ubicaciones as u', 'uu.id_ubicacion', '=', 'u.id')
+        ->where('uu.id_estatus', 1)
+        ->where('g.id', 5) // Filtros por campaña
+        ->groupBy('u.id', 'u.nombre')
+        ->orderBy('u.id')
+        ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Grafica Campaña - Monte de Piedad',
+            'data' => $graph
+        ]);
+
+    }
+
+    public function getGraphCampaingPeddle(){
+        $graph = DB::table('groups_sysca as g')
+        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'))
+        ->join('users as uu', 'g.id', '=', 'uu.id_campania')
+        ->leftJoin('ubicaciones as u', 'uu.id_ubicacion', '=', 'u.id')
+        ->where('uu.id_estatus', 1)
+        ->where('g.id', 6) // Filtros por campaña
+        ->groupBy('u.id', 'u.nombre')
+        ->orderBy('u.id')
+        ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Grafica Campaña - Peddle',
+            'data' => $graph
+        ]);
+
+    }
+
+    public function getGraphCampaingShriners(){
+        $graph = DB::table('groups_sysca as g')
+        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'))
+        ->join('users as uu', 'g.id', '=', 'uu.id_campania')
+        ->leftJoin('ubicaciones as u', 'uu.id_ubicacion', '=', 'u.id')
+        ->where('uu.id_estatus', 1)
+        ->where('g.id', 7) // Filtros por campaña
+        ->groupBy('u.id', 'u.nombre')
+        ->orderBy('u.id')
+        ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Grafica Campaña - Shriners',
+            'data' => $graph
+        ]);
+
+    }
+
+
 
 
 }
