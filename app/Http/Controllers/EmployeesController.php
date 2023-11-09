@@ -23,13 +23,31 @@ class EmployeesController extends Controller
         /*$employeed = Employees::where('id_estatus', '=', 1)->with('gender', 'company', 'administrative_execution')->orderBy('numero_empleado', 'asc')->get();*/
 
         $employeed = DB::table('users')
-        ->select('store_exits.receives_id', 'numero_empleado', 'nombre_completo', 'curp', 'company_structure_type.nombre as Ejecucion_Administrativa', 'companies_payment.nombre as Empresa', 'product_income_store_detail.product_id as Equipamiento', 'users.*')
-        ->join('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
-        ->join('companies_payment','users.id_empresa_rh','=','companies_payment.id')
+        ->select(
+          'store_exits.receives_id',
+          'numero_empleado', 
+          'nombre_completo',
+          'curp',
+          'company_structure_type.nombre as Ejecucion_Administrativa', 
+          'companies_payment.nombre as Empresa', 
+          DB::raw('COUNT(product_income_store_detail.product_id) as Equipamiento'), 
+          'users.*')
+        ->leftjoin('company_structure_type','users.ejecucion_administrativa','=','company_structure_type.id')
+        ->leftjoin('companies_payment','users.id_empresa_rh','=','companies_payment.id')
         ->leftJoin('store_exits','users.id','=','store_exits.receives_id')
         ->leftJoin('store_exit_details','store_exits.id','=','store_exit_details.id')
         ->leftJoin('product_income_store_detail','store_exit_details.product_income_id','=','product_income_store_detail.id')
         ->where('users.id_estatus','=',1)
+        ->groupBy(
+            'users.id',
+            'store_exits.receives_id',
+            'users.numero_empleado',
+            'users.nombre_completo',
+            'users.curp',
+            'company_structure_type.nombre',
+            'companies_payment.nombre', 
+          
+        )
         ->orderBy('users.numero_empleado','asc')
         ->get();
 
@@ -78,16 +96,16 @@ class EmployeesController extends Controller
                             'curp',
                             'company_structure_type.nombre as Ejecucion_Administrativa',
                             'companies_payment.nombre as Empresa',
-                            'product_income_store_detail.product_id as Equipamiento',
+                            DB::raw('COUNT(product_income_store_detail.product_id) as Equipamiento'), 
                             'users.*'
                         )
-                        ->join('company_structure_type', 'users.ejecucion_administrativa', '=', 'company_structure_type.id')
-                        ->join('companies_payment', 'users.id_empresa_rh', '=', 'companies_payment.id')
+                        ->leftjoin('company_structure_type', 'users.ejecucion_administrativa', '=', 'company_structure_type.id')
+                        ->leftjoin('companies_payment', 'users.id_empresa_rh', '=', 'companies_payment.id')
                         ->leftJoin('store_exits', 'users.id', '=', 'store_exits.receives_id')
                         ->leftJoin('store_exit_details', 'store_exits.id', '=', 'store_exit_details.id')
                         ->leftJoin('product_income_store_detail', 'store_exit_details.product_income_id', '=', 'product_income_store_detail.id')
-                        ->where('users.id_estatus', '=', 1)
-                        ->orderBy('users.numero_empleado', 'asc');
+                        ->where('users.id_estatus', '=', 1);
+                 
 
                     if (isset($param)) {
                         $users->where(function ($query) use ($param) {
@@ -104,7 +122,17 @@ class EmployeesController extends Controller
                     if ($status > 0) {
                         $users->where('id_estatus', '=', $status);
                     }
-
+                    $users=$users->groupBy(
+                        'users.id',
+                        'store_exits.receives_id',
+                        'users.numero_empleado',
+                        'users.nombre_completo',
+                        'users.curp',
+                        'company_structure_type.nombre',
+                        'companies_payment.nombre', 
+                      
+                    );
+                    $users=$users->orderBy('users.numero_empleado', 'asc');
                     $users = $users->get();
 
 
@@ -322,9 +350,9 @@ class EmployeesController extends Controller
         $employee = DB::table('store_exits')
                     ->select('product_income_store_detail.sku', 'product_income_store_detail.serial_number', 'product_income_store_detail.product_name', 'catalog_categories.name as Categorie', 'catalog_subcategories.name as SubCategorie', 'product_income_store_detail.brand_name', 'products.model as Model')
                     ->join('store_exit_details','store_exits.id','=','store_exit_details.id_store_exit')
-                    ->join('product_income_store_detail','store_exit_details.product_income_id','=','product_income_store_detail.id')
-                    ->join('catalog_categories','product_income_store_detail.product_id','=','catalog_categories.id')
+                    ->join('product_income_store_detail','store_exit_details.product_income_id','=','product_income_store_detail.id')   
                     ->join('products','product_income_store_detail.product_id','=','products.id')
+                    ->join('catalog_categories','products.id_categoty','=','catalog_categories.id')
                     ->join('catalog_subcategories','products.id_subcategory','=','catalog_subcategories.id')
                     ->where('store_exits.receives_id','=', $id)
                     ->get();
@@ -333,6 +361,7 @@ class EmployeesController extends Controller
                         'status' => 'success',
                         'msg' => 'Empleado personal',
                         'data' => $employee
+                       // 'data' => $id
                     ]);
                 
     }

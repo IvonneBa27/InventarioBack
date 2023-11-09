@@ -342,7 +342,11 @@ class GeneralController extends Controller
 
     public function getBrand()
     {
-        $brand = cat_brands::all();
+       // $brand = cat_brands::all();
+
+      $brand    =  DB::table('catalog_brands')
+                ->select('*')
+                ->get();
         return response()->json([
             'status' => 'success',
             'msg' => 'Marcas obtenidos correctamente',
@@ -350,6 +354,10 @@ class GeneralController extends Controller
         ]);
 
     }
+
+
+
+
 
     public function getbrandProduct(Request $request)
     {
