@@ -150,7 +150,7 @@ Route::get('/regimencdfi/get',[GeneralController::class, 'getIdSatCFDI']);
 Route::get('/searchClients/get',[GeneralController::class, 'searchClients']);
 Route::get('/searchSuppliers/get',[GeneralController::class, 'searchSuppliers']);
 //Marcas
-Route::get('brands/get',[GeneralController::class, 'getBrand']);
+Route::get('brandsCatalog/get',[GeneralController::class, 'getBrand']);
 Route::get('brands/getBrandProd',[GeneralController::class, 'getbrandProduct']);
 //Buscador Productos
 Route::get('/searchProducts/get',[GeneralController::class, 'searchProducts']);

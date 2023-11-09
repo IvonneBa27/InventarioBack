@@ -42,7 +42,7 @@ class transferStoreDetailController extends Controller
          $idIncome = $request->get('id'); 
          $transferStoreDetail= 
          DB::table('transfer_store_detail')
-            ->select('transfer_store_detail.id as idDet', 'product_income_store_detail.product_name', 'product_income_store_detail.brand_name', 'product_income_store_detail.sku', 'product_income_store_detail.serial_number')
+            ->select('product_income_store_detail.id as idDet', 'product_income_store_detail.product_name', 'product_income_store_detail.brand_name', 'product_income_store_detail.sku', 'product_income_store_detail.serial_number')
             ->join('product_income_store_detail','product_income_store_detail.id','=','transfer_store_detail.product_income_id')
              ->where('transfer_store_detail.id_transfer_store','=', $idIncome)
              ->get();

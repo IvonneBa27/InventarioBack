@@ -65,6 +65,8 @@ class product_detail_warehouse_entryController extends Controller
                 'status' => 'success',
                 'msg'  => 'Registro detallado por Almacen y Seccion',
                 'data' => $productDetail
+                //'data' => $idIncome
+                
             ]);
     }
 
