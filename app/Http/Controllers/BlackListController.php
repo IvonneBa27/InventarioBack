@@ -73,14 +73,16 @@ class BlackListController extends Controller
     {
         $param = $request->get('param');
 
+
+
         if (isset($param)) {
             $users = EmployeesBlackList::where('name', 'like', '%' . $param . '%')
-            ->where('id_status', '=', 1)
-            ->orWhere('name', 'like', '%' . $param . '%')
-            ->orWhere('apellido_pat', 'like', '%' . $param . '%')
-            ->orWhere('apellido_mat', 'like', '%' . $param . '%')->get();
+                ->where('id_status', '=', 1)
+                ->orWhere('name', 'like', '%' . $param . '%')
+                ->orWhere('apellido_pat', 'like', '%' . $param . '%')
+                ->orWhere('apellido_mat', 'like', '%' . $param . '%')->with('reasons', 'cause')->orderBy('date', 'DESC')->get();
         } else {
-            $users = EmployeesBlackList::where('id_status', '=', 1)->get();
+            $users = EmployeesBlackList::where('id_status', '=', 1)->with('reasons', 'cause')->orderBy('date', 'DESC')->get();
         }
 
 
