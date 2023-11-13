@@ -1013,7 +1013,8 @@ class UsuarioController extends Controller
                     ->join('status','users.id_estatus','=','status.id')
                     ->join('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
                     ->where('status.id','=',1)
-                    ->whereIn('catalog_company_position.id',[34, 56])
+                    ->whereIn('catalog_company_position.id',[32, 34, 56])
+                    ->orderBy('users.nombre_completo','asc')
                     ->get();
 
         return response()->json([
@@ -1033,8 +1034,9 @@ class UsuarioController extends Controller
                     ->join('status','users.id_estatus','=','status.id')
                     ->join('catalog_company_position','users.id_puesto','=','catalog_company_position.id')
                     ->where('status.id','=',1)
-                    ->whereNotIn('catalog_company_position.id',[34, 56])
-                    ->get();
+                   // ->whereNotIn('catalog_company_position.id',[34, 56])
+                   ->orderBy('users.nombre_completo','asc')
+                   ->get();
 
         return response()->json([
             'status' => 'success',
