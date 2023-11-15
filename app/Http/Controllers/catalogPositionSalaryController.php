@@ -32,10 +32,10 @@ class catalogPositionSalaryController extends Controller
     public function idSalaryPosition(Request $request){  
         $id = $request->get('id'); 
         $catalogSalary = DB::table('catalog_position_salary')
-                        ->select('catalog_position_salary.id', 'catalog_position_salary.id_position', 'catalog_company_position.nombre', 'catalog_position_salary.min_salary', 'catalog_position_salary.max_salary', 'status.id as status')
+                        ->select('catalog_position_salary.id', 'catalog_position_salary.id_position', 'catalog_company_position.nombre as name_position', 'catalog_position_salary.min_salary', 'catalog_position_salary.max_salary', 'status.id as id_status')
                         ->join('catalog_company_position','catalog_company_position.id','=','catalog_position_salary.id_position')
                         ->join('status','catalog_position_salary.id_status','=','status.id')
-                        ->where('catalog_company_position.id','=',$id)
+                        ->where('catalog_position_salary.id','=',$id)
                         ->get();
                     
         return response()->json([
@@ -85,6 +85,22 @@ class catalogPositionSalaryController extends Controller
             'msg' => 'Registro actualizado',
             'data' => $catalogSalary
         ]);
+    }
+
+
+    public function getPositionList(){
+        $catalogSalary = DB::table('catalog_company_position')
+                        ->select('catalog_company_position.id', 'catalog_company_position.nombre')
+                        ->leftJoin('catalog_position_salary','catalog_position_salary.id_position','=','catalog_company_position.id')
+                        ->whereNull('catalog_position_salary.id')
+                        ->get();
+
+      
+        return response()->json([
+                            'status' => 'success',
+                            'msg' => 'Posiciones por agregar',
+                            'data' => $catalogSalary
+                        ]);
     }
     
 

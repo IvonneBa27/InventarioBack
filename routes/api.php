@@ -467,6 +467,8 @@ Route::get('catalogSalary/idSalary', [catalogPositionSalaryController::class, 'i
 Route::get('catalogSalary/id', [catalogPositionSalaryController::class, 'idSalary']);
 Route::post('catalogSalary/create', [catalogPositionSalaryController::class, 'create']);
 Route::post('catalogSalary/update', [catalogPositionSalaryController::class, 'update']);
+Route::get('catalogSalary/list', [catalogPositionSalaryController::class, 'getPositionList']);
+
 
 // S A L A R Y - A D J U S T M E N T 
 Route::post('salaryAdjustment/create', [salaryAdjustmentController::class, 'create']);

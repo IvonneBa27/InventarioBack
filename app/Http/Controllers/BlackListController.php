@@ -35,23 +35,23 @@ class BlackListController extends Controller
     public function update(Request $request){
         $employee = EmployeesBlackList::find($request['id']);
 
-        $employee->apellido_pat = $request['apellido_pat'];
-  $employee->apellido_mat = $request['apellido_mat'];
-  $employee->name = $request['name'];
-  $employee->curp = $request['curp'];
-  $employee->id_reasons = $request['id_reasons'];
-  $employee->id_cause = $request['id_cause'];
-  $employee->description = $request['description'];
-  $employee->id_status = $request['id_status'];
-  $employee->id_user = $request['id_user'];
-  $employee->save();
+            $employee->apellido_pat = $request['apellido_pat'];
+    $employee->apellido_mat = $request['apellido_mat'];
+    $employee->name = $request['name'];
+    $employee->curp = $request['curp'];
+    $employee->id_reasons = $request['id_reasons'];
+    $employee->id_cause = $request['id_cause'];
+    $employee->description = $request['description'];
+    $employee->id_status = $request['id_status'];
+    $employee->id_user = $request['id_user'];
+    $employee->save();
 
-        return response()->json([
-            'status' => 'success',
-            'msg' => 'Registro actualizado correctamente.',
-            'data' => $employee
-        ]);
-    }
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Registro actualizado correctamente.',
+                'data' => $employee
+            ]);
+        }
 
     public function destroy(Request $request)
     {
