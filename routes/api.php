@@ -489,3 +489,7 @@ Route::post('usersVacationsDetails/create', [usersVacationsDetailsController::cl
 Route::get('usersVacations/id',[usersVacationsController::class, 'getById']);
 Route::get('usersVacations/indexId',[usersVacationsController::class, 'indexId']);
 Route::get('usersVacations/search',[usersVacationsController::class, 'searchUsersVacation']);
+
+
+//  TODO : TRAKING
+Route::post('traking', [recruitmentSourcesController::class, 'createTraking']);

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\RecritmentProspects;
+use App\Models\TrakingRecruitment;
+
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 class recruitmentSourcesController extends Controller
@@ -14,7 +16,7 @@ class recruitmentSourcesController extends Controller
         return response()->json([
             'status' => 'success',
             'msg' => 'Recritment obtenidos correctamente',
-            'data' => RecritmentProspects::where('status','=', 1)->with('recluter', 'estado', 'seguimiento')->get()
+            'data' => RecritmentProspects::where('status','=', 1)->with('recluter', 'estado', 'seguimiento', 'traking')->get()
         ]);
     }
 
@@ -191,7 +193,16 @@ class recruitmentSourcesController extends Controller
     }
 
 
-  
+
+    public function createTraking(Request $request)
+    {
+        $TrakingProspects = TrakingRecruitment::create($request->all());
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Seguimiento agregado correctamente.',
+            'data' => $TrakingProspects
+        ]);
+    }
 
     
 }
