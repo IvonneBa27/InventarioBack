@@ -505,7 +505,18 @@ class UsuarioController extends Controller
 
     public function getGraphStaff(){
 
-        $graph = DB::SELECT('CALL get_GraphStaff()');
+       // $graph = DB::SELECT('CALL get_GraphStaff()');
+
+       $graph = DB::table('users')
+                    ->select([
+                        'company_structure_type.nombre as nameStaff',
+                        DB::raw("CONCAT(FORMAT((COUNT(users.ejecucion_administrativa) / (SELECT COUNT(*) FROM users WHERE id_estatus = 1)) * 100, 2), '%') AS percentage"),
+                        DB::raw('count(users.ejecucion_administrativa) as countUser'),
+                    ])
+                    ->join('company_structure_type', 'users.ejecucion_administrativa', '=', 'company_structure_type.id')
+                    ->where('users.id_estatus', 1)
+                    ->groupBy('users.ejecucion_administrativa', 'company_structure_type.nombre')
+                    ->get();
 
         return response()->json([
             'status' => 'success',
@@ -517,8 +528,17 @@ class UsuarioController extends Controller
 
     public function getGraphLocation(){
 
-        $graph = DB::SELECT('CALL get_GraphLocation()');
+        //$graph = DB::SELECT('CALL get_GraphLocation()');
 
+          $graph = DB::table('users')
+                        ->select([
+                            DB::raw('COUNT(users.id_ubicacion) as countLocation'),
+                            'ubicaciones.nombre as nameLocation',
+                        ])
+                        ->join('ubicaciones', 'users.id_ubicacion', '=', 'ubicaciones.id')
+                        ->where('users.id_estatus', 1)
+                        ->groupBy('users.id_ubicacion', 'ubicaciones.nombre')
+                        ->get();
                 return response()->json([
                     'status' => 'success',
                     'msg' => 'Grafica Ubicación',
@@ -527,7 +547,18 @@ class UsuarioController extends Controller
         }
 
     public function getGraphCampaing(){
-        $graph = DB::SELECT('CALL get_GraphCampaing()');
+      //  $graph = DB::SELECT('CALL get_GraphCampaing()');
+
+      $graph = DB::table('users')
+                ->select([
+                    DB::raw('COUNT(users.id_campania) as countCampania'),
+                    'groups_sysca.nombre as nameCampania',
+                ])
+                ->join('groups_sysca', 'users.id_campania', '=', 'groups_sysca.id')
+                ->where('users.id_estatus', 1)
+                ->whereIn('users.id_puesto', [1, 2])
+                ->groupBy('users.id_campania', 'groups_sysca.nombre')
+                ->get();
 
         return response()->json([
             'status' => 'success',
@@ -1049,11 +1080,12 @@ class UsuarioController extends Controller
 
     public function getGraphCampaingTala(){
         $graph = DB::table('groups_sysca as g')
-        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'))
+        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'),'uu.id_campania')
         ->join('users as uu', 'g.id', '=', 'uu.id_campania')
         ->leftJoin('ubicaciones as u', 'uu.id_ubicacion', '=', 'u.id')
         ->where('uu.id_estatus', 1)
         ->where('g.id', 1) // Filtros por campaña
+        ->where('uu.id_puesto', 1)
         ->groupBy('u.id', 'u.nombre')
         ->orderBy('u.id')
         ->get();
@@ -1068,11 +1100,12 @@ class UsuarioController extends Controller
 
     public function getGraphCampaingCox(){
         $graph = DB::table('groups_sysca as g')
-        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'))
+        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'),'uu.id_campania')
         ->join('users as uu', 'g.id', '=', 'uu.id_campania')
         ->leftJoin('ubicaciones as u', 'uu.id_ubicacion', '=', 'u.id')
         ->where('uu.id_estatus', 1)
         ->where('g.id', 2) // Filtros por campaña
+        ->where('uu.id_puesto', 2)
         ->groupBy('u.id', 'u.nombre')
         ->orderBy('u.id')
         ->get();
@@ -1088,11 +1121,12 @@ class UsuarioController extends Controller
     
     public function getGraphCampaingSurfmed(){
         $graph = DB::table('groups_sysca as g')
-        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'))
+        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'), 'uu.id_campania')
         ->join('users as uu', 'g.id', '=', 'uu.id_campania')
         ->leftJoin('ubicaciones as u', 'uu.id_ubicacion', '=', 'u.id')
         ->where('uu.id_estatus', 1)
         ->where('g.id', 3) // Filtros por campaña
+        ->where('uu.id_puesto', 2)
         ->groupBy('u.id', 'u.nombre')
         ->orderBy('u.id')
         ->get();
@@ -1107,11 +1141,12 @@ class UsuarioController extends Controller
 
     public function getGraphCampaingBancoppel(){
         $graph = DB::table('groups_sysca as g')
-        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'))
+        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'),'uu.id_campania')
         ->join('users as uu', 'g.id', '=', 'uu.id_campania')
         ->leftJoin('ubicaciones as u', 'uu.id_ubicacion', '=', 'u.id')
         ->where('uu.id_estatus', 1)
         ->where('g.id', 4) // Filtros por campaña
+        ->where('uu.id_puesto', 1)
         ->groupBy('u.id', 'u.nombre')
         ->orderBy('u.id')
         ->get();
@@ -1126,11 +1161,12 @@ class UsuarioController extends Controller
 
     public function getGraphCampaingMontePiedad(){
         $graph = DB::table('groups_sysca as g')
-        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'))
+        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'),'uu.id_campania')
         ->join('users as uu', 'g.id', '=', 'uu.id_campania')
         ->leftJoin('ubicaciones as u', 'uu.id_ubicacion', '=', 'u.id')
         ->where('uu.id_estatus', 1)
         ->where('g.id', 5) // Filtros por campaña
+        ->where('uu.id_puesto', 1)
         ->groupBy('u.id', 'u.nombre')
         ->orderBy('u.id')
         ->get();
@@ -1145,11 +1181,12 @@ class UsuarioController extends Controller
 
     public function getGraphCampaingPeddle(){
         $graph = DB::table('groups_sysca as g')
-        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'))
+        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'),'uu.id_campania')
         ->join('users as uu', 'g.id', '=', 'uu.id_campania')
         ->leftJoin('ubicaciones as u', 'uu.id_ubicacion', '=', 'u.id')
         ->where('uu.id_estatus', 1)
         ->where('g.id', 6) // Filtros por campaña
+        ->where('uu.id_puesto', 2)
         ->groupBy('u.id', 'u.nombre')
         ->orderBy('u.id')
         ->get();
@@ -1164,11 +1201,12 @@ class UsuarioController extends Controller
 
     public function getGraphCampaingShriners(){
         $graph = DB::table('groups_sysca as g')
-        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'))
+        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'),'uu.id_campania')
         ->join('users as uu', 'g.id', '=', 'uu.id_campania')
         ->leftJoin('ubicaciones as u', 'uu.id_ubicacion', '=', 'u.id')
         ->where('uu.id_estatus', 1)
         ->where('g.id', 7) // Filtros por campaña
+        ->where('uu.id_puesto', 2)
         ->groupBy('u.id', 'u.nombre')
         ->orderBy('u.id')
         ->get();
@@ -1179,6 +1217,79 @@ class UsuarioController extends Controller
             'data' => $graph
         ]);
 
+    }
+
+    public function getCampaing(Request $request)
+    {
+        $id = $request['id']; // Metodo por GET
+        $campaingDetail   = DB::table('groups_sysca as gs')
+        ->select('id', 'nombre as campaing')
+        ->where('id', $id)
+        ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Campaña a Detalle',
+            'data' =>  $campaingDetail
+        ]);
+    }
+
+    public function getCampaingDetailLeader(Request $request)
+    {
+        $id = $request['id']; // Metodo por GET
+        $campaingDetail  = DB::table('users as u')
+        ->select('u.numero_empleado', 'u.nombre_completo', 'u.curp','ccp.id', 'ccp.nombre as position')
+        ->join('catalog_company_position as ccp', 'u.id_puesto', '=', 'ccp.id')
+        ->where('u.id_estatus', 1)
+        ->where('ccp.id', 37) 
+        ->where('u.id_campania', $id)
+        ->orderBy('ccp.id', 'desc')
+        ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Campaña a Detalle',
+            'data' =>  $campaingDetail
+        ]);
+    }
+
+
+    public function getCampaingDetailAgents(Request $request)
+    {
+        $id = $request['id']; // Metodo por GET
+        $campaingDetail  = DB::table('users as u')
+        ->select('u.numero_empleado', 'u.nombre_completo', 'u.curp', 'ccp.nombre as position')
+        ->join('catalog_company_position as ccp', 'u.id_puesto', '=', 'ccp.id')
+        ->where('u.id_estatus', 1)
+        ->whereIn('ccp.id', [1, 2]) 
+        ->where('u.id_campania', $id)
+        ->orderBy('u.nombre_completo', 'asc')
+        ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Campaña a Detalle',
+            'data' =>  $campaingDetail
+        ]);
+    }
+
+    public function getCampaingDetailAnalyst(Request $request)
+    {
+        $id = $request['id']; // Metodo por GET
+        $campaingDetail  = DB::table('users as u')
+        ->select('u.numero_empleado', 'u.nombre_completo', 'u.curp','ccp.id', 'ccp.nombre as position')
+        ->join('catalog_company_position as ccp', 'u.id_puesto', '=', 'ccp.id')
+        ->where('u.id_estatus', 1)
+        ->whereIn('ccp.id', [17, 18]) 
+        ->where('u.id_campania', $id)
+        ->orderBy('ccp.id', 'desc')
+        ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Campaña a Detalle',
+            'data' =>  $campaingDetail
+        ]);
     }
 
 
