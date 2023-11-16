@@ -111,6 +111,7 @@ Route::get('usuario/GraphBancoppel', [UsuarioController::class, 'getGraphCampain
 Route::get('usuario/GraphMontePiedad', [UsuarioController::class, 'getGraphCampaingMontePiedad']);
 Route::get('usuario/GraphPeddle', [UsuarioController::class, 'getGraphCampaingPeddle']);
 Route::get('usuario/GraphShriners', [UsuarioController::class, 'getGraphCampaingShriners']);
+Route::get('usuario/GraphGarnet', [UsuarioController::class, 'getGraphCampaingGarnet']);
 Route::get('usuario/campaing', [UsuarioController::class, 'getCampaing']);
 Route::get('usuario/campaingDetailLeader', [UsuarioController::class, 'getCampaingDetailLeader']);
 Route::get('usuario/campaingDetailAgents', [UsuarioController::class, 'getCampaingDetailAgents']);

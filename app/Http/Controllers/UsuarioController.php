@@ -569,7 +569,13 @@ class UsuarioController extends Controller
     }
 
     public function getGraphInternet(){
-        $graph = DB::SELECT('CALL get_GraphInternet()');
+     //   $graph = DB::SELECT('CALL get_GraphInternet()');
+        $graph = DB::table('internet_disconnection as id')
+                    ->select(DB::raw('SUM(id.counter) as days'), 's.nombre as Status')
+                    ->join('status as s', 'id.status_id', '=', 's.id')
+                    ->groupBy('counter', 's.nombre')
+                    ->orderBy('days', 'asc')
+                    ->get();
 
         return response()->json([
             'status' => 'success',
@@ -1214,6 +1220,26 @@ class UsuarioController extends Controller
         return response()->json([
             'status' => 'success',
             'msg' => 'Grafica Campaña - Shriners',
+            'data' => $graph
+        ]);
+
+    }
+
+    public function getGraphCampaingGarnet(){
+        $graph = DB::table('groups_sysca as g')
+        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'),'uu.id_campania')
+        ->join('users as uu', 'g.id', '=', 'uu.id_campania')
+        ->leftJoin('ubicaciones as u', 'uu.id_ubicacion', '=', 'u.id')
+        ->where('uu.id_estatus', 1)
+        ->where('g.id', 8) // Filtros por campaña
+        ->where('uu.id_puesto', 1)
+        ->groupBy('u.id', 'u.nombre')
+        ->orderBy('u.id')
+        ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Grafica Campaña - Garnet',
             'data' => $graph
         ]);
 
