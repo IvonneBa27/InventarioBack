@@ -493,3 +493,4 @@ Route::get('usersVacations/search',[usersVacationsController::class, 'searchUser
 
 //  TODO : TRAKING
 Route::post('traking', [recruitmentSourcesController::class, 'createTraking']);
+Route::get('sections', [recruitmentSourcesController::class, 'getSection']);

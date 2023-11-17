@@ -13,6 +13,7 @@ class recruitmentSourcesController extends Controller
 {
 
     public  function    index(){
+        
         return response()->json([
             'status' => 'success',
             'msg' => 'Recritment obtenidos correctamente',
@@ -204,5 +205,18 @@ class recruitmentSourcesController extends Controller
         ]);
     }
 
+
+    public function getSection(Request $request){
+        $sectionId =
+            $request->get('sectionId');
+        $id =
+        $request->get('prospctId');
+        $section = TrakingRecruitment::where('id_Section', '=', $sectionId)->where('id_prospect', '=', $id)->get();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Seccion obtenida correctamente correctamente.',
+            'data' => $section
+        ]);
+    }
     
 }
