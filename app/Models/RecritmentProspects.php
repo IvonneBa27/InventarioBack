@@ -64,4 +64,9 @@ class RecritmentProspects extends Model
     {
         return $this->hasMany('App\Models\FollowUp', 'id_prospect', 'id');
     }
+
+    public function traking()
+    {
+        return $this->hasMany('App\Models\TrakingRecruitment', 'id_prospect', 'id');
+    }
 }
