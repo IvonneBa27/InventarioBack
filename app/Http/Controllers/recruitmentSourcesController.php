@@ -17,7 +17,7 @@ class recruitmentSourcesController extends Controller
         return response()->json([
             'status' => 'success',
             'msg' => 'Recritment obtenidos correctamente',
-            'data' => RecritmentProspects::where('status','=', 1)->with('recluter', 'estado', 'seguimiento', 'traking')->get()
+            'data' => RecritmentProspects::where('status','=', 1)->with('recluter', 'estado', 'seguimiento', 'traking')->orderBy('id', 'DESC')->get()
         ]);
     }
 
@@ -38,7 +38,7 @@ class recruitmentSourcesController extends Controller
         $param =
         $request->get('param');
 
-        $result = RecritmentProspects::where('status','=', 1)->where('name', 'like', '%' . $param . '%')->orWhere('tel_personal', 'like', '%' . $param . '%')->orWhere('email_personal', 'like', '%' . $param . '%')->with('recluter', 'estado')->get();
+        $result = RecritmentProspects::where('status','=', 1)->where('name', 'like', '%' . $param . '%')->orWhere('tel_personal', 'like', '%' . $param . '%')->orWhere('email_personal', 'like', '%' . $param . '%')->orWhere('ola', '=', $param)->with('recluter', 'estado')->get();
         return response()->json([
             'status' => 'success',
             'msg' => 'Recritment obtenidos correctamente',
@@ -156,6 +156,8 @@ class recruitmentSourcesController extends Controller
             $recruitment->id_nivel_estudio = $data['id_nivel_estudio'];
             $recruitment->id_recluter = $data['id_recluter'];
             $recruitment->cv = $url;
+            $recruitment->ola = $data['ola'];
+
         
 
             $recruitment->save();
