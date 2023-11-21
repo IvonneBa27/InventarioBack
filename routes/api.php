@@ -524,3 +524,30 @@ Route::get('position/index', [CatalogsController::class, 'indexPosition']);
 Route::post('position/create', [CatalogsController::class, 'createPosition']);
 Route::get('position/id', [CatalogsController::class, 'getIdPosition']);
 Route::post('position/update', [CatalogsController::class, 'updatePosition']);
+
+// A R E A 
+Route::get('area/index', [CatalogsController::class, 'indexArea']);
+Route::post('area/create', [CatalogsController::class, 'createArea']);
+Route::get('area/id', [CatalogsController::class, 'getIdArea']);
+Route::post('area/update', [CatalogsController::class, 'updateArea']);
+
+
+// D E P A R T M E N T
+Route::get('department/index', [CatalogsController::class, 'indexDepartment']);
+Route::post('department/create', [CatalogsController::class, 'createDepartment']);
+Route::get('department/id', [CatalogsController::class, 'getIdDepartment']);
+Route::post('department/update', [CatalogsController::class, 'updateDepartment']);
+
+
+// S H I F T 
+Route::get('shift/index', [CatalogsController::class, 'indexShift']);
+Route::post('shift/create', [CatalogsController::class, 'createShift']);
+Route::get('shift/id', [CatalogsController::class, 'getIdShift']);
+Route::post('shift/update', [CatalogsController::class, 'updateShift']);
+
+
+// L O C A T I O N 
+Route::get('location/index', [CatalogsController::class, 'indexLocation']);
+Route::post('location/create', [CatalogsController::class, 'createLocation']);
+Route::get('location/id', [CatalogsController::class, 'getIdLocation']);
+Route::post('location/update', [CatalogsController::class, 'updateLocation']);

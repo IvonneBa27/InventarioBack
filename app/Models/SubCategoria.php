@@ -9,4 +9,8 @@ class SubCategoria extends Model
 {
     use HasFactory;
     protected $table="catalog_company_subcategories";
+    protected $fillable = [
+        'nombre',
+        'estatus',
+    ];
 }

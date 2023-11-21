@@ -9,6 +9,10 @@ use App\Models\relationship;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Puesto;
+use App\Models\SubCategoria;
+use App\Models\Departamento;
+use App\Models\Turno;
+use App\Models\Ubicaciones;
 
 class CatalogsController extends Controller
 {
@@ -206,6 +210,204 @@ class CatalogsController extends Controller
             'data' => $position
         ]);
      }
+
+
+          // a r e a 
+
+    public function indexArea()
+    {
+        $area =DB::table('catalog_company_subcategories')
+                        ->select('*')
+                        ->get();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Area',
+            'data' => $area
+        ]);
+    }
+
+    public function createArea(Request $request){
+        $area = SubCategoria::create([
+            'nombre'=>$request['nombre'],
+            'estatus'=>$request['estatus'],
+        ]);
+         return response()->json([
+             'status' => 'success',
+             'msg' => 'Area agregado',
+             'data' => $area
+         ]);
+    }
+
+    public function getIdArea(Request $request){  
+        $id = $request->get('id'); 
+        $area = SubCategoria::find($id);
+        
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Area',
+            'data' =>  $area
+        ]);
+    }
+
+    public function updateArea(Request $request){
+        $area = SubCategoria::find($request['id']);  //Get parametro por metodo post    
+        $area->nombre=$request['nombre'];
+        $area->save();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Area actualizado',
+            'data' => $area
+        ]);
+     }
+
+
+      // d e p a r t m e n t 
+
+    public function indexDepartment()
+    {
+        $department =DB::table('company_department')
+                        ->select('*')
+                        ->get();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Departamento',
+            'data' => $department
+        ]);
+    }
+
+    public function createDepartment(Request $request){
+        $department = Departamento::create([
+            'nombre'=>$request['nombre'],
+            'estatus'=>$request['estatus'],
+        ]);
+         return response()->json([
+             'status' => 'success',
+             'msg' => 'Departamento agregado',
+             'data' => $department
+         ]);
+    }
+
+    public function getIdDepartment(Request $request){  
+        $id = $request->get('id'); 
+        $department = Departamento::find($id);
+        
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Departamento',
+            'data' =>  $department
+        ]);
+    }
+
+    public function updateDepartment(Request $request){
+        $department = Departamento::find($request['id']);  //Get parametro por metodo post    
+        $department->nombre=$request['nombre'];
+        $department->save();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Departamento actualizado',
+            'data' => $department
+        ]);
+     }
+
+
+      // s h i f t 
+
+    public function indexShift()
+    {
+        $shift =DB::table('type_schedule')
+                        ->select('*')
+                        ->get();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Turno',
+            'data' =>$shift
+        ]);
+    }
+
+    public function createShift(Request $request){
+        $shift = Turno::create([
+            'nombre'=>$request['nombre'],
+            'estatus'=>$request['estatus'],
+        ]);
+         return response()->json([
+             'status' => 'success',
+             'msg' => 'Turno agregado',
+             'data' => $shift
+         ]);
+    }
+
+    public function getIdShift(Request $request){  
+        $id = $request->get('id'); 
+        $shift = Turno::find($id);
+        
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Turno',
+            'data' =>  $shift
+        ]);
+    }
+
+    public function updateShift(Request $request){
+        $shift = Turno::find($request['id']);  //Get parametro por metodo post    
+        $shift->nombre=$request['nombre'];
+        $shift->save();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Turno actualizado',
+            'data' => $shift
+        ]);
+     }
+
+
+       // s h i f t 
+
+    public function indexLocation()
+    {
+        $location =DB::table('ubicaciones')
+                        ->select('*')
+                        ->get();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Ubicación',
+            'data' =>$location
+        ]);
+    }
+
+    public function createLocation(Request $request){
+        $location = Ubicaciones::create([
+            'nombre'=>$request['nombre'],
+            'estatus'=>$request['estatus'],
+        ]);
+         return response()->json([
+             'status' => 'success',
+             'msg' => 'Ubicacion agregado',
+             'data' => $location
+         ]);
+    }
+
+    public function getIdLocation(Request $request){  
+        $id = $request->get('id'); 
+        $location = Ubicaciones::find($id);
+        
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Ubicacion',
+            'data' =>  $location
+        ]);
+    }
+
+    public function updateLocation(Request $request){
+        $location = Ubicaciones::find($request['id']);  //Get parametro por metodo post    
+        $location->nombre=$request['nombre'];
+        $location->save();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Ubicacion actualizado',
+            'data' => $location
+        ]);
+     }
+        
+        
         
 
 

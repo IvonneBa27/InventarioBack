@@ -9,4 +9,8 @@ class Turno extends Model
 {
     use HasFactory;
     protected $table="type_schedule";
+    protected $fillable = [
+        'nombre',
+        'estatus',
+    ];
 }

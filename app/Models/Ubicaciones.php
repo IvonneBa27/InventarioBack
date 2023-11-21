@@ -9,4 +9,8 @@ class Ubicaciones extends Model
 {
     use HasFactory;
     protected $table="ubicaciones";
+    protected $fillable = [
+        'nombre',
+        'estatus',
+    ];
 }
