@@ -53,6 +53,7 @@ use App\Http\Controllers\salaryAdjustmentController;
 use App\Http\Controllers\vacationsController;
 use App\Http\Controllers\usersVacationsController;
 use App\Http\Controllers\usersVacationsDetailsController;
+use App\Http\Controllers\CatalogsController;
 
 
 
@@ -141,6 +142,8 @@ Route::get('/getRelationship',[GeneralController::class, 'relationship']);
 Route::get('StatusEmployees/get', [GeneralController::class, 'getStatusEmployees']);
 Route::get('/getRecruitmentIndustries', [GeneralController::class, 'getRecruitmentIndustries']);
 Route::get('/getCatalogRecruitmentSources', [GeneralController::class, 'getCatalogRecruitmentSources']);
+Route::get('Catalogs/index', [GeneralController::class, 'indexCatalogs']);
+Route::get('Catalogs/location', [GeneralController::class, 'getRouter']);
 
 //Catalogo Pais-Ciudad-Municipio
 
@@ -498,7 +501,57 @@ Route::get('usersVacations/id',[usersVacationsController::class, 'getById']);
 Route::get('usersVacations/indexId',[usersVacationsController::class, 'indexId']);
 Route::get('usersVacations/search',[usersVacationsController::class, 'searchUsersVacation']);
 
-
-//  TODO : TRAKING
 Route::post('traking', [recruitmentSourcesController::class, 'createTraking']);
 Route::get('sections', [recruitmentSourcesController::class, 'getSection']);
+
+// C I V I L S T A T U S 
+Route::get('civilstatus/index', [CatalogsController::class, 'indexCivilStatus']);
+Route::post('civilstatus/create', [CatalogsController::class, 'createCivil']);
+Route::get('civilstatus/id', [CatalogsController::class, 'getIdCivil']);
+Route::post('civilstatus/update', [CatalogsController::class, 'updateCivil']);
+
+// R E L A T I O N S H I P S
+Route::get('relationships/index', [CatalogsController::class, 'indexRelationships']);
+Route::post('relationships/create', [CatalogsController::class, 'createRelationships']);
+Route::get('relationships/id', [CatalogsController::class, 'getIdRelation']);
+Route::post('relationships/update', [CatalogsController::class, 'updateRelationships']);
+
+// T Y P E B L O O D S 
+Route::get('typebloods/index', [CatalogsController::class, 'indexTypeBlood']);
+Route::post('typebloods/create', [CatalogsController::class, 'createTypeBlood']);
+Route::get('typebloods/id', [CatalogsController::class, 'getIdTypeBlood']);
+Route::post('typebloods/update', [CatalogsController::class, 'updateTypeBlood']);
+
+// P O S I T I O N 
+Route::get('position/index', [CatalogsController::class, 'indexPosition']);
+Route::post('position/create', [CatalogsController::class, 'createPosition']);
+Route::get('position/id', [CatalogsController::class, 'getIdPosition']);
+Route::post('position/update', [CatalogsController::class, 'updatePosition']);
+
+// A R E A 
+Route::get('area/index', [CatalogsController::class, 'indexArea']);
+Route::post('area/create', [CatalogsController::class, 'createArea']);
+Route::get('area/id', [CatalogsController::class, 'getIdArea']);
+Route::post('area/update', [CatalogsController::class, 'updateArea']);
+
+
+// D E P A R T M E N T
+Route::get('department/index', [CatalogsController::class, 'indexDepartment']);
+Route::post('department/create', [CatalogsController::class, 'createDepartment']);
+Route::get('department/id', [CatalogsController::class, 'getIdDepartment']);
+Route::post('department/update', [CatalogsController::class, 'updateDepartment']);
+
+
+// S H I F T 
+Route::get('shift/index', [CatalogsController::class, 'indexShift']);
+Route::post('shift/create', [CatalogsController::class, 'createShift']);
+Route::get('shift/id', [CatalogsController::class, 'getIdShift']);
+Route::post('shift/update', [CatalogsController::class, 'updateShift']);
+
+
+// L O C A T I O N 
+Route::get('location/index', [CatalogsController::class, 'indexLocation']);
+Route::post('location/create', [CatalogsController::class, 'createLocation']);
+Route::get('location/id', [CatalogsController::class, 'getIdLocation']);
+Route::post('location/update', [CatalogsController::class, 'updateLocation']);
+

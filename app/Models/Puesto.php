@@ -9,4 +9,8 @@ class Puesto extends Model
 {
     use HasFactory;
     protected $table="catalog_company_position";
+    protected $fillable = [
+        'nombre',
+        'estatus',
+    ];
 }

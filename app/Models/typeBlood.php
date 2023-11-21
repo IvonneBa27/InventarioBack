@@ -9,4 +9,8 @@ class typeBlood extends Model
 {
     use HasFactory;
     protected $table = "type_bloods";
+    protected $fillable = [
+        'nombre',
+        'id_estatus',
+    ];
 }
