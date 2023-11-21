@@ -9,4 +9,8 @@ class relationship extends Model
 {
     use HasFactory;
     protected $table = "relationships";
+    protected $fillable = [
+        'nombre',
+        'id_estatus',
+    ];
 }

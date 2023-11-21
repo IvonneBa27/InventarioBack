@@ -38,6 +38,7 @@ use App\Models\inventory_status;
 use App\Models\GroupsSysca;
 use App\Models\RecruitmentIndustries;
 use App\Models\CatalogRecruitmentSources;
+uSE App\Models\catalogs;
 
 
 
@@ -578,6 +579,39 @@ class GeneralController extends Controller
             'data' => $causes
         ]);
     }
+
+     // parentesco
+     public function indexCatalogs()
+     {
+ 
+         $catalogs = DB::table('catalogs')
+                        ->select('*')
+                        ->where('status','=',1)
+                        ->get();
+         return response()->json([
+             'status' => 'success',
+             'msg' => 'Lista de Catalogos',
+             'data' => $catalogs
+         ]);
+     }
+
+     //Get router
+     public function getRouter(Request $request){
+        $id = $request->get('id');
+        $catalogs = DB::table('catalogs')
+                        ->select('location')
+                        ->where('id','=',$id)
+                        ->get();
+     
+         return response()->json([
+             'status' => 'success',
+             'msg' => 'Router por Id',
+             'data' => $catalogs
+         ]);
+    }
+ 
+
+
 
 
 

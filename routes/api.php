@@ -53,6 +53,7 @@ use App\Http\Controllers\salaryAdjustmentController;
 use App\Http\Controllers\vacationsController;
 use App\Http\Controllers\usersVacationsController;
 use App\Http\Controllers\usersVacationsDetailsController;
+use App\Http\Controllers\CatalogsController;
 
 
 
@@ -141,6 +142,8 @@ Route::get('/getRelationship',[GeneralController::class, 'relationship']);
 Route::get('StatusEmployees/get', [GeneralController::class, 'getStatusEmployees']);
 Route::get('/getRecruitmentIndustries', [GeneralController::class, 'getRecruitmentIndustries']);
 Route::get('/getCatalogRecruitmentSources', [GeneralController::class, 'getCatalogRecruitmentSources']);
+Route::get('Catalogs/index', [GeneralController::class, 'indexCatalogs']);
+Route::get('Catalogs/location', [GeneralController::class, 'getRouter']);
 
 //Catalogo Pais-Ciudad-Municipio
 
@@ -497,3 +500,27 @@ Route::post('usersVacationsDetails/create', [usersVacationsDetailsController::cl
 Route::get('usersVacations/id',[usersVacationsController::class, 'getById']);
 Route::get('usersVacations/indexId',[usersVacationsController::class, 'indexId']);
 Route::get('usersVacations/search',[usersVacationsController::class, 'searchUsersVacation']);
+
+// C I V I L S T A T U S 
+Route::get('civilstatus/index', [CatalogsController::class, 'indexCivilStatus']);
+Route::post('civilstatus/create', [CatalogsController::class, 'createCivil']);
+Route::get('civilstatus/id', [CatalogsController::class, 'getIdCivil']);
+Route::post('civilstatus/update', [CatalogsController::class, 'updateCivil']);
+
+// R E L A T I O N S H I P S
+Route::get('relationships/index', [CatalogsController::class, 'indexRelationships']);
+Route::post('relationships/create', [CatalogsController::class, 'createRelationships']);
+Route::get('relationships/id', [CatalogsController::class, 'getIdRelation']);
+Route::post('relationships/update', [CatalogsController::class, 'updateRelationships']);
+
+// T Y P E B L O O D S 
+Route::get('typebloods/index', [CatalogsController::class, 'indexTypeBlood']);
+Route::post('typebloods/create', [CatalogsController::class, 'createTypeBlood']);
+Route::get('typebloods/id', [CatalogsController::class, 'getIdTypeBlood']);
+Route::post('typebloods/update', [CatalogsController::class, 'updateTypeBlood']);
+
+// P O S I T I O N 
+Route::get('position/index', [CatalogsController::class, 'indexPosition']);
+Route::post('position/create', [CatalogsController::class, 'createPosition']);
+Route::get('position/id', [CatalogsController::class, 'getIdPosition']);
+Route::post('position/update', [CatalogsController::class, 'updatePosition']);

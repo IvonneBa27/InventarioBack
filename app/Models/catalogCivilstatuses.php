@@ -9,4 +9,8 @@ class catalogCivilstatuses extends Model
 {
     use HasFactory;
     protected $table = "catalog_civil_statuses";
+    protected $fillable = [
+        'nombre',
+        'id_estatus',
+    ];
 }
