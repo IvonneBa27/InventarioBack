@@ -555,3 +555,25 @@ Route::post('location/create', [CatalogsController::class, 'createLocation']);
 Route::get('location/id', [CatalogsController::class, 'getIdLocation']);
 Route::post('location/update', [CatalogsController::class, 'updateLocation']);
 
+
+// C O U N T R I E
+Route::get('countrie/index', [CatalogsController::class, 'indexCountrie']);
+Route::post('countrie/create', [CatalogsController::class, 'createCountrie']);
+Route::get('countrie/id', [CatalogsController::class, 'getIdCountrie']);
+Route::post('countrie/update', [CatalogsController::class, 'updateCountrie']);
+Route::get('countrie/search', [CatalogsController::class, 'searchCountrie']);
+
+// C  I T I E S
+Route::get('citie/index', [CatalogsController::class, 'indexCitie']);
+Route::post('citie/create', [CatalogsController::class, 'createCitie']);
+Route::get('citie/id', [CatalogsController::class, 'getIdCitie']);
+Route::post('citie/update', [CatalogsController::class, 'updateCitie']);
+Route::get('citie/search', [CatalogsController::class, 'searchCitie']);
+
+
+// T O W N S H I P
+Route::get('township/index', [CatalogsController::class, 'indexTownship']);
+Route::post('township/create', [CatalogsController::class, 'createTownship']);
+Route::get('township/id', [CatalogsController::class, 'getIdTownship']);
+Route::post('township/update', [CatalogsController::class, 'updateTownship']);
+Route::get('township/search', [CatalogsController::class, 'searchTownship']);

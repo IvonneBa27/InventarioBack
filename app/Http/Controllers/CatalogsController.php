@@ -14,6 +14,13 @@ use App\Models\Departamento;
 use App\Models\Turno;
 use App\Models\Ubicaciones;
 
+use App\Models\Paises;
+use App\Models\Ciudades;
+use App\Models\Delegaciones;
+
+
+
+
 class CatalogsController extends Controller
 {
     // civil status
@@ -406,8 +413,225 @@ class CatalogsController extends Controller
             'data' => $location
         ]);
      }
+
+     
+
+         // civil status
+
+    public function indexCountrie()
+    {
+        $countries =DB::table('countries')
+                        ->select('*')
+                        ->get();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Paises',
+            'data' => $countries
+        ]);
+    }
+
+    public function createCountrie(Request $request){
+        $countries = Paises::create([
+            'pais'=>$request['pais'],
+            'clavesat'=>$request['clavesat'],
+            'formato'=>$request['formato'],
+            'activo'=>$request['activo'],
+        ]);
+         return response()->json([
+             'status' => 'success',
+             'msg' => 'Pais agregado',
+             'data' => $countries
+         ]);
+    }
+
+    public function getIdCountrie(Request $request){  
+        $id = $request->get('idpais'); 
+        $countries = DB::table('countries')->where('idpais', $id)->first();
+       // $countries = Paises::find($idpais);
         
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Pais',
+            'data' =>  $countries
+        ]);
+    }
+
+    public function updateCountrie(Request $request){
+        $countries = Paises::find($request['idpais']);  //Get parametro por metodo post    
+        $countries->pais=$request['pais'];
+        $countries->clavesat=$request['clavesat'];
+        $countries->formato=$request['formato'];
+        $countries->save();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Pais actualizado',
+            'data' => $countries
+        ]);
+     }
+
+     public function searchCountrie(Request $request){
+        $param = $request->get('param');
+
+        $countries = Paises::where('pais', 'like', '%'.$param.'%')->get();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Pais Localizado',
+            'data' => $countries
+        ]);
+    }
+
+    
+    public function indexCitie(Request $request)
+    {
+        $id = $request->get('idpais'); 
+        $cities =DB::table('cities')
+                ->select('cities.idciudad', 'countries.idpais', 'countries.pais', 'cities.ciudad', 'cities.activo')
+                ->join('countries','cities.idpais','=','countries.idpais')
+                ->where('cities.idpais','=',$id)
+                ->get();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Ciudades',
+            'data' => $cities
+        ]);
+    }
+
+    public function createCitie(Request $request){
+        $cities = Ciudades::create([
+            'idpais'=>$request['idpais'],
+            'ciudad'=>$request['ciudad'],
+            'activo'=>$request['activo'],
+        ]);
+         return response()->json([
+             'status' => 'success',
+             'msg' => 'Ciudad agregada',
+             'data' => $cities
+         ]);
+    }
+
+    public function getIdCitie(Request $request){  
+        $id = $request->get('idciudad'); 
+        $cities = DB::table('cities')->where('idciudad', $id)->first();
+       // $countries = Paises::find($idpais);
         
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Ciudad',
+            'data' =>  $cities
+        ]);
+    }
+
+    public function updateCitie(Request $request){
+        $cities = Ciudades::find($request['idciudad']);  //Get parametro por metodo post    
+        $cities->ciudad=$request['ciudad'];
+        $cities->save();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Ciudad actualizado',
+            'data' => $cities
+        ]);
+     }
+
+     public function searchCitie(Request $request){
+        $param = $request->get('param');
+        $idpais = $request ->get('idpais');
+
+       // $cities = Ciudades::where('ciudad', 'like', '%'.$param.'%')->get();
+
+       $cities  = DB::table('cities')
+                ->select('cities.idciudad', 'countries.idpais', 'countries.pais', 'cities.ciudad', 'cities.activo')
+                ->join('countries', 'cities.idpais', '=', 'countries.idpais')
+                ->where(function ($query) use ($param) {
+                    $query->where('cities.ciudad', 'like', '%' . $param . '%');
+                })
+                ->where('cities.idpais', '=', $idpais)
+                ->get();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Ciudad Localizado',
+            'data' => $cities
+        ]);
+    }
+
+    public function indexTownship(Request $request)
+    {
+        $idpais = $request->get('idpais');
+        $idciudad = $request ->get('idciudad');
+        $towship= DB::table('township')
+                        ->select('township.iddelegacion', 'township.idpais', 'countries.pais', 'township.idciudad', 'cities.ciudad', 'township.delegacion', 'township.activo')
+                        ->join('cities','township.idciudad','=','cities.idciudad')
+                        ->join('countries','countries.idpais','=','township.idpais')
+                        ->where('township.idpais','=',$idpais)
+                        ->where('township.idciudad','=',$idciudad)
+                        ->get();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Delegaciones',
+            'data' => $towship
+        ]);
+    }
+
+    public function createTownship(Request $request){
+        $towship = Delegaciones::create([
+            'idpais'=>$request['idpais'],
+            'idciudad'=>$request['idciudad'],
+            'delegacion'=>$request['delegacion'],
+            'activo'=>$request['activo'],
+        ]);
+         return response()->json([
+             'status' => 'success',
+             'msg' => 'Delegacion agregada',
+             'data' => $towship
+         ]);
+    }
+
+    public function getIdTownship(Request $request){  
+        $id = $request->get('iddelegacion'); 
+        $towship = DB::table('township')->where('iddelegacion', $id)->first();
+       // $countries = Paises::find($idpais);
+        
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Delegacion',
+            'data' =>  $towship
+        ]);
+    }
+
+    public function updateTownship(Request $request){
+        $towship = Delegaciones::find($request['iddelegacion']);  //Get parametro por metodo post    
+        $towship->delegacion=$request['delegacion'];
+        $towship->save();
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Delgacion actualizado',
+            'data' => $towship
+        ]);
+     }
+
+     public function searchTownship(Request $request){
+        $param = $request->get('param');
+        $idpais = $request ->get('idpais');
+        $idciudad = $request ->get('idciudad');
+
+
+       // $cities = Ciudades::where('ciudad', 'like', '%'.$param.'%')->get();
+
+       $towship = DB::table('township')
+       ->select('township.iddelegacion', 'township.idpais', 'countries.pais', 'township.idciudad', 'cities.ciudad', 'township.delegacion', 'township.activo')
+       ->join('cities', 'township.idciudad', '=', 'cities.idciudad')
+       ->join('countries', 'countries.idpais', '=', 'township.idpais')
+       ->where('township.idpais', '=', $idpais)
+       ->where('township.idciudad', '=', $idciudad)
+       ->where(function ($query) use ($param) {
+           $query->where('township.delegacion', 'like', '%' . $param . '%');
+       })
+       ->get();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Ciudad Localizado',
+            'data' => $towship
+        ]);
+    }
         
 
 
