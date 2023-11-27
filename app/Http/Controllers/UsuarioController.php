@@ -1361,7 +1361,7 @@ class UsuarioController extends Controller
                             'company_structure_type.nombre AS nameStaff',
                             DB::raw("CONCAT(FORMAT((COUNT(users.ejecucion_administrativa) / (SELECT COUNT(*) FROM users WHERE id_estatus = 1)) * 100, 2), '%') AS percentage"),
                             DB::raw('COUNT(users.ejecucion_administrativa) AS countUser'),
-                            DB::raw('FORMAT(SUM(users.sueldo), 2) AS totalSalary'),
+                            DB::raw('SUM(users.sueldo) AS totalSalary'),
                         ])
                         ->join('company_structure_type', 'users.ejecucion_administrativa', '=', 'company_structure_type.id')
                         ->where('users.id_estatus', 1)
