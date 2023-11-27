@@ -9,42 +9,42 @@ use App\Models\TrakingRecruitment;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+
 class recruitmentSourcesController extends Controller
 {
 
-    public  function    index(){
-        
+    public  function    index()
+    {
+
         return response()->json([
             'status' => 'success',
             'msg' => 'Recritment obtenidos correctamente',
-            'data' => RecritmentProspects::where('status','=', 1)->with('recluter', 'estado', 'seguimiento', 'traking')->orderBy('id', 'DESC')->get()
+            'data' => RecritmentProspects::where('status', '=', 1)->with('recluter', 'estado', 'seguimiento', 'traking')->orderBy('id', 'DESC')->get()
         ]);
     }
 
 
-    public function create(Request $request) {
+    public function create(Request $request)
+    {
         $RecritmentProspects = RecritmentProspects::create($request->all());
         return response()->json([
             'status' => 'success',
             'msg' => 'Prospecto agregado correctamente.',
             'data' => $RecritmentProspects
         ]);
-
-
     }
 
     public function filterParams(Request $request)
     {
         $param =
-        $request->get('param');
+            $request->get('param');
 
-        $result = RecritmentProspects::where('status','=', 1)->where('name', 'like', '%' . $param . '%')->orWhere('tel_personal', 'like', '%' . $param . '%')->orWhere('email_personal', 'like', '%' . $param . '%')->orWhere('ola', '=', $param)->with('recluter', 'estado')->get();
+        $result = RecritmentProspects::where('status', '=', 1)->where('name', 'like', '%' . $param . '%')->orWhere('tel_personal', 'like', '%' . $param . '%')->orWhere('email_personal', 'like', '%' . $param . '%')->orWhere('ola', '=', $param)->with('recluter', 'estado')->get();
         return response()->json([
             'status' => 'success',
             'msg' => 'Recritment obtenidos correctamente',
             'data' => $result
         ]);
-
     }
 
 
@@ -56,7 +56,7 @@ class recruitmentSourcesController extends Controller
         $fin =
             $request->get('fin');
 
-        $result = RecritmentProspects::where('status','=', 1)->whereBetween('fecha_registro', [$inicio, $fin])->with('recluter', 'estado')->get();
+        $result = RecritmentProspects::where('status', '=', 1)->whereBetween('fecha_registro', [$inicio, $fin])->with('recluter', 'estado')->get();
 
         return response()->json([
             'status' => 'success',
@@ -65,7 +65,8 @@ class recruitmentSourcesController extends Controller
         ]);
     }
 
-    public function delete( Request $request){
+    public function delete(Request $request)
+    {
         $param =
             $request->get('param');
 
@@ -80,10 +81,11 @@ class recruitmentSourcesController extends Controller
         ]);
     }
 
-    public function getDetail( Request $request) {
+    public function getDetail(Request $request)
+    {
         $id = $request->get('id');
 
-        
+
 
         return response()->json([
             'status' => 'success',
@@ -93,10 +95,11 @@ class recruitmentSourcesController extends Controller
     }
 
 
-    public function update( Request $request){
-        $data = json_decode($request['payload'], true, 512, JSON_THROW_ON_ERROR) ;
+    public function update(Request $request)
+    {
+        $data = json_decode($request['payload'], true, 512, JSON_THROW_ON_ERROR);
         $url = '';
-       
+
         if ($request->hasFile('pdf')) {
             // $archivo = $request->file('pdf');
             // $nombreArchivo = $archivo->getClientOriginalName();
@@ -121,53 +124,54 @@ class recruitmentSourcesController extends Controller
 
 
 
-            $recruitment->name = $data['name'];
-            $recruitment->fecha_registro = $data['fecha_registro'];
-            $recruitment->apellido_pat = $data['apellido_pat'];
-            $recruitment->apellido_mat = $data['apellido_mat'];
-            $recruitment->tipo_reclutamiento = $data['tipo_reclutamiento'];
-            $recruitment->curp = $data['curp'];
-            $recruitment->id_sexo = $data['id_sexo'];
-            $recruitment->estado_civil = $data['estado_civil'];
-            $recruitment->nacionalidad = $data['nacionalidad'];
-            $recruitment->fuente_reclutamiento = $data['fuente_reclutamiento'];
-            $recruitment->referido = $data['referido'];
-            $recruitment->nombre_referido = $data['nombre_referido'];
-            $recruitment->id_pais = $data['id_pais'];
-            $recruitment->id_estado = $data['id_estado'];
-            $recruitment->calle = $data['calle'];
-            $recruitment->no_ext = $data['no_ext'];
-            $recruitment->no_int = $data['no_int'];
-            $recruitment->id_municipio = $data['id_municipio'];
-            $recruitment->colonia = $data['colonia'];
-            $recruitment->cp = $data['cp'];
-            $recruitment->referencia = $data['referencia'];
-            $recruitment->tel_personal = $data['tel_personal'];
-            $recruitment->email_personal = $data['email_personal'];
-            $recruitment->id_giro_industria = $data['id_giro_industria'];
-            $recruitment->id_tiempo_experiencia = $data['id_tiempo_experiencia'];
-            $recruitment->id_nivel_ingles = $data['id_nivel_ingles'];
-            $recruitment->facilidad_palabra = $data['facilidad_palabra'];
-            $recruitment->id_campaigns_sysca = $data['id_campaigns_sysca'];
-            $recruitment->id_company_department = $data['id_company_department'];
-            $recruitment->id_ubicaciones = $data['id_ubicaciones'];
-            $recruitment->id_type_schedules = $data['id_type_schedules'];
-            $recruitment->comentarios = $data['comentarios'];
-            $recruitment->id_nivel_estudio = $data['id_nivel_estudio'];
-            $recruitment->id_recluter = $data['id_recluter'];
-            $recruitment->cv = $url;
-            $recruitment->ola = $data['ola'];
+        $recruitment->name = $data['name'];
+        $recruitment->fecha_registro = $data['fecha_registro'];
+        $recruitment->apellido_pat = $data['apellido_pat'];
+        $recruitment->apellido_mat = $data['apellido_mat'];
+        $recruitment->tipo_reclutamiento = $data['tipo_reclutamiento'];
+        $recruitment->curp = $data['curp'];
+        $recruitment->id_sexo = $data['id_sexo'];
+        $recruitment->estado_civil = $data['estado_civil'];
+        $recruitment->nacionalidad = $data['nacionalidad'];
+        $recruitment->fuente_reclutamiento = $data['fuente_reclutamiento'];
+        $recruitment->referido = $data['referido'];
+        $recruitment->nombre_referido = $data['nombre_referido'];
+        $recruitment->id_pais = $data['id_pais'];
+        $recruitment->id_estado = $data['id_estado'];
+        $recruitment->calle = $data['calle'];
+        $recruitment->no_ext = $data['no_ext'];
+        $recruitment->no_int = $data['no_int'];
+        $recruitment->id_municipio = $data['id_municipio'];
+        $recruitment->colonia = $data['colonia'];
+        $recruitment->cp = $data['cp'];
+        $recruitment->referencia = $data['referencia'];
+        $recruitment->tel_personal = $data['tel_personal'];
+        $recruitment->email_personal = $data['email_personal'];
+        $recruitment->id_giro_industria = $data['id_giro_industria'];
+        $recruitment->id_tiempo_experiencia = $data['id_tiempo_experiencia'];
+        $recruitment->id_nivel_ingles = $data['id_nivel_ingles'];
+        $recruitment->facilidad_palabra = $data['facilidad_palabra'];
+        $recruitment->id_campaigns_sysca = $data['id_campaigns_sysca'];
+        $recruitment->id_company_department = $data['id_company_department'];
+        $recruitment->id_ubicaciones = $data['id_ubicaciones'];
+        $recruitment->id_type_schedules = $data['id_type_schedules'];
+        $recruitment->comentarios = $data['comentarios'];
+        $recruitment->id_nivel_estudio = $data['id_nivel_estudio'];
+        $recruitment->id_recluter = $data['id_recluter'];
+        $recruitment->cv = $url;
+        $recruitment->tel_emergencia = $data['tel_emergencia'];
+        $recruitment->ubicacion_trabajo = $data['ubicacion_trabajo'];
 
-        
 
-            $recruitment->save();
+
+
+        $recruitment->save();
 
         return response()->json([
             'status' => 'success',
             'msg' => 'Prospecto editado correctamente',
             'data' => $recruitment
         ]);
-
     }
 
 
@@ -175,7 +179,7 @@ class recruitmentSourcesController extends Controller
     public function cargarPDF(Request $request)
     {
 
-        
+
         if ($request->hasFile('pdf')) {
             $pdf = $request->file('pdf');
             $pdf->store('pdfs', 'public'); // Almacena el PDF en el directorio "storage/app/public/pdfs"
@@ -208,11 +212,12 @@ class recruitmentSourcesController extends Controller
     }
 
 
-    public function getSection(Request $request){
+    public function getSection(Request $request)
+    {
         $sectionId =
             $request->get('sectionId');
         $id =
-        $request->get('prospctId');
+            $request->get('prospctId');
         $section = TrakingRecruitment::where('id_Section', '=', $sectionId)->where('id_prospect', '=', $id)->get();
         return response()->json([
             'status' => 'success',
@@ -220,5 +225,4 @@ class recruitmentSourcesController extends Controller
             'data' => $section
         ]);
     }
-    
 }
