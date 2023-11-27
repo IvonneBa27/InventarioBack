@@ -118,6 +118,11 @@ Route::get('usuario/campaingDetailLeader', [UsuarioController::class, 'getCampai
 Route::get('usuario/campaingDetailAgents', [UsuarioController::class, 'getCampaingDetailAgents']);
 Route::get('usuario/campaingDetailAnalyst', [UsuarioController::class, 'getCampaingDetailAnalyst']);
 
+Route::get('usuario/graphStructure', [UsuarioController::class, 'getGraphStructure']);
+Route::get('usuario/countStructure', [UsuarioController::class, 'getCountStructure']);
+Route::get('usuario/graphStructureSalary', [UsuarioController::class, 'getGraphStructureSalary']);
+
+
 
 //Catalogos
 Route::get('/TipoUsuario/get', [GeneralController::class, 'getTipoUsuario']);
@@ -577,3 +582,11 @@ Route::post('township/create', [CatalogsController::class, 'createTownship']);
 Route::get('township/id', [CatalogsController::class, 'getIdTownship']);
 Route::post('township/update', [CatalogsController::class, 'updateTownship']);
 Route::get('township/search', [CatalogsController::class, 'searchTownship']);
+
+
+// L O C A T I O N 
+Route::get('recruitmentSources/index', [CatalogsController::class, 'indexRecruitmentSources']);
+Route::post('recruitmentSources/create', [CatalogsController::class, 'createRecruitmentSources']);
+Route::get('recruitmentSources/id', [CatalogsController::class, 'getIdRecruitmentSources']);
+Route::post('recruitmentSources/update', [CatalogsController::class, 'updateRecruitmentSources']);
+

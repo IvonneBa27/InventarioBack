@@ -1319,6 +1319,61 @@ class UsuarioController extends Controller
     }
 
 
+    public function getGraphStructure(){
+
+          $graph = DB::table('users as u')
+                    ->select([
+                        DB::raw('COUNT(u.id_subcategoria) as countStructure'),
+                        'ccs.nombre as nameStructure',
+                    ])
+                    ->join('catalog_company_subcategories as ccs', 'u.id_subcategoria', '=', 'ccs.id')
+                    ->where('u.ejecucion_administrativa', 1)
+                    ->where('u.id_estatus', 1)
+                    ->groupBy('u.id_subcategoria', 'ccs.nombre')
+                    ->get();
+                return response()->json([
+                    'status' => 'success',
+                    'msg' => 'Grafica Estructura',
+                    'data' => $graph
+                ]);
+        }
+
+        public function getCountStructure(){
+
+            $countStructure  = DB::table('users as u')
+                                ->join('catalog_company_subcategories as ccs', 'u.id_subcategoria', '=', 'ccs.id')
+                                ->where('u.ejecucion_administrativa', 1)
+                                ->where('u.id_estatus', 1)
+                                ->count('u.id_subcategoria');
+        
+                  return response()->json([
+                      'status' => 'success',
+                      'msg' => 'Total por Estructura',
+                      'data' => $countStructure
+                  ]);
+          }
+
+
+          public function getGraphStructureSalary(){
+
+            $graph = DB::table('users')
+                        ->select([
+                            'company_structure_type.nombre AS nameStaff',
+                            DB::raw("CONCAT(FORMAT((COUNT(users.ejecucion_administrativa) / (SELECT COUNT(*) FROM users WHERE id_estatus = 1)) * 100, 2), '%') AS percentage"),
+                            DB::raw('COUNT(users.ejecucion_administrativa) AS countUser'),
+                            DB::raw('FORMAT(SUM(users.sueldo), 2) AS totalSalary'),
+                        ])
+                        ->join('company_structure_type', 'users.ejecucion_administrativa', '=', 'company_structure_type.id')
+                        ->where('users.id_estatus', 1)
+                        ->groupBy('users.ejecucion_administrativa', 'company_structure_type.nombre')
+                        ->get();
+                  return response()->json([
+                      'status' => 'success',
+                      'msg' => 'Grafica Estructura Sueldo',
+                      'data' => $graph
+                  ]);
+          }
+
 
 
 }

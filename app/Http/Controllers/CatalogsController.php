@@ -19,6 +19,9 @@ use App\Models\Ciudades;
 use App\Models\Delegaciones;
 
 
+use App\Models\CatalogRecruitmentSources;
+
+
 
 
 class CatalogsController extends Controller
@@ -632,6 +635,56 @@ class CatalogsController extends Controller
             'data' => $towship
         ]);
     }
+
+    
+      // recruitment - sources
+
+      public function indexRecruitmentSources()
+      {
+          $recruitmentSources =DB::table('catalog_recruitment_sources')
+                          ->select('*')
+                          ->get();
+          return response()->json([
+              'status' => 'success',
+              'msg' => 'Industrias',
+              'data' => $recruitmentSources
+          ]);
+      }
+  
+      public function createRecruitmentSources(Request $request){
+        $recruitmentSources = CatalogRecruitmentSources::create([
+              'name'=>$request['name'],
+              'status'=>$request['status'],
+          ]);
+           return response()->json([
+               'status' => 'success',
+               'msg' => 'Industria agregada',
+               'data' => $recruitmentSources
+           ]);
+      }
+  
+      public function getIdRecruitmentSources(Request $request){  
+          $id = $request->get('id'); 
+          $recruitmentSources = CatalogRecruitmentSources::find($id);
+          
+          return response()->json([
+              'status' => 'success',
+              'msg' => 'Industria',
+              'data' =>  $recruitmentSources
+          ]);
+      }
+  
+      public function updateRecruitmentSources(Request $request){
+        $recruitmentSources = CatalogRecruitmentSources::find($request['id']);  //Get parametro por metodo post    
+        $recruitmentSources->name=$request['name'];
+        $recruitmentSources->save();
+          return response()->json([
+              'status' => 'success',
+              'msg' => 'Industria actualizada',
+              'data' =>$recruitmentSources
+          ]);
+       }
+  
         
 
 

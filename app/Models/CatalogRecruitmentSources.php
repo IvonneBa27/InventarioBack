@@ -11,7 +11,8 @@ class CatalogRecruitmentSources extends Model
 
     protected $table = "catalog_recruitment_sources";
     protected $fillable = [
-        'name'
+        'name',
+        'status',
 
     ];
 }
