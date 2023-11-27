@@ -47,7 +47,9 @@ class RecritmentProspects extends Model
         'nombre_completo',
         'fecha_nacimiento',
         'id_nivel_estudio',
-        'ola'
+        'ola',
+        'tel_emergencia',
+        'ubicacion_trabajo'
     ];
 
 
