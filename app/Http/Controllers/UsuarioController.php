@@ -1284,12 +1284,13 @@ class UsuarioController extends Controller
     {
         $id = $request['id']; // Metodo por GET
         $campaingDetail  = DB::table('users as u')
-        ->select('u.numero_empleado', 'u.nombre_completo', 'u.curp', 'ccp.nombre as position')
+        ->select('u.numero_empleado', 'u.nombre_completo', 'u.curp', 'u2.nombre as location')
         ->join('catalog_company_position as ccp', 'u.id_puesto', '=', 'ccp.id')
+        ->join('ubicaciones as u2', 'u.id_ubicacion', '=', 'u2.id')
         ->where('u.id_estatus', 1)
-        ->whereIn('ccp.id', [1, 2]) 
+        ->whereIn('ccp.id', [1, 2])
         ->where('u.id_campania', $id)
-        ->orderBy('u.nombre_completo', 'asc')
+        ->orderBy('u2.nombre', 'asc')
         ->get();
 
         return response()->json([
