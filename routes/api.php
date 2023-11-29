@@ -121,6 +121,8 @@ Route::get('usuario/campaingDetailAnalyst', [UsuarioController::class, 'getCampa
 Route::get('usuario/graphStructure', [UsuarioController::class, 'getGraphStructure']);
 Route::get('usuario/countStructure', [UsuarioController::class, 'getCountStructure']);
 Route::get('usuario/graphStructureSalary', [UsuarioController::class, 'getGraphStructureSalary']);
+Route::get('usuario/indexStructure', [UsuarioController::class, 'StructureDetail']);
+Route::get('usuario/searchStructure', [UsuarioController::class, 'searchStruture']);
 
 
 
