@@ -1376,5 +1376,68 @@ class UsuarioController extends Controller
           }
 
 
+          public function StructureDetail(){
+
+            $structureDetail= DB::table('users as u')
+                            ->select('u.numero_empleado', 'u.nombre_completo', 'u.curp', 'ccs.nombre as area_name', 'cd.nombre as department_name', 'ccp.nombre as position_name')
+                            ->join('catalog_company_position as ccp', 'u.id_puesto', '=', 'ccp.id')
+                            ->join('catalog_company_subcategories as ccs', 'u.id_subcategoria', '=', 'ccs.id')
+                            ->join('company_department as cd', 'u.id_departamento_empresa', '=', 'cd.id')
+                            ->where('u.ejecucion_administrativa', 1)
+                            ->where('u.id_estatus', 1)
+                            ->orderBy('ccs.nombre', 'asc')
+                            ->orderBy('cd.nombre', 'asc')
+                            ->orderBy('ccp.nombre', 'asc')
+                            ->orderBy('u.nombre_completo', 'asc')
+                            ->get();
+                  return response()->json([
+                      'status' => 'success',
+                      'msg' => 'Lista de personal estructural',
+                      'data' => $structureDetail
+                  ]);
+          }
+
+
+
+          public function searchStruture(Request $request)
+          {
+            $param = $request->get('param');
+            $area = $request->get('area');
+
+            $structureDetail= DB::table('users as u')
+                            ->select('u.numero_empleado', 'u.nombre_completo', 'u.curp', 'ccs.nombre as area_name', 'cd.nombre as department_name', 'ccp.nombre as position_name')
+                            ->join('catalog_company_position as ccp', 'u.id_puesto', '=', 'ccp.id')
+                            ->join('catalog_company_subcategories as ccs', 'u.id_subcategoria', '=', 'ccs.id')
+                            ->join('company_department as cd', 'u.id_departamento_empresa', '=', 'cd.id')
+                            ->where('u.ejecucion_administrativa', 1)
+                            ->where('u.id_estatus', 1);
+                            if (isset($param)) {
+                                $structureDetail->where(function ($query) use ($param) {
+                                    $query->where('u.nombre_completo', 'like', '%' . $param . '%')
+                                        ->orWhere('u.numero_empleado', 'like', '%' . $param . '%')
+                                        ->orWhere('u.curp', 'like', '%' . $param . '%');
+                                });
+                            }
+        
+                            if ($area > 0) {
+                                $structureDetail->where('u.id_subcategoria', '=', $area);
+                            }
+
+                            $structureDetail = $structureDetail ->orderBy('ccs.nombre', 'asc')
+                            ->orderBy('cd.nombre', 'asc')
+                            ->orderBy('ccp.nombre', 'asc')
+                            ->orderBy('u.nombre_completo', 'asc')
+                            ->get();
+
+                           
+                  return response()->json([
+                      'status' => 'success',
+                      'msg' => 'Lista de personal estructural',
+                      'data' => $structureDetail
+                  ]);
+          }
+
+
+
 
 }
