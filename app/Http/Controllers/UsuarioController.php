@@ -1245,6 +1245,46 @@ class UsuarioController extends Controller
 
     }
 
+    public function getGraphCampaingLeaf(){
+        $graph = DB::table('groups_sysca as g')
+        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'),'uu.id_campania')
+        ->join('users as uu', 'g.id', '=', 'uu.id_campania')
+        ->leftJoin('ubicaciones as u', 'uu.id_ubicacion', '=', 'u.id')
+        ->where('uu.id_estatus', 1)
+        ->where('uu.id_campania', 9) // Filtros por campaña
+        ->where('uu.id_puesto', 2)
+        ->groupBy('u.id', 'u.nombre')
+        ->orderBy('u.id')
+        ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Grafica Campaña - Leaf',
+            'data' => $graph
+        ]);
+
+    }
+
+    public function getGraphCampaingExtraTala(){
+        $graph = DB::table('groups_sysca as g')
+        ->select('u.nombre as name_location', DB::raw('COUNT(uu.id) as countAgents'),'uu.id_campania')
+        ->join('users as uu', 'g.id', '=', 'uu.id_campania')
+        ->leftJoin('ubicaciones as u', 'uu.id_ubicacion', '=', 'u.id')
+        ->where('uu.id_estatus', 1)
+        ->where('g.id', 10) // Filtros por campaña
+        ->where('uu.id_puesto', 1)
+        ->groupBy('u.id', 'u.nombre')
+        ->orderBy('u.id')
+        ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Grafica Campaña - Leaf',
+            'data' => $graph
+        ]);
+
+    }
+
     public function getCampaing(Request $request)
     {
         $id = $request['id']; // Metodo por GET

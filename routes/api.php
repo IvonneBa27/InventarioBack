@@ -123,6 +123,8 @@ Route::get('usuario/countStructure', [UsuarioController::class, 'getCountStructu
 Route::get('usuario/graphStructureSalary', [UsuarioController::class, 'getGraphStructureSalary']);
 Route::get('usuario/indexStructure', [UsuarioController::class, 'StructureDetail']);
 Route::get('usuario/searchStructure', [UsuarioController::class, 'searchStruture']);
+Route::get('usuario/GraphLeaf', [UsuarioController::class, 'getGraphCampaingLeaf']);
+Route::get('usuario/GraphExtraTala', [UsuarioController::class, 'getGraphCampaingExtraTala']);
 
 
 
