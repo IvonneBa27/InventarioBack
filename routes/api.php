@@ -55,6 +55,7 @@ use App\Http\Controllers\usersVacationsController;
 use App\Http\Controllers\usersVacationsDetailsController;
 use App\Http\Controllers\CatalogsController;
 
+use App\Http\Controllers\bankAccountsController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -594,3 +595,10 @@ Route::post('recruitmentSources/create', [CatalogsController::class, 'createRecr
 Route::get('recruitmentSources/id', [CatalogsController::class, 'getIdRecruitmentSources']);
 Route::post('recruitmentSources/update', [CatalogsController::class, 'updateRecruitmentSources']);
 
+
+// B A N K A C C O U N T S 
+Route::get('bankAccounts/index', [bankAccountsController::class, 'indexbankAccounts']);
+Route::post('bankAccounts/create', [bankAccountsController::class, 'createbankAccount']);
+Route::get('bankAccounts/id', [bankAccountsController::class, 'getIdbankAccount']);
+Route::post('bankAccounts/update', [bankAccountsController::class, 'updatebankAccount']);
+Route::get('bankAccounts/list', [bankAccountsController::class, 'listbankComplementary']);
