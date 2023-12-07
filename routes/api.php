@@ -56,6 +56,9 @@ use App\Http\Controllers\usersVacationsDetailsController;
 use App\Http\Controllers\CatalogsController;
 
 use App\Http\Controllers\bankAccountsController;
+use App\Http\Controllers\accountParentController;
+use App\Http\Controllers\accountSubController;
+use App\Http\Controllers\accountSubsubController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -602,3 +605,26 @@ Route::post('bankAccounts/create', [bankAccountsController::class, 'createbankAc
 Route::get('bankAccounts/id', [bankAccountsController::class, 'getIdbankAccount']);
 Route::post('bankAccounts/update', [bankAccountsController::class, 'updatebankAccount']);
 Route::get('bankAccounts/list', [bankAccountsController::class, 'listbankComplementary']);
+
+
+// A C C O U N T - C A T A L O G 
+// P A R E N T 
+Route::get('accountParent/list', [accountParentController::class, 'indexCatalogAccount']);
+Route::get('accountParent/index', [accountParentController::class, 'indexParentAccount']);
+Route::post('accountParent/create', [accountParentController::class, 'createParentAccount']);
+Route::get('accountParent/id', [accountParentController::class, 'getIdParentAccount']);
+Route::post('accountParent/update', [accountParentController::class, 'updateParentAccount']);
+
+
+// S U B 
+Route::get('accountSub/index', [accountSubController::class, 'indexSubAccount']);
+Route::post('accountSub/create', [accountSubController::class, 'createSubAccount']);
+Route::get('accountSub/id', [accountSubController::class, 'getIdSubAccount']);
+Route::post('accountSub/update', [accountSubController::class, 'updateSubAccount']);
+
+// S U B  S U B 
+Route::get('accountSubsub/index', [accountSubsubController::class, 'indexSubsubAccount']);
+Route::post('accountSubsub/create', [accountSubsubController::class, 'createSubsubAccount']);
+Route::get('accountSubsub/id', [accountSubsubController::class, 'getIdSubsubAccount']);
+Route::post('accountSubsub/update', [accountSubsubController::class, 'updateSubsubAccount']);
+

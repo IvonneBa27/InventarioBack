@@ -104,7 +104,7 @@ class VacanciesController extends Controller
 
                           $emailData = [
                             'to' => $email,
-                            'subject' => 'BAVER Do It Right - Solicitud de vacante nueva',
+                            'subject' => 'SICEIDI Do It Right - Solicitud de vacante nueva',
                             'message' => '<!DOCTYPE HTML>
                               <html>
                               <head>
@@ -126,7 +126,7 @@ class VacanciesController extends Controller
                                                       </td>
                                                       <td>&nbsp;</td>
                                                       <td>
-                                                          <h1 style="color:#999; font:normal normal 24px/1.2 Arial, Helvetica, sans-serif">Sistema BAVER <br>
+                                                          <h1 style="color:#999; font:normal normal 24px/1.2 Arial, Helvetica, sans-serif">Sistema SICEIDI <br>
                                                                                                                                            Do It Right Solutions</h1>
                                                       </td>
                                                   </tr>
@@ -187,7 +187,7 @@ class VacanciesController extends Controller
                                                                 <th scope="row" style="font-size: 18px;">Salario :  $' . $salary. ' MXN </th>
                                                             </tr>
                                                             <tr style="margin-top: 15px;">
-                                                                <th scope="row" style=" font-size: 18px;">Para ingresar al sistema BAVER <a href="http://10.150.80.252:3200/#/login">haz click aquí</a>
+                                                                <th scope="row" style=" font-size: 18px;">Para ingresar al sistema SICEIDI  <a href="http://10.150.80.252:3200/#/login">haz click aquí</a>
                                                                 </th>
                                                             </tr>
                                                           </table>

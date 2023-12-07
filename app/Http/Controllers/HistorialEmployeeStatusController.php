@@ -36,7 +36,7 @@ class HistorialEmployeeStatusController extends Controller
     {
       $id = $request->id;
 
-       $email = 'ivonne.baca@dirsamexico.com';
+      $email = ['ivonne.baca@dirsamexico.com', 'erick.nava@dirsamexico.com', 'claudia.vidal@dirsamexico.com', 'elizabeth.feria@dirsamexico.com'];
         $historialStatus  = DB::SELECT('CALL get_list_historical_status_employee(?)', [$id]);
       
                           if (count($historialStatus) > 0) {
@@ -52,7 +52,7 @@ class HistorialEmployeeStatusController extends Controller
                            
                           $emailData = [
                             'to' => $email,
-                            'subject' => 'BAVER Do It Right - Baja de empleado',
+                            'subject' => 'SICEIDI Do It Right - Baja de empleado',
                             'message' => '<!DOCTYPE HTML>
                               <html>
                               <head>
@@ -74,7 +74,7 @@ class HistorialEmployeeStatusController extends Controller
                                                       </td>
                                                       <td>&nbsp;</td>
                                                       <td>
-                                                          <h1 style="color:#999; font:normal normal 24px/1.2 Arial, Helvetica, sans-serif">Sistema BAVER <br>
+                                                          <h1 style="color:#999; font:normal normal 24px/1.2 Arial, Helvetica, sans-serif">Sistema SICEIDI <br>
                                                                                                                                            Do It Right Solutions</h1>
                                                       </td>
                                                   </tr>
@@ -120,14 +120,14 @@ class HistorialEmployeeStatusController extends Controller
                                                                 <th scope="row" style="font-size: 18px;">Fecha:  ' . $low_date . '</th>
                                                             </tr>
                                                             <tr style="margin-top: 15px;">
-                                                                <th scope="row" style="font-size: 18px;">Motivo:  ' . $reason . '</th>
+                                                                <th scope="row" style="font-size: 18px;">Motivo:  ' . $cause  . '</th>
                                                             </tr>
                                                             <tr style="margin-top: 15px;">
-                                                                <th scope="row" style="font-size: 18px;">Causa:  ' . $cause . '</th>
+                                                                <th scope="row" style="font-size: 18px;">Causa:  ' . $reason . '</th>
                                                             </tr>
                                                 
                                                               <tr style="margin-top: 15px;">
-                                                                  <th scope="row" style=" font-size: 18px;">Para ingresar al sistema BAVER <a href="http://10.150.80.252:3200/#/login">haz click aquí</a>
+                                                                  <th scope="row" style=" font-size: 18px;">Para ingresar al sistema SICEIDI <a href="http://10.150.80.252:3200/#/login">haz click aquí</a>
                                                                       </th>
                                                               </tr>
                                                           </table>
